@@ -15,10 +15,10 @@ disciplineCode = ["SpeedSkating.LongTrack", "SpeedSkating.ShortTrack", "SpeedSka
 
 class BaseDataStructure:
 	def __init__(self, file: str, layout: dict[str, str], compression: int = 0):
-		self._file = file
-		self._layout = layout
-		self._compression = compression
-		self._table = None
+		self._file: str = file
+		self._layout: dict[str, str] = layout
+		self._compression: int = compression
+		self._table: pandas.DataFrame
 		try:
 			self._table = self._loadDatabase()
 		except FileNotFoundError:
@@ -67,9 +67,10 @@ class BaseDataStructure:
 		if isinstance(result_column, str):
 			return select_table.loc[:, result_column].to_list()
 		else:
-			return z.iloc[:,[result_column]].iloc[:,0].to_list()
+			return select_table.iloc[:,[result_column]].iloc[:,0].to_list()
 
 	def append(self, entry) -> bool:
+		new_entry: list = list()
 		try:
 			new_entry = self._recode(entry)
 			self._table.loc[len(self._table)] = new_entry
