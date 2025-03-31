@@ -15,7 +15,7 @@ Distances = Literal[100, 300, 500, 700, 1000, 1500, 3000, 5000, 10000]
 
 @dataclass(frozen=True, kw_only=True)
 class TimeClass:
-	distance: int
+	distance: Distances
 	time: datetime.time
 	date: datetime.date
 	location: str
@@ -26,7 +26,18 @@ class TimeClass:
 class BestTimesClass:
 	skater: int
 	season: int = -1
-	records: list[TimeClass]
+	records: dict[Distances, TimeClass]
+
+	def isPersonalBest(self) -> bool:
+		if self.season == -1:
+			return True
+		return False
+
+	def getDistanceTime(self, distance: Distances) -> datetime.time:
+		d = self.records.get(distance, None)
+		if d is not None:
+			return d.time
+		return datetime.time(0)
 
 @dataclass(frozen=True, kw_only=True)
 class ResultsClass:
@@ -129,10 +140,11 @@ class SpeedSkatingResults:
 			result = await response.json()
 			records = result.get('records', None)
 			if records is not None:
-				r = []
+				r: dict[Distances, type[TimeClass]] = {}
 				for record in records:
 					t = class_factory(record, TimeClass)
-					r.append(t)
+					if t is not None:
+						r[t.distance] = t
 				result['records'] = r
 				res = class_factory(result, BestTimesClass)
 				if res is not None:
@@ -152,10 +164,11 @@ class SpeedSkatingResults:
 					result['season'] = season
 				records = seasons[0].get('records', None)
 				if records is not None:
-					r = []
+					r: dict[Distances, type[TimeClass]] = {}
 					for record in records:
 						t = class_factory(record, TimeClass)
-						r.append(t)
+						if t is not None:
+							r[t.distance] = t
 					result['records'] = r
 					res = class_factory(result, BestTimesClass)
 					if res is not None:
