@@ -1,0 +1,1090 @@
+[
+    {
+        "categoryFilter": "HP*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 3,
+        "competitorsWithdrawn": 2,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "39749501-2525-4f60-896e-c37f73dcf2f5",
+                "name": "2e 100 meter Jeugdschaatsers",
+                "number": 4,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "03242aea-f4a1-4c5a-8ade-f4e6d6e41544",
+                "name": "1e 100 meter Jeugdschaatsers",
+                "number": 1,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "35baa329-df00-4ed7-b52a-8b7854121d10",
+        "name": "HGI Jeugdschaatsers Jongens",
+        "number": 1,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DP*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 6,
+        "competitorsPending": 0,
+        "competitorsTotal": 6,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "39749501-2525-4f60-896e-c37f73dcf2f5",
+                "name": "2e 100 meter Jeugdschaatsers",
+                "number": 4,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "03242aea-f4a1-4c5a-8ade-f4e6d6e41544",
+                "name": "1e 100 meter Jeugdschaatsers",
+                "number": 1,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "590e5509-deb2-4faa-834e-983312a7a6cd",
+        "name": "HGI Jeugdschaatsen Meisjes",
+        "number": 2,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPF,HPE",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "85f26ab2-2647-4627-a0cb-f512e4d26291",
+                "name": "300 meter Pup EF 300 meter",
+                "number": 9,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 300,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "6c06d6f5-75ca-42cd-a3a5-10099d63dc3f",
+        "name": "HGI Heren Pupillen EF",
+        "number": 3,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPF,DPE",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "85f26ab2-2647-4627-a0cb-f512e4d26291",
+                "name": "300 meter Pup EF 300 meter",
+                "number": 9,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 300,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "ccfc14ad-130e-4424-ba5e-ab3e1634a929",
+        "name": "HGI Dames Pupillen EF",
+        "number": 4,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPD,HPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 3,
+        "competitorsPending": 0,
+        "competitorsTotal": 3,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "6da51c79-fb95-4537-b958-62166d0321a8",
+                "name": "500 meter Pupillen CD",
+                "number": 6,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "fafc57af-d260-479b-8ff3-b8c140b30255",
+        "name": "HGI Heren Pupillen CD",
+        "number": 5,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPD,DPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 2,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "6da51c79-fb95-4537-b958-62166d0321a8",
+                "name": "500 meter Pupillen CD",
+                "number": 6,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "b9ec177a-f559-43b8-b902-b811236174a6",
+        "name": "HGI Dames Pupillen CD",
+        "number": 6,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPB",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 4,
+        "competitorsPending": 0,
+        "competitorsTotal": 4,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "fe0b2677-b3d6-4189-affa-e9c1a7f9626a",
+                "name": "700 meter Pupillen B",
+                "number": 10,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 700,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "40ace1d0-9845-413d-a07d-d7fb383af3b1",
+        "name": "HGI Heren Pupillen B",
+        "number": 7,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPB",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "fe0b2677-b3d6-4189-affa-e9c1a7f9626a",
+                "name": "700 meter Pupillen B",
+                "number": 10,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 700,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "80826dc6-da8c-4c72-ad0a-d433b206028a",
+        "name": "HGI Dames Pupillen B",
+        "number": 8,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPA",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 3,
+        "competitorsPending": 0,
+        "competitorsTotal": 3,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "0701a3a9-6f35-471a-ad46-a4eb0036dc25",
+                "name": "1000 meter Pupillen A",
+                "number": 7,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "41a8dfb6-de0c-4ad5-8a6a-b6429cf86962",
+        "name": "HGI Heren Pupillen A",
+        "number": 9,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPA",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 3,
+        "competitorsWithdrawn": 1,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "0701a3a9-6f35-471a-ad46-a4eb0036dc25",
+                "name": "1000 meter Pupillen A",
+                "number": 7,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "43970ceb-10b7-4fe4-88de-85a7d40ba9d2",
+        "name": "HGI Dames Pupillen A",
+        "number": 10,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HC*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "4ba106b2-d2b2-4ede-a833-3ce467543e59",
+        "name": "HGI  Heren Jun C",
+        "number": 11,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DC*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 4,
+        "competitorsPending": 0,
+        "competitorsTotal": 4,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "e3270555-1d8f-4681-962e-c00754eed690",
+        "name": "HGI Dames Jun C",
+        "number": 12,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HB*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 4,
+        "competitorsPending": 0,
+        "competitorsTotal": 4,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "e878c939-c366-4ec1-b25f-0325acae9e21",
+        "name": "HGI Heren Jun B",
+        "number": 13,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DB*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "c46cdd9a-6841-46c4-9790-b2ece17e8ff6",
+        "name": "HGI Dames Jun B",
+        "number": 14,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HA*,HN*,HS*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 3,
+        "competitorsPending": 0,
+        "competitorsTotal": 4,
+        "competitorsWithdrawn": 1,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "b308566b-d9db-4cfe-8937-8c8944f7f2c2",
+        "name": "HGI Heren Jun A, (Neo)Senioren",
+        "number": 15,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DA*,DN*,DS*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 2,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "085682cd-31ca-4bc4-991d-c6864c81e475",
+        "name": "HGI Dames Jun A, (Neo)Senioren",
+        "number": 16,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "H4*,H5*,H6*,H7*,H8*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 5,
+        "competitorsPending": 0,
+        "competitorsTotal": 5,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "e1f014f4-c0e8-42e1-be76-e8f8e45b1ee1",
+        "name": "HGI Heren Masters",
+        "number": 17,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "D4*,D5*,D6*,D7*,D8*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "31472591-27cb-430f-891c-59cbbd614930",
+        "name": "HGI Dames Masters",
+        "number": 18,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HP*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 2,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "39749501-2525-4f60-896e-c37f73dcf2f5",
+                "name": "2e 100 meter Jeugdschaatsers",
+                "number": 4,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "03242aea-f4a1-4c5a-8ade-f4e6d6e41544",
+                "name": "1e 100 meter Jeugdschaatsers",
+                "number": 1,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "ef497587-8765-445c-80d9-9071b08882a5",
+        "name": "Centrum Jeugdschaatsen jongens",
+        "number": 19,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DP*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 2,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "39749501-2525-4f60-896e-c37f73dcf2f5",
+                "name": "2e 100 meter Jeugdschaatsers",
+                "number": 4,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "03242aea-f4a1-4c5a-8ade-f4e6d6e41544",
+                "name": "1e 100 meter Jeugdschaatsers",
+                "number": 1,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "129f7952-f372-4a17-9db2-acd89054e535",
+        "name": "Centrum Jeugdschaatsen Meisjes",
+        "number": 20,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPF,HPE",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "85f26ab2-2647-4627-a0cb-f512e4d26291",
+                "name": "300 meter Pup EF 300 meter",
+                "number": 9,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 300,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "71997820-e1bf-408d-96ab-672f49764da4",
+        "name": "Centrum Heren Pupillen EF",
+        "number": 21,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPF,DPE",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "85f26ab2-2647-4627-a0cb-f512e4d26291",
+                "name": "300 meter Pup EF 300 meter",
+                "number": 9,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 300,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "3908d1fb-36a1-4123-a2f0-ed8b7deaef67",
+        "name": "Centrum Dames Pupillen EF",
+        "number": 22,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPD,HPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "6da51c79-fb95-4537-b958-62166d0321a8",
+                "name": "500 meter Pupillen CD",
+                "number": 6,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "8ef2bef4-5c56-491f-8862-a4cd64d9a046",
+        "name": "Centrum Heren Pupillen D",
+        "number": 23,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPD,DPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "6da51c79-fb95-4537-b958-62166d0321a8",
+                "name": "500 meter Pupillen CD",
+                "number": 6,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "e536c1a7-2aab-405f-84c1-b9540c5c2c7d",
+                "name": "100 meter CDEF",
+                "number": 2,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 100,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "3aec1d6b-af09-410c-a9fc-721ce2bae910",
+        "name": "Centrum Dames Pupillen D",
+        "number": 24,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPB,HPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 2,
+        "competitorsPending": 0,
+        "competitorsTotal": 2,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "fe0b2677-b3d6-4189-affa-e9c1a7f9626a",
+                "name": "700 meter Pupillen B",
+                "number": 10,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 700,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "f7a7a190-fa47-42ac-8a77-7aa6227cab0e",
+        "name": "Centrum Heren Pupillen BC",
+        "number": 25,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPB,DPC",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 1,
+        "competitorsPending": 0,
+        "competitorsTotal": 1,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "fe0b2677-b3d6-4189-affa-e9c1a7f9626a",
+                "name": "700 meter Pupillen B",
+                "number": 10,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 700,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "06bce740-a209-474b-98ff-6f474797d49f",
+        "name": "Centrum Dames Pupillen BC",
+        "number": 26,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HPA",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "0701a3a9-6f35-471a-ad46-a4eb0036dc25",
+                "name": "1000 meter Pupillen A",
+                "number": 7,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "d97da9f1-124d-4650-b1b5-1a3e4cf606ee",
+        "name": "Centrum Heren Pupillen A",
+        "number": 27,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DPA",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "98e0d4d2-12d8-48ec-bb3c-5b4a6d53db69",
+                "name": "500 meter Pup AB",
+                "number": 3,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "0701a3a9-6f35-471a-ad46-a4eb0036dc25",
+                "name": "1000 meter Pupillen A",
+                "number": 7,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "4a8f2608-b915-41a8-a01a-eded6af8105d",
+        "name": "Centrum Dames Pupillen A",
+        "number": 28,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HC*,HB*,HA*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "f888291b-937d-4f45-8f0f-a15a515bdff4",
+        "name": "Centrum Heren Jun ABC",
+        "number": 29,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DC*,DB*,DA*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "5661d9bd-d61a-4844-9b71-6471c39da3b2",
+        "name": "Centrum Dames Jun ABC",
+        "number": 30,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "DN*,DS*,D4*,D5*,D6*,D7*,D8*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 0,
+        "competitorsPending": 0,
+        "competitorsTotal": 0,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "9f2ddb78-69cb-492c-a486-ca94b2cb9f6d",
+        "name": "Centrum Dames Senioren-Masters",
+        "number": 31,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    },
+    {
+        "categoryFilter": "HN*,HS*,H4*,H5*,H6*,H7*,H8*",
+        "classFilter": null,
+        "classificationWeight": 500,
+        "competitorsConfirmed": 3,
+        "competitorsPending": 0,
+        "competitorsTotal": 3,
+        "competitorsWithdrawn": 0,
+        "distances": [
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "14f33852-5f0e-47ea-a909-709e3470ed16",
+                "name": "500 meter Junioren C en ouder",
+                "number": 5,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 500,
+                "valueQuantity": 0
+            },
+            {
+                "discipline": "SpeedSkating.LongTrack.PairsDistance.Individual",
+                "id": "3e6a6a33-096e-4b6d-ab96-eeb7adb51c0d",
+                "name": "1000 meter Junioren C en ouder",
+                "number": 8,
+                "starts": "2025-03-09T06:00:00Z",
+                "value": 1000,
+                "valueQuantity": 0
+            }
+        ],
+        "id": "5fa0a4ee-4378-4f80-9b2a-34512e1fcbf0",
+        "name": "Centrum Heren Senioren-Masters",
+        "number": 32,
+        "onlyCountFastestDistanceWhenSameLength": false,
+        "starts": null
+    }
+]

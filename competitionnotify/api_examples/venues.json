@@ -1,0 +1,4913 @@
+[
+    {
+        "address": {
+            "city": "Alkmaar",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "ALK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJsbaan de Meent",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ALK",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Alkmaar",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "ALK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "IJsbaan de Meent",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ALK",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Alkmaar",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "ALK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "IJsbaan de Meent",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Almere",
+            "countryCode": "NED",
+            "line1": "Competitieweg 5",
+            "line2": null,
+            "postalCode": "1318 EA",
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "ALM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan ASV",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "ALM",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Alteveer",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Groningen"
+        },
+        "code": "ALT",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Alteveer",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "ALT",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Amersfoort",
+            "countryCode": "NED",
+            "line1": "Sportpark Zielhorst 2",
+            "line2": null,
+            "postalCode": "3822 ZT",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "AME",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Wielerbaan Amersfoort",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "AME",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Ammerstol",
+            "countryCode": "NED",
+            "line1": "Sportlaan 21",
+            "line2": null,
+            "postalCode": "2865 AH",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "AMM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Combibaan Ammerstol",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "AMM",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Amsterdam",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "AMS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stichting IJscomplex Jaap Edenbaan",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "AMS",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Amsterdam",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "AMS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Stichting IJscomplex Jaap Edenbaan",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "AMS",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Amsterdam",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "AMS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Stichting IJscomplex Jaap Edenbaan",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Apeldoorn",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "APE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Omnisport Schaats- en Skeelerbaan",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "APE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Arendal",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ARE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Myra Kunstisbane Arendal",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Arnhem",
+            "countryCode": "NED",
+            "line1": "Daam Fockemalaan 1",
+            "line2": null,
+            "postalCode": "6815 DL",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "ARH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark 't Craneveld",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "ARH",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Arnhem",
+            "countryCode": "NED",
+            "line1": "Mariasingel 251",
+            "line2": null,
+            "postalCode": "6846 DX",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "ARS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark Schuytgraaf",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Assen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "AS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kunstijsbaan Drenthe",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Asker",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ASK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Risenga isbane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Assen",
+            "countryCode": "NED",
+            "line1": "Hoogspanningsweg 6",
+            "line2": null,
+            "postalCode": "9408 CZ",
+            "stateOrProvince": "Drenthe"
+        },
+        "code": "ASS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark de Hoogspanning",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "ASS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Assen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Drenthe"
+        },
+        "code": "ASS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Sport- en Evenementencentrum de Bonte Wever",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ASS",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Assen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Drenthe"
+        },
+        "code": "ASS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Sport- en Evenementencentrum de Bonte Wever",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ASS",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Astana",
+            "countryCode": "KAZ",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "AST",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Astana Ice Palce \u2018Alau\u2019",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Amersfoort",
+            "countryCode": "NED",
+            "line1": "Bisschopsweg 177",
+            "line2": null,
+            "postalCode": "3800 AM",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "AYV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Combibaan AIJV",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "AYV",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Baambrugge",
+            "countryCode": "NED",
+            "line1": "IJsbaan 6",
+            "line2": null,
+            "postalCode": "1396 LD",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "BAA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Baambrugge",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "BAA",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Baflo",
+            "countryCode": "NED",
+            "line1": "Stationsweg 1",
+            "line2": null,
+            "postalCode": "9953 RG",
+            "stateOrProvince": "Groningen"
+        },
+        "code": "BAF",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Caf\u00e9 Beuving",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Baselga di Pin\u00e9",
+            "countryCode": "ITA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BDP",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ice Rink Pin\u00e9",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "BDP",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Beijing",
+            "countryCode": "CHN",
+            "line1": "",
+            "line2": "",
+            "postalCode": "",
+            "stateOrProvince": ""
+        },
+        "code": "BEO",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Beijing - Ice Ribbon",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Berlin",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BER",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Hohensch\u00f6nhausen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Berlin",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BEW",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Wilmersdorf",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Biddinghuizen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BID",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "FlevOnice",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Biddinghuizen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BID",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "FlevOnice",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "BID",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Bjugn",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BJU",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Fosenhallen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "s-Hertogenbosch",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "BOS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "IJsbanen Sportiom",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Brakel",
+            "countryCode": "NED",
+            "line1": "Langerakseweg 4",
+            "line2": null,
+            "postalCode": "5306 TC",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "BRA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Brakel",
+        "tracks": [
+            {
+                "length": 500.0,
+                "venueCode": "BRA",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Breda",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "BRE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Cor Vlemmix circuit, Sportcomplex Wisselaar",
+        "tracks": [
+            {
+                "length": 630.0,
+                "venueCode": "BRE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Breda",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "BRE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kunstijsbaan Breda",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "BRE",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Breda",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "BRE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Kunstijsbaan Breda",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "BRE",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Breda",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "BRE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Kunstijsbaan Breda",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Bergen",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BRG",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Sl\u00e5tthaug Kunstisbane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "B\u00e5stad ",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BST",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "B\u00e5stad Kunstis",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Boedapest",
+            "countryCode": "HUN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BUC",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "City Park Ice Rink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Budapest",
+            "countryCode": "HUN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BUD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Varosligeti Mujegpalya Park",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Butte",
+            "countryCode": "USA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "BUT",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "U.S. High Mountain Altitude",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Calgary",
+            "countryCode": "CAN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "CAL",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Olympic Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Changchun",
+            "countryCode": "CHN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "CHA",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Changchun",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Chelyabinsk",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "CHE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Uralskaya Molniya",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Chemnitz",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "CHM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "K\u00fcchwald",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Chonju",
+            "countryCode": "KOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "CHO",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Chonju",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Collalbo",
+            "countryCode": "ITA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "COL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Collalbo (Ritten Arena)",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "COL",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Culemborg",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "CUL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark Ter Weijde",
+        "tracks": [
+            {
+                "length": 500.0,
+                "venueCode": "CUL",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Davos",
+            "countryCode": "SUI",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "DAV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Eisstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Deventer",
+            "countryCode": "NED",
+            "line1": "Borgelerdijk 1",
+            "line2": null,
+            "postalCode": "7415 ZN",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "DEV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Sportpark Keizerslanden",
+        "tracks": [
+            {
+                "length": 300.0,
+                "venueCode": "DEV",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 1200.0,
+                "venueCode": "DEV",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Deventer",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "DEV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Sport- en Recreatiecentrum de Scheg",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DEV",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Deventer",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "DEV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Sport- en Recreatiecentrum de Scheg",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DEV",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Den Haag",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "DNH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "De Uithof",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DNH",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Den Haag",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "DNH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "De Uithof",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DNH",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Den Haag",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "DNH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "De Uithof",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Dodewaard",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "DOD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Dodewaard",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "DOD",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Doetinchem",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "DOE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skatebaan Doetinchem",
+        "tracks": [
+            {
+                "length": 370.0,
+                "venueCode": "DOE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "D\u00f8lemo ",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "DOL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "D\u00f8lemo Idrettsplass",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Drachten",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "DRA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportcomplex Fennepark",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "DRA",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Dresden",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "DRE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Sportpark Ostrahege",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Drammen",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "DRM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Marienlyst Kunstis",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Doorn",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "DRN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Doorn",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "DRN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Dronten",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "DRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Leisure World Skeeler Dome",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "DRO",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Dronten",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "DRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Leisure World Ice Center",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DRO",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Dronten",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "DRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Leisure World Ice Center",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "DRO",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Dronten",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "DRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Leisure World Ice Center",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Deventer ",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "DVy",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJsselstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "De Westereen",
+            "countryCode": "NED",
+            "line1": "Badh\u00fbswei 1a",
+            "line2": null,
+            "postalCode": "9271 VA",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "DWE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan IDS",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "DWE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 365.0,
+                "venueCode": "DWE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Ede",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "EDE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan sportpark Peppelensteeg",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "EDE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Eefde",
+            "countryCode": "NED",
+            "line1": "Elzerdijk 44",
+            "line2": null,
+            "postalCode": "7211 LT",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "EEF",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Karting Eefde",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Eibergen",
+            "countryCode": "NED",
+            "line1": "Rietmolenseweg 5g",
+            "line2": null,
+            "postalCode": "7151 AG",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "EIB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "RTC De Stofwolk, sportpark De Bijenkamp",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "EIB",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Eidsvold ",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "EID",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Myhrer",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Elblag ",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ELB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Wiokniarza",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Enschede",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "ENS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJsbaan Twente",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ENS",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Enschede",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "ENS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "IJsbaan Twente",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ENS",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Enschede",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "ENS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "IJsbaan Twente",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Erdenet",
+            "countryCode": "MGL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ERD",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Naadom Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Erfurt",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ERF",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Gunda-Niemann-Stirnemann-Halle",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Eskilstuna",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ESK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Isstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Eindhoven",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "EV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kunstijsbaan Eindhoven",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Eindhoven",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "EVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJssportcentrum Eindhoven",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "EVN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Eindhoven",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "EVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJssportcentrum Eindhoven",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "EVN",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Eindhoven",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "EVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "IJssportcentrum Eindhoven",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "EVN",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Eindhoven",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "EVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "IJssportcentrum Eindhoven",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Ferwert",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "FER",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Ferwert",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "FER",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Biddinghuizen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Flevoland"
+        },
+        "code": "FLE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "FlevOnice",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "FLE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Fosenlopet",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "FOS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Fosenlopet",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Frankfurt am Main",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "FRM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Eisstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Fujikyu",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "FUJ",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Hoghland Conferment Forest",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Geithus",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GEI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Furumo Kunstisbane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Geleen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Limburg"
+        },
+        "code": "GEL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Glanerbrook",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "GEL",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Geleen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Limburg"
+        },
+        "code": "GEL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Glanerbrook",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "GEL",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Geleen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Limburg"
+        },
+        "code": "GEL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Glanerbrook",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Genemuiden",
+            "countryCode": "NED",
+            "line1": "Koppel 3",
+            "line2": null,
+            "postalCode": "8281 MA",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "GEN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan De Eendracht",
+        "tracks": [
+            {
+                "length": 270.0,
+                "venueCode": "GEN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Grefrath",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GFR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Niederrhein Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "G\u00f6teborg",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GOB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ruddalens Bandybane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Goes",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zeeland"
+        },
+        "code": "GOE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Schaats- en Skeelerbaan Ouverture",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "GOE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Gol",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GOL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Glitre stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Gothenburg",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GOT",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Gothenburg",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Gouda",
+            "countryCode": "NED",
+            "line1": "Kale Jonkerpad 3",
+            "line2": null,
+            "postalCode": "2805 LD",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "GOU",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Wielren/Skeelerbaan Goudse Hout",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "GOU",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Gramsbergen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "GRA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Gramsbergen",
+        "tracks": [
+            {
+                "length": 370.0,
+                "venueCode": "GRA",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Groningen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Groningen"
+        },
+        "code": "GRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kardinge",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "GRO",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Groningen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Groningen"
+        },
+        "code": "GRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Kardinge",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "GRO",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Groningen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Groningen"
+        },
+        "code": "GRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Kardinge",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Groningen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "GRs",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stadspark",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Haarlem",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HAA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJsbaan Haarlem",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HAA",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Haarlem",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HAA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "IJsbaan Haarlem",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HAA",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Haarlem",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HAA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "IJsbaan Haarlem",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hachinohe",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HAC",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Nagano Skatingrink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hagastr\u00f6m",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HAG",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Idrottsplatsen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hamar",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HAM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Olympiahall",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Harlingen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HAR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Oostersportpark",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "HAR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Harbin",
+            "countryCode": "CHN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HAR",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Heilongjiang Indoor Rink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hatgal",
+            "countryCode": "MGL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HAT",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Lake Huvsgul",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Haulerwijk",
+            "countryCode": "NED",
+            "line1": "Snikke 8a",
+            "line2": null,
+            "postalCode": "8483 HE",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HAU",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan De Draai",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "HAU",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 400.0,
+                "venueCode": "HAU",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Heerde",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "HEE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skate- en Skeelercentrum Hoornscheveen",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "HEE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 400.0,
+                "venueCode": "HEE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Helsinki",
+            "countryCode": "FIN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HEK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kallion Tekoj\u00e4\u00e4rata / Bergh\u00e4ll",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Helsinki",
+            "countryCode": "FIN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HEL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Oulunkyl\u00e4",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hengelo",
+            "countryCode": "NED",
+            "line1": "Alphenstraat 17",
+            "line2": null,
+            "postalCode": "7556 JT",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "HEN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Combibaan Hengelo",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "HEN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Haaksbergen",
+            "countryCode": "NED",
+            "line1": "Scholtenhagen 40c",
+            "line2": null,
+            "postalCode": "7481 VP",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "HKB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Schaats- en skeelerbaan Haaksbergen",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "HKB",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Honselersdijk",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "HON",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Van Vliet parcours",
+        "tracks": [
+            {
+                "length": 1050.0,
+                "venueCode": "HON",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "'t Harde",
+            "countryCode": "NED",
+            "line1": "Nijverheidsweg 12",
+            "line2": null,
+            "postalCode": "8084 GS",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "HRD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Mogema",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hoorn",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HRN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kunstijsbaan de Westfries",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HRN",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Hoorn",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HRN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Kunstijsbaan de Westfries",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HRN",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Hoorn",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "HRN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Kunstijsbaan de Westfries",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Harstad",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HST",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "\u00c5smyra stadion Kanebogen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Hundorp",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HUN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Flatmoen Idrettsplass",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Heerenveen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "HV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Thialf (outdoor)",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Heerenveen",
+            "countryCode": "NED",
+            "line1": "Abe Lenstra Boulevard 23Q",
+            "line2": null,
+            "postalCode": "8448JA",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Inline-skatecentrum Heerenveen",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "HVN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Heerenveen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Thialf",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HVN",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Heerenveen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Thialf",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "HVN",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Heerenveen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "HVN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Thialf",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Ikaho",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "IKA",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Highland Municipal Skating Rink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Inzell",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "INL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ludwig Schwabl Eisstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Innsbruck",
+            "countryCode": "AUT",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "INN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Olympia Eisstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Inzell",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "INZ",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Max Aicher Arena",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Irkutsk",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "IRK",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tsentralnij Stadion Trud",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Jekaterinburg (Sverdlovsk)",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "JEJ",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Junosti",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Jekaterinenburg",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "JEK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stadion Dynamo",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Jevnaker",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "JEV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Jevnaker",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Karlstad",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KAR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tingvalla Isstadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Karuizawa",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KAZ",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Skating Center",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kiev",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KIE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ledovy Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kirov",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KIR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stadion Dynamo",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Karl-Marx-Stadt",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KMS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "K\u00fcchwald",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kolomna",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KOL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kometa Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kongsberg",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KON",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Idrettsparken",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kostroma",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KOS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Spartak",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kristiansand",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KRI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Idrettsplassen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kristiansund",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KRN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Arena Nordvest",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Moskou",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KRY",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Krylatskoye",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Kudelstaart",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "KST",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Energiebaan Kudelstaart",
+        "tracks": [
+            {
+                "length": 300.0,
+                "venueCode": "KST",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Kongsvinger",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "KVG",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Gjemselund Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Lake Placid",
+            "countryCode": "USA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "LAP",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Bunny Sheffield Olympic Sk.",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Larvik",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "LAR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Fram Kunstisbane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Leiderdorp",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "LDR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Weteringpark",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "LDR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Leeuwarden",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "LEE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Elfstedenhal",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "LEE",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Leeuwarden",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "LEE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Elfstedenhal",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "LEE",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Leeuwarden",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "LEE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Elfstedenhal",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Leiden",
+            "countryCode": "NED",
+            "line1": "",
+            "line2": "",
+            "postalCode": "",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "LEI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "IJsbaan De Vliet",
+        "tracks": [
+            {
+                "length": 250.0,
+                "venueCode": "LEI",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Leiden",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "LEI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Schaatshal Leiden",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Lekkerkerk",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "LEK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en Skeelerbaan Sportcomplex Weydehoeck",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "LEK",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Lillehammer",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "LIL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stampesletta Idrettsplass",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Lisserbroek",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "LIS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Lisserbroek",
+        "tracks": [
+            {
+                "length": 300.0,
+                "venueCode": "LIS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Losser",
+            "countryCode": "NED",
+            "line1": "Nilantspad 3",
+            "line2": null,
+            "postalCode": "7581 BB",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "LOS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Losser, sportpark Hannekerveld",
+        "tracks": [
+            {
+                "length": 370.0,
+                "venueCode": "LOS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Lubin",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "LUB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tor Lodowy",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Maassluis",
+            "countryCode": "NED",
+            "line1": "Vlaardingsedijk 5",
+            "line2": null,
+            "postalCode": "3143 ??",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "MAS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Wielerparcours De Coureur",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "MAS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Madonna di Campiglio",
+            "countryCode": "ITA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MDC",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Pista Olimpica",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Medemblik",
+            "countryCode": "NED",
+            "line1": "Opperdoezerpad 2",
+            "line2": null,
+            "postalCode": "1671 NB",
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "MED",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Radboud",
+        "tracks": [
+            {
+                "length": 250.0,
+                "venueCode": "MED",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Medeo",
+            "countryCode": "KAZ",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MED",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kompleks Medeo",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Miercurea",
+            "countryCode": "ROU",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MIE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ciuc",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Milwaukee",
+            "countryCode": "USA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MIL",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Petit National Centre",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Minsk",
+            "countryCode": "BLR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MIN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Minsk Arena",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Morioka",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MOR",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Iwate Kenei Skatingrink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "M\u00fcnchen",
+            "countryCode": "GER",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "MUN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Neuperlach",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Nagano",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "NAG",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "M-wave",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Nieuwegein",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "NGN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Wielerbaan Nedereindseberg",
+        "tracks": [
+            {
+                "length": 333.0,
+                "venueCode": "NGN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Nikko",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "NIS",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Hosoo",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Niznij Novgorod",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "NNT",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stadion Trud",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Nieuwkuijk",
+            "countryCode": "NED",
+            "line1": "St.Jorisstraat 18",
+            "line2": null,
+            "postalCode": "5253 BL",
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "NWK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Wieler/skeeleraccomodatie De Heuvelen",
+        "tracks": [
+            {
+                "length": 274.0,
+                "venueCode": "NWK",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Nijkerk",
+            "countryCode": "NED",
+            "line1": "Watergoorweg 44\r\n",
+            "line2": null,
+            "postalCode": "3861 MA",
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "NYK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Nijkerk",
+        "tracks": [
+            {
+                "length": 340.0,
+                "venueCode": "NYK",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Nijelamer",
+            "countryCode": "NED",
+            "line1": "Stadburen 8",
+            "line2": null,
+            "postalCode": "8487 GJ",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "NYL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Dorpshuis",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Nijmegen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "NYM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Triavium",
+        "tracks": [
+            {
+                "length": 333.0,
+                "venueCode": "NYM",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Nijmegen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "NYM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Triavium",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "NYM",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Nijmegen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "NYM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Triavium",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Nijeveen",
+            "countryCode": "NED",
+            "line1": "Schuurmansweg 3a",
+            "line2": null,
+            "postalCode": "7948 NM",
+            "stateOrProvince": "Drenthe"
+        },
+        "code": "NYV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Nijeveen",
+        "tracks": [
+            {
+                "length": 265.0,
+                "venueCode": "NYV",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Obihiro",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OBI",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "No Mori Speed Skating Centre",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Oldebroek",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "OLB",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Oldebroek (skeelerbaan Oldebroek)",
+        "tracks": [
+            {
+                "length": 375.0,
+                "venueCode": "OLB",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Olenegorsk",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OLE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tsentralniy",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Oosterbeek",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Gelderland"
+        },
+        "code": "OOS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Hartenstein",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "OOS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Oppdal",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OPP",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Oppdal Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Amsterdam",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "OSA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Olympisch Stadion Amsterdam",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Amsterdam",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "OSA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Olympisch Stadion Amsterdam",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "OSA",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Oslo",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OSF",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Frogner",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Oslo",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OSL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Valle Hovin Kunstisbane",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Ottawa",
+            "countryCode": "CAN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "OTT",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Brewer Park Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Oudewater",
+            "countryCode": "NED",
+            "line1": "Statenland 5",
+            "line2": null,
+            "postalCode": "3421 GZ",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "OUW",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Combibaan SVO",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "OUW",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Gangneung",
+            "countryCode": "KOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "PEY",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Gangneung Speedskating Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Puttershoek",
+            "countryCode": "NED",
+            "line1": "Sportlaan 6",
+            "line2": null,
+            "postalCode": "3297 TG",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "PHK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Kees Verkerk",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "PHK",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Perm",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "PMj",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Junosti",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Pori (Bj\u00f6rneborg)",
+            "countryCode": "FIN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "POR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tekoj\u00e4\u00e4rata",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Purmerend",
+            "countryCode": "NED",
+            "line1": "Trimpad 10",
+            "line2": null,
+            "postalCode": "1443 WB",
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "PUR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan de Purmerring",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "PUR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 365.0,
+                "venueCode": "PUR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Quebec",
+            "countryCode": "CAN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "QUE",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Centre de Glace",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Rotterdam",
+            "countryCode": "NED",
+            "line1": "Landscheiding 101",
+            "line2": "",
+            "postalCode": "3045 NK",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "RDM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan SV Rotterdam",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "RDM",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 463.0,
+                "venueCode": "RDM",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Roseville",
+            "countryCode": "USA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ROS",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "John Rose Minnesota Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Rotterdam",
+            "countryCode": "NED",
+            "line1": "Landscheiding 101",
+            "line2": null,
+            "postalCode": "3045 NK",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "ROT",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Leontien van Moorsel Parcours",
+        "tracks": [
+            {
+                "length": 1800.0,
+                "venueCode": "ROT",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Rijssen",
+            "countryCode": "NED",
+            "line1": "Opbroekweg 42",
+            "line2": null,
+            "postalCode": "7461 PH",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "RYS",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Schaats- en Skeelerbaan Rijssen",
+        "tracks": [
+            {
+                "length": 214.0,
+                "venueCode": "RYS",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Sainte-Foy",
+            "countryCode": "CAN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SAF",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Geatan Boucher Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Sanok",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SAN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tor Blonie",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Sint Annaparochie",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "SAP",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs- en skeelerbaan Slikrollers",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "SAP",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Sapporo",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SAP",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Makomanai Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Savalen",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SAV",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Savalen Idrettsplass",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Schijndel",
+            "countryCode": "NED",
+            "line1": "Leemputtenweg 3",
+            "line2": null,
+            "postalCode": "5844 ZZ",
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "SCH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeeler-wielerbaan Schijndel",
+        "tracks": [
+            {
+                "length": 375.0,
+                "venueCode": "SCH",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Sein\u00e4joki",
+            "countryCode": "FIN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SEI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "J\u00e4\u00e4urheilukeskus",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Seoul",
+            "countryCode": "KOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SEO",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Taenung",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Skien",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SKI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Nye Isstadion Moflaten",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Salt Lake City",
+            "countryCode": "USA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SLC",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Utah Olympic Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Sliedrecht",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "SLI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Sliedrecht",
+        "tracks": [
+            {
+                "length": 500.0,
+                "venueCode": "SLI",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "St. Moritz",
+            "countryCode": "SUI",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SMO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "St. Moritzersee",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "SMO",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Sneek",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "SNE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportcomplex Schuttersveld",
+        "tracks": [
+            {
+                "length": 320.0,
+                "venueCode": "SNE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Sochi",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SOC",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Adler Arena",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Staphorst",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "STA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Evenemententerrein De Tippe",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "STA",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Stavanger",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "STA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "S\u00f8rmarka Arena",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Stevensbeek",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "STE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark Stevensbeek",
+        "tracks": [
+            {
+                "length": 333.0,
+                "venueCode": "STE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Stockholm",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "STH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "\u00d6stermalms IP",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "St. Nicolaasga",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Friesland"
+        },
+        "code": "STN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportpark It Skarl\u00e2n",
+        "tracks": [
+            {
+                "length": 300.0,
+                "venueCode": "STN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "St. Petersburg",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "STP",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kompleks V.I. Lenina",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Sundsvall",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SUN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "G\u00e4rdebanen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Surhuisterveen",
+            "countryCode": "NED",
+            "line1": "Vierhuisterweg",
+            "line2": null,
+            "postalCode": "9231 AR",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "SUR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Surhuisterveen",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "SUR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Svratka",
+            "countryCode": "CZE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "SVR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Vysocina",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Tallinn",
+            "countryCode": "EST",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TAL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "H\u00e5rma Uisuovaal",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Ten Boer",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Groningen"
+        },
+        "code": "TBR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Ten Boer",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "TBR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Tilburg",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "TIL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Ireen W\u00fcst IJsbaan",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "TIL",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Tilburg",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "TIL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "Ireen W\u00fcst IJsbaan",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "TIL",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Tilburg",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "TIL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "Ireen W\u00fcst IJsbaan",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "",
+            "countryCode": "POL",
+            "line1": "",
+            "line2": "",
+            "postalCode": "",
+            "stateOrProvince": ""
+        },
+        "code": "TMA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Arena Lodowa / Tomasz\u00f3w Mazowiecki",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "TMA",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Tomaszw\u00f3w",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TMZ",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Arena Lodwana",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Tomakomai",
+            "countryCode": "JPN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TOM",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Oji Seishi Rink",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Tonsberg",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TON",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tonsberg Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Trollh\u00e4ttan",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TrH",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Sl\u00e4ttbergshallen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Tromso",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TRM",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tromsdalen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Trondheim",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TRO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Trondheim Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Turijn",
+            "countryCode": "ITA",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TUR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Oval Lingotto",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Tynset",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "TYN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Nytr\u00f8moen Idrettsplass",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Ulaanbaataar",
+            "countryCode": "MGL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ULC",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Stadium (Central park)",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Khandgait",
+            "countryCode": "MGL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ULH",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Khandgait ice rink (Khandgait)",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "\u00dcr\u00fcmqi",
+            "countryCode": "CHN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "URX",
+        "continentCode": "ASI",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Xinjiang Oval",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "URX",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Utrecht",
+            "countryCode": "NED",
+            "line1": "Nedereindseweg 501",
+            "line2": null,
+            "postalCode": "3546 PM",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "UTR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Noorderpark (Ruigenhoek)",
+        "tracks": [
+            {
+                "length": 330.0,
+                "venueCode": "UTR",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Utrecht",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "UTR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "De Vechtsebanen",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "UTR",
+                "venueDiscipline": "SpeedSkating.LongTrack"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Utrecht",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "UTR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Marathon",
+        "name": "De Vechtsebanen",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "UTR",
+                "venueDiscipline": "SpeedSkating.Marathon"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Utrecht",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "UTR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "De Vechtsebanen",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "V\u00e4ster\u00e5s",
+            "countryCode": "SWE",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VAA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "ABB Arena Syd",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Valkeakoski",
+            "countryCode": "FIN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VAL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Kerhomajan Luistinrata",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Vancouver",
+            "countryCode": "CAN",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VAN",
+        "continentCode": "NAM",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Richmond Olympic Oval",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Veenendaal",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "VEE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "De Greb, Sportpark De Groene Velden II",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "VEE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Venlo",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Limburg"
+        },
+        "code": "VEN",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sportkern Herungerberg",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "VEN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 435.0,
+                "venueCode": "VEN",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Verdal",
+            "countryCode": "NOR",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VER",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Verdal Stadion",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Moskou",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VOD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Vodnij Stadion Dynamo",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Vologda",
+            "countryCode": "RUS",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "VoL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Lokomotiv",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Vriezenveen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "VRI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan IJsclub Eendracht",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "VRI",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Warszawa",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "WAR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tor Stegny",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Wervershoof",
+            "countryCode": "NED",
+            "line1": "Theo Koomenlaan 5",
+            "line2": null,
+            "postalCode": "1693 MA",
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "WER",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Sjoerd Huisman piste",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "WER",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Warmenhuizen",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Holland"
+        },
+        "code": "WHZ",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan IJsclub S.I.S.",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "WHZ",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Wierden",
+            "countryCode": "NED",
+            "line1": "2e Lageveldseweg",
+            "line2": null,
+            "postalCode": "7641 PC",
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "WIE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Schaats- en skeelerbaan Wierden",
+        "tracks": [
+            {
+                "length": 300.0,
+                "venueCode": "WIE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Warmond",
+            "countryCode": "NED",
+            "line1": "Veerpolder 18",
+            "line2": "",
+            "postalCode": "2361 KV",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "WMD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Warmondse IJs- en Skeelerclub",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "WMD",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 400.0,
+                "venueCode": "WMD",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Wolvega",
+            "countryCode": "NED",
+            "line1": "Sportlaan 135",
+            "line2": null,
+            "postalCode": "8471 NP",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "WOL",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Lindenoord",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "WOL",
+                "venueDiscipline": "SpeedSkating.Inline"
+            },
+            {
+                "length": 365.0,
+                "venueCode": "WOL",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Utrecht",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "XXX",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Testbaan KNSB",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Zakopane",
+            "countryCode": "POL",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ZAK",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Tor Cos",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Zeist",
+            "countryCode": "NED",
+            "line1": "Filosofenlaantje 1",
+            "line2": null,
+            "postalCode": "3703 DZ",
+            "stateOrProvince": "Utrecht"
+        },
+        "code": "ZEI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Schaats- en skeelerbaan Blikkenburg",
+        "tracks": [
+            {
+                "length": 330.0,
+                "venueCode": "ZEI",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Zoetermeer",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "ZOE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "IJs en skeelerbaan De Doorloper",
+        "tracks": [
+            {
+                "length": 365.0,
+                "venueCode": "ZOE",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Zuid-Holland",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Zoetermeer"
+        },
+        "code": "ZOE",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.ShortTrack",
+        "name": "PWA SilverDome",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Zuilichem",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Noord-Brabant"
+        },
+        "code": "ZUI",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "skeelerbaan 't Stikske",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "ZUI",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Z\u00fcrich",
+            "countryCode": "SUI",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": null
+        },
+        "code": "ZUR",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.LongTrack",
+        "name": "Dolder Kunsteisbahn",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Zwaagwesteinde",
+            "countryCode": "NED",
+            "line1": "Badhuisweg 1A",
+            "line2": null,
+            "postalCode": "9271 VA",
+            "stateOrProvince": "Friesland"
+        },
+        "code": "ZWA",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Zwaagwesteinde",
+        "tracks": []
+    },
+    {
+        "address": {
+            "city": "Zoeterwoude",
+            "countryCode": "NED",
+            "line1": "Nieuwe weg 12",
+            "line2": "Veld 11, Sportpark Haasbroek",
+            "postalCode": "2381 NW",
+            "stateOrProvince": "Zuid-Holland"
+        },
+        "code": "ZWD",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeerlerbaan IJsclub Zoeterwoude",
+        "tracks": [
+            {
+                "length": 200.0,
+                "venueCode": "ZWD",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Zwolle",
+            "countryCode": "NED",
+            "line1": null,
+            "line2": null,
+            "postalCode": null,
+            "stateOrProvince": "Overijssel"
+        },
+        "code": "ZWO",
+        "continentCode": "EUR",
+        "discipline": "SpeedSkating.Inline",
+        "name": "Skeelerbaan Wythmenerplas",
+        "tracks": [
+            {
+                "length": 400.0,
+                "venueCode": "ZWO",
+                "venueDiscipline": "SpeedSkating.Inline"
+            }
+        ]
+    }
+]

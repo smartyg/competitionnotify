@@ -148,30 +148,30 @@ class HomeVenues(BaseDataStructure):
 			self.append([code, address['countryCode'], name, address['city'], address['line1'], address['line2'], address['postalCode'], address['stateOrProvince']])
 		return None
 
-	def getVenue (self, code: str|None) -> dict:
-		if code is None:
+	def getVenue (self, code: str|None) -> dict[str, str]:
+		if not code:
 			return {
-				"code": None,
-				"countryCode": None,
-				"name": None,
-				"city": None,
-				"line1": None,
-				"line2": None,
-				"postalCode": None,
-				"stateOrProvince": None
+				"code": str(),
+				"countryCode": str(),
+				"name": str(),
+				"city": str(),
+				"line1": str(),
+				"line2": str(),
+				"postalCode": str(),
+				"stateOrProvince": str()
 		   }
 		selector = self._selector(code)
 		select = self._table.loc[selector]
 		if (len(select)) == 0:
 			return {
-				"code": None,
-				"countryCode": None,
-				"name": None,
-				"city": None,
-				"line1": None,
-				"line2": None,
-				"postalCode": None,
-				"stateOrProvince": None
+				"code": str(),
+				"countryCode": str(),
+				"name": str(),
+				"city": str(),
+				"line1": str(),
+				"line2": str(),
+				"postalCode": str(),
+				"stateOrProvince": str()
 		   }
 		else:
 			return select.iloc[0,:].to_dict()
