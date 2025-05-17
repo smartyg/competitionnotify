@@ -1,0 +1,28 @@
+{
+    "category": "HSB",
+    "club": {
+        "code": 6640,
+        "countryCode": "NED",
+        "fullName": "IJsclub Hard Gaat ie",
+        "shortCode": "YCHGI",
+        "shortName": "YC HGI"
+    },
+    "flags": 10,
+    "key": "10156390",
+    "legNumber": null,
+    "number": null,
+    "personBirthDate": "0001-01-01T00:00:00Z",
+    "personName": {
+        "firstName": "Martijn",
+        "initials": "M.",
+        "surname": "Goedhart",
+        "surnamePrefix": null
+    },
+    "season": 2024,
+    "sponsor": null,
+    "transponder1": "TZ-75324",
+    "transponder2": null,
+    "validFrom": "2025-02-24T00:00:00Z",
+    "validTo": "2026-05-24T00:00:00Z",
+    "venueCode": "AMS"
+}

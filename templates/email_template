@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl">
+  <head>
+    <title>Wedstrijdmelding: inschrijving geopend voor: {{ name }} op {{ starts.strftime('%A %d %B %Y') }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div#main > div {
+        position: relative;
+        overflow: auto;
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+        padding: 0.1em
+    }
+
+    div#combinations {
+        position: relative;
+        display: inline;
+    }
+
+    h2 {
+        font-size: medium;
+    }
+
+    p {
+        font-size: small;
+    }
+
+    h2, p {
+        font-family: sans-serif;
+    }
+
+    div.combination {
+        display: block;
+        position: relative;
+        margin: 0.5em 0;
+    }
+
+    div.combination > p {
+        display: inline;
+        padding: 0 1em;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="race">
+        <h2><a href="{{ links['information'] }}">{{ name }}</a></h2>
+        <hr>
+        <p>{{ starts.strftime('%A %d %B %Y') }}<br>start: <b>{{ starts.strftime('%d-%m-%Y %H:%M') }}</b><br>eind: <b>{{ ends.strftime('%d-%m-%Y %H:%M') }}</b><br><a href="{{ links['information'] }}">meer informatie</a></p>
+      </div>
+      <div id="location">
+        <h2>locatie</h2>
+        <hr>
+        <p><b>{{ venue['name'] }}</b>{% if venue['line1'] is not none %}<br>{{ venue['line1'] }}{% endif %}{% if venue['line2'] is not none %}<br>{{ venue['line2'] }}{% endif %}{% if venue['postalCode'] is not none %}<br>{{ venue['postalCode'] }}{% endif %}{% if venue['city'] is not none %}<br>{{ venue['city'] }}{% endif %}{% if location_description is not none%}<br>{{ location_description }}{% endif %}</p>
+      </div>
+      <div id="subscription">
+        <h2><a href="{{ links['subscription'] }}">inschrijven</a></h2>
+        <hr>
+        <p>sluit: <b>{{ closes.strftime('%d-%m-%Y %H:%M') }}</b><br>Afmelden tot: <b>{{ withdrawUntil.strftime('%d-%m-%Y %H:%M') }}</b><br><a href="{{ links['subscription'] }}">inschrijven</a><br><a href="{{ links['participants'] }}">deelnemers</a></p>
+      </div>
+    </div>
+    <div id="extra">
+      {% if message1 is not none %}<p>{{ message1|replace("\n", "<br>") }}</p>{% endif %}
+      {% if message2 is not none %}<p>{{ message2|replace("\n", "<br>") }}</p>{% endif %}
+    </div>
+    <div id="serie">
+    {% if serie is not none %}<p>Deze westrijd is onderdeel van een serie wedstrijden:</p><ul>
+    {% for s in serie %}
+      <li><a href="{{ s['information_link'] }}">{{ s['name'] }} - {{ s['start'].strftime('%d-%m-%Y') }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}</div>
+    <div id="combinations"><h2>Afstandscombinaties</h2><hr>
+      {% for c in combinations %}
+      <div id="{{ c['id'] }}" class="combination">
+        <p class="combination name">{{ c['name'] }}</p><p class="combination distances">{% for d in c['distances]'] %}<span class="distance">{{ d }} meter</span>{% endfor %}</p><p class="combination cost">kosten: {%
+          if c['cost'] is not none %}
+            {% if c['cost']['competition'] is not none %}€ {{ c['cost']['competition']['price'] }}{% endif %}
+            {% if c['cost']['competition'] is not none and c['cost']['serie'] is not none %}/{% endif %}
+            {% if c['cost']['serie'] is not none %}€ {{ c['cost']['serie']['price'] }}{% endif %}
+          {% else %}gratis
+          {% endif %}</p>
+        <p class="combination criteria">deelname criteria</p>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
