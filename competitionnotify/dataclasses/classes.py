@@ -16,14 +16,6 @@ def uuid_converter(data: str) -> uuid.UUID:
 def datetime_converter(data: str) -> datetime:
 	return datetime.fromisoformat(data)
 
-#TODO: do not use strings, but index the type
-@attrs.define(frozen=True, kw_only=True, slots=False)
-class DisciplineClass(base.BaseClass):
-	_discipline:str|None = attrs.field(validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-
-def DisciplineClass_converter(data: str|None) -> DisciplineClass:
-	return DisciplineClass(discipline=data)
-
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class SeriesClass(base.BaseClass):
 	_competitionsCount: int = attrs.field(validator=attrs.validators.instance_of(int))
