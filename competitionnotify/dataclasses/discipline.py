@@ -20,7 +20,7 @@ class DisciplineClass(base.BaseClass):
 	_discipline:int = attrs.field(validator=[attrs.validators.instance_of(int), discipline_class_discipline_validator])
 
 	def isValid(self) -> bool:
-		return True if self._discipline >= 0 and self._discipline < (len(instance._disciplines) - 1) else False
+		return True if self._discipline >= 0 and self._discipline < len(self._disciplines) else False
 
 	def isUnknown(self) -> bool:
 		return True if self._discipline == -1 else False
@@ -53,7 +53,16 @@ def DisciplineClass_converter(data: DisciplineClass|str|None) -> DisciplineClass
 		return data
 	return DisciplineClass.getDisciplineByString(string=data)
 
-def DisciplineClassList_converter(data: list[DisciplineClass]|str|None) -> list[DisciplineClass]:
+def DisciplineClassList_converter(data: list[DisciplineClass]|list[str]|str|None) -> list[DisciplineClass]:
 	if isinstance(data, list):
-		return data
-	return [DisciplineClass.getDisciplineByString(string=data)]
+		if len(data) > 0:
+			if isinstance(data[0], DisciplineClass):
+				return data
+			elif isinstance(data[0], str):
+				return [DisciplineClass.getDisciplineByString(string=string) for string in data]
+		else:
+			return []
+	elif isinstance(data, str):
+		return [DisciplineClass.getDisciplineByString(string=data)]
+	else:
+		return []

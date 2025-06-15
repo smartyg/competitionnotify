@@ -1,75 +1,137 @@
-from competitionnotify.dataclasses.discipline import DisciplineClass
+import competitionnotify.dataclasses.discipline as discipline
 
 import unittest
 import pytest
 
 class TestDisciplineClass(unittest.TestCase):
-	def test_construct(self):
-		test = CategoryClass(gender=0, age=0, ageSub=0)
-		self.assertIsInstance(test, CategoryClass)
+	def test_construct1(self):
+		test = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Inline")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
 
-	def test_constructByDate(self):
-		date = datetime.date(1987, 10, 20)
-		test = CategoryClass.getCategoryByDate(male=True, date=date)
-		self.assertIsInstance(test, CategoryClass)
+	def test_construct2(self):
+		test = discipline.DisciplineClass(discipline=1)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.LongTrack")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
 
-	def test_constructByText(self):
-		test = CategoryClass.getCategoryByString(string="HSA")
-		self.assertIsInstance(test, CategoryClass)
+	def test_construct3(self):
+		test = discipline.DisciplineClass(discipline=2)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Marathon")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
 
-	def test_equalTrue(self):
-		test1 = CategoryClass(gender=0, age=0, ageSub=0)
-		test2 = CategoryClass.getCategoryByString(string="DPF")
-		self.assertTrue(test1.equal(test2))
+	def test_construct4(self):
+		test = discipline.DisciplineClass(discipline=3)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.ShortTrack")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
 
-	def test_equalFalse(self):
-		test1 = CategoryClass(gender=0, age=0, ageSub=0)
-		test2 = CategoryClass.getCategoryByString(string="D55")
-		self.assertFalse(test1.equal(test2))
-
-	def test_toString1(self):
-		test = CategoryClass.getCategoryByString(string="H55")
-		string = test.asString(old_style=False)
-		self.assertEqual(string, "H55")
-
-	def test_toString2(self):
-		test = CategoryClass.getCategoryByString(string="H55")
-		string = test.asString(old_style=True)
-		self.assertEqual(string, "HMD")
-
-	def test_toString3(self):
-		test = CategoryClass.getCategoryByString(string="HMD")
-		string = test.asString(old_style=False)
-		self.assertEqual(string, "H55")
-
-	def test_toString4(self):
-		test = CategoryClass.getCategoryByString(string="HMD")
-		string = test.asString(old_style=True)
-		self.assertEqual(string, "HMD")
-
-	def test_toString5(self):
-		test = CategoryClass.getCategoryByString(string="H55")
-		string = str(test)
-		self.assertEqual(string, "H55")
-
-	def test_equalByDate(self):
-		date = datetime.date(1987, 10, 20)
-		test1 = CategoryClass.getCategoryByDate(male=True, date=date)
-		test2 = CategoryClass.getCategoryByString(string="H35")
-		self.assertTrue(test1.equal(test2))
-
-	def test_constructFail1(self):
+	def test_construct5(self):
 		with pytest.raises(ValueError) as e:
-			test = CategoryClass(gender=2, age=0, ageSub=0)
+			test = discipline.DisciplineClass(discipline=4)
 
-	def test_constructFail2(self):
-		with pytest.raises(ValueError) as e:
-			test = CategoryClass(gender=0, age=11, ageSub=0)
+	def test_construct5(self):
+		test = discipline.DisciplineClass(discipline=-1)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Unknown")
+		self.assertFalse(test.isValid())
+		self.assertTrue(test.isUnknown())
 
-	def test_constructFail3(self):
-		with pytest.raises(ValueError) as e:
-			test = CategoryClass(gender=0, age=5, ageSub=4)
+	def test_constructByString(self):
+		for v in ("SpeedSkating.Inline", "SpeedSkating.LongTrack", "SpeedSkating.Marathon", "SpeedSkating.ShortTrack"):
+			test = discipline.DisciplineClass.getDisciplineByString(v)
+			self.assertIsInstance(test, discipline.DisciplineClass)
+			self.assertEqual(test.asString(), v)
+			self.assertTrue(test.isValid())
+			self.assertFalse(test.isUnknown())
 
-	def test_CategoryClass_converter(self):
-		test = CategoryClass_converter(string="H55")
-		string = str(test)
+	def test_constructByStringInvalid(self):
+		test = discipline.DisciplineClass.getDisciplineByString("InvalidString")
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Unknown")
+		self.assertFalse(test.isValid())
+		self.assertTrue(test.isUnknown())
+
+
+	def test_converter1(self):
+		test = discipline.DisciplineClass_converter("SpeedSkating.LongTrack")
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.LongTrack")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
+
+	def test_converter2(self):
+		test = discipline.DisciplineClass_converter("InvalidString")
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Unknown")
+		self.assertFalse(test.isValid())
+		self.assertTrue(test.isUnknown())
+
+	def test_converter3(self):
+		test = discipline.DisciplineClass_converter(None)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Unknown")
+		self.assertFalse(test.isValid())
+		self.assertTrue(test.isUnknown())
+
+	def test_converter4(self):
+		cls = discipline.DisciplineClass(discipline=0)
+		test = discipline.DisciplineClass_converter(cls)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertEqual(test.asString(), "SpeedSkating.Inline")
+		self.assertTrue(test.isValid())
+		self.assertFalse(test.isUnknown())
+		self.assertEqual(test, cls)
+
+
+	def test_converter_list1(self):
+		test = discipline.DisciplineClassList_converter("SpeedSkating.LongTrack")
+		self.assertIsInstance(test, list)
+		self.assertEqual(len(test), 1)
+		item = test[0]
+		self.assertIsInstance(item, discipline.DisciplineClass)
+		self.assertEqual(item.asString(), "SpeedSkating.LongTrack")
+		self.assertTrue(item.isValid())
+		self.assertFalse(item.isUnknown())
+
+	def test_converter_list2(self):
+		test = discipline.DisciplineClassList_converter("InvalidString")
+		self.assertIsInstance(test, list)
+		self.assertEqual(len(test), 1)
+		item = test[0]
+		self.assertIsInstance(item, discipline.DisciplineClass)
+		self.assertEqual(item.asString(), "SpeedSkating.Unknown")
+		self.assertFalse(item.isValid())
+		self.assertTrue(item.isUnknown())
+
+	def test_converter_list3(self):
+		test = discipline.DisciplineClassList_converter(None)
+		self.assertIsInstance(test, list)
+		self.assertEqual(len(test), 0)
+
+	def test_converter_list4(self):
+		cls1 = discipline.DisciplineClass(discipline=0)
+		cls2 = discipline.DisciplineClass(discipline=2)
+		test = discipline.DisciplineClassList_converter([cls1, cls2])
+		self.assertIsInstance(test, list)
+		self.assertEqual(len(test), 2)
+
+		item = test[0]
+		self.assertIsInstance(item, discipline.DisciplineClass)
+		self.assertEqual(item.asString(), "SpeedSkating.Inline")
+		self.assertTrue(item.isValid())
+		self.assertFalse(item.isUnknown())
+		self.assertEqual(item, cls1)
+
+		item = test[1]
+		self.assertIsInstance(item, discipline.DisciplineClass)
+		self.assertEqual(item.asString(), "SpeedSkating.Marathon")
+		self.assertTrue(item.isValid())
+		self.assertFalse(item.isUnknown())
+		self.assertEqual(item, cls2)

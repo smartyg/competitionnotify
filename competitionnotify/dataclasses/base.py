@@ -63,7 +63,6 @@ class ComparableClass(BaseClass):
 		fields = attrs.fields(type(self))
 		for field in fields:
 			cmp_type: int|None = field.metadata.get(BaseClass._COMPARE_TYPE, None)
-			#print(field)
 			if cmp_type is None:
 				continue
 			if cmp_type == BaseClass.NO_COMPARE:
@@ -96,18 +95,17 @@ class ComparableClass(BaseClass):
 		return result
 
 	def getFirstFieldName(self) -> str|None:
-		return BaseClass.getFirstFieldName(type(self))
-
-	@staticmethod
-	def getFirstFieldName(c: "BaseClass") -> str|None:
-		fields = attrs.fields(c)
-		if (len(fields)) >= 1:
-			return fields[0].alias
-		else:
-			return None
+		return getFirstFieldName(self)
 
 	@staticmethod
 	def comparable(cmp_type: int = -1, default=attrs.NOTHING, validator=None, repr=True, hash=None, init=True, metadata=None, type=None, converter=None, factory=None, kw_only=False, eq=None, order=None, on_setattr=None, alias=None):
 		metadata = metadata or {}
 		metadata[BaseClass._COMPARE_TYPE] = cmp_type
 		return attrs.field(default=default, validator=validator, repr=repr, hash=hash, init=init, metadata=metadata, type=type, converter=converter, factory=factory, kw_only=kw_only, eq=eq, order=order, on_setattr=on_setattr, alias=alias)
+
+def getFirstFieldName(c: "BaseClass") -> str|None:
+	fields = attrs.fields(c)
+	if (len(fields)) >= 1:
+		return fields[0].alias
+	else:
+		return None

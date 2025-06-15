@@ -14,11 +14,17 @@ import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
 
-def uuid_converter(data: str) -> uuid.UUID:
-	return uuid.UUID(data, version=4)
+def uuid_converter(data: uuid.UUID|str) -> uuid.UUID:
+	if isinstance(data, uuid.UUID):
+		return data
+	else:
+		return uuid.UUID(data, version=4)
 
-def datetime_converter(data: str) -> datetime:
-	return datetime.fromisoformat(data)
+def datetime_converter(data: datetime|str) -> datetime:
+	if isinstance(data, datetime):
+		return data
+	else:
+		return datetime.fromisoformat(data)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class SeriesClass(base.BaseClass):
@@ -28,24 +34,29 @@ class SeriesClass(base.BaseClass):
 	_name: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_season: int = attrs.field(validator=attrs.validators.instance_of(int))
 
-def SeriesClass_converter(data: dict[str, Any]|None) -> type[SeriesClass]|None:
-	return class_converter_none(data, SeriesClass)
+def SeriesClass_converter(data: SeriesClass|dict[str, Any]|None) -> type[SeriesClass]|None:
+	if isinstance(data, SeriesClass):
+		return data
+	return utils.class_converter_none(data, SeriesClass)
 
-def name_converter(data: dict[str, str]|None) -> str|None:
+def name_converter(data: str|dict[str, str]|None) -> str|None:
 	if data is None:
 		return None
-	initials = data.get('initials', None)
-	firstName = data.get('firstName', initials)
-	surnamePrefix = data.get('surnamePrefix', None)
-	surname = data.get('surname', None)
-	name: str = str()
-	if surname is not None:
-		name = surname
-		if surnamePrefix is not None:
-			name = surnamePrefix + " " + name
-	if firstName is not None:
-		name = firstName + " " + name
-	return name
+	elif isinstance(data, str):
+		return data
+	else:
+		initials = data.get('initials', None)
+		firstName = data.get('firstName', initials)
+		surnamePrefix = data.get('surnamePrefix', None)
+		surname = data.get('surname', None)
+		name: str = str()
+		if surname is not None:
+			name = surname
+			if surnamePrefix is not None:
+				name = surnamePrefix + " " + name
+		if firstName is not None:
+			name = firstName + " " + name
+		return name
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class ContactClass(base.BaseClass):
@@ -57,8 +68,10 @@ class ContactClass(base.BaseClass):
 	_extra: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_url: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
-def ContactClass_converter(data: dict[str, Any]|None) -> type[ContactClass]|None:
-	return class_converter_none(data, ContactClass)
+def ContactClass_converter(data: ContactClass|dict[str, Any]|None) -> type[ContactClass]|None:
+	if isinstance(data, ContactClass):
+		return data
+	return utils.class_converter_none(data, ContactClass)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class SettingClass(base.BaseClass):
@@ -74,8 +87,10 @@ class SettingClass(base.BaseClass):
 	_currency: str = attrs.field(default=str(), validator=attrs.validators.instance_of(str))
 	_contact: ContactClass|None = attrs.field(converter=ContactClass_converter, validator=attrs.validators.optional(attrs.validators.instance_of(ContactClass)))
 
-def SettingClass_converter(data: dict[str, Any]) -> type[SettingClass]:
-	return class_converter_except(data, SettingClass)
+def SettingClass_converter(data: SettingClass|dict[str, Any]) -> type[SettingClass]:
+	if isinstance(data, SettingClass):
+		return data
+	return utils.class_converter_except(data, SettingClass)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CompetitionClass(base.BaseClass):
@@ -122,8 +137,10 @@ class CompetitionClass(base.BaseClass):
 	def isTest(self) -> bool:
 		return self._test
 
-def CompetitionClass_converter(data: dict[str, Any]) -> type[CompetitionClass]:
-	return class_converter_except(data, CompetitionClass)
+def CompetitionClass_converter(data: CompetitionClass|dict[str, Any]) -> type[CompetitionClass]:
+	if isinstance(data, CompetitionClass):
+		return data
+	return utils.class_converter_except(data, CompetitionClass)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class DistanceClass(base.BaseClass):

@@ -250,20 +250,20 @@ class CategoryFilterClass(CategoryBase):
 				if entry[0] == '*' or entry[0] == '?':
 					genders = CategoryBase.getGenderPosibilities()
 				else:
-					genders = tuple(CategoryBase.getGenderValue(entry[0]),)
+					genders = tuple([CategoryBase.getGenderValue(entry[0])])
 
 				if entry[1] == '*' or entry[1] == '?':
 					ages = CategoryBase.getAgePosibilities()
 					age_subs = -1
 				else:
-					ages = tuple(CategoryBase.getAgeValue(entry[1]),)
+					ages = tuple([CategoryBase.getAgeValue(entry[1])])
 					if entry[2] == '*' or entry[2] == '?':
-						ages = CategoryBase.getAgeSubPosibilities(ages[0])
+						age_subs = CategoryBase.getAgeSubPosibilities(ages[0])
 					else:
-						age_subs = tuple(CategoryBase.getAgeSubValue(entry[2], ages[0]))
+						age_subs = tuple([CategoryBase.getAgeSubValue(entry[2], ages[0])])
 
 			elif len(entry) == 2 and (entry[1] == '*' or entry[1] == '?'):
-				genders = tuple(CategoryBase.getGenderValue(entry[0]),)
+				genders = tuple([CategoryBase.getGenderValue(entry[0])])
 				ages = CategoryBase.getAgePosibilities()
 				age_subs = -1
 			elif len(entry) == 1 and (entry == '*' or entry == '?'):
@@ -275,7 +275,7 @@ class CategoryFilterClass(CategoryBase):
 
 			for g in genders:
 				for a in ages:
-					if isinstance(age_subs, list):
+					if isinstance(age_subs, tuple):
 						for s in age_subs:
 							categorie = CategoryClass(gender=g, age=a, ageSub=s)
 							filters.append(categorie)
@@ -288,6 +288,8 @@ class CategoryFilterClass(CategoryBase):
 
 	#_categoryFilter: str = attrs.field(validator=attrs.validators.instance_of(str))
 
-def CategoryFilterClass_converter(data: str) -> CategoryFilterClass:
+def CategoryFilterClass_converter(data: CategoryFilterClass|str) -> CategoryFilterClass:
+	if isinstance(data, CategoryFilterClass):
+		return data
 	return CategoryFilterClass(categoryFilter=data)
 
