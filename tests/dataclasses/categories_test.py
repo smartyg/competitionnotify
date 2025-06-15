@@ -77,4 +77,27 @@ class TestCategoryClass(unittest.TestCase):
 		string = str(test)
 
 class TestCategoryFilterClass(unittest.TestCase):
-	def fromString(filter_text: str, old_style:bool = False) -> "CategoryFilterClass":
+	def test_constructByText1(self):
+		test = CategoryFilterClass.fromString("*")
+		self.assertIsInstance(test, CategoryFilterClass)
+		num = test.numberOfCategories()
+		print(str(test._list))
+		self.assertEqual(num, 56)
+
+	def test_constructByText2(self):
+		test = CategoryFilterClass.fromString("D*")
+		self.assertIsInstance(test, CategoryFilterClass)
+		num = test.numberOfCategories()
+		self.assertEqual(num, 28)
+
+	def test_constructByText3(self):
+		test = CategoryFilterClass.fromString("?P?")
+		self.assertIsInstance(test, CategoryFilterClass)
+		num = test.numberOfCategories()
+		self.assertEqual(num, 12)
+
+	def test_constructByText4(self):
+		test = CategoryFilterClass.fromString("HC*")
+		self.assertIsInstance(test, CategoryFilterClass)
+		num = test.numberOfCategories()
+		self.assertEqual(num, 2)

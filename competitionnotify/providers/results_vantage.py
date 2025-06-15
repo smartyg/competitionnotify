@@ -2,8 +2,9 @@
 
 import asyncio
 import logging
-import providers.base.result_provider_interface as result_provider
-import websocket
+
+import competitionnotify.providers.base.result_provider_interface as result_provider
+import competitionnotify.websocket as websocket
 
 logger = logging.getLogger(__name__)
 

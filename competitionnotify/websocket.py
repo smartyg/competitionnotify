@@ -12,7 +12,8 @@ from pathlib import Path
 from typing import Any
 import attrs
 import uuid
-from baseclass import BaseClass
+
+import competitionnotify.dataclasses.base as base
 
 DataType = None|bool|int|str|list|dict
 
@@ -79,7 +80,7 @@ class Websocket(WebsocketInterface):
 	_server: websockets.server.WebSocketServer|None = attrs.field(default=None, init=False)
 
 	@attrs.define(frozen=True, kw_only=True, slots=False)
-	class Command(BaseClass):
+	class Command(base.BaseClass):
 		_response: int = attrs.field(default=-1, validator=attrs.validators.instance_of(int))
 		_module: str = attrs.field(validator=attrs.validators.instance_of(str))
 		_command: str = attrs.field(validator=attrs.validators.instance_of(str))

@@ -9,10 +9,16 @@ import logging
 import traceback
 import uuid
 from datetime import datetime, timezone
-from baseclass import BaseClass
-from classes import CompetitionClass, CompetitionClass_converter, DistancecombinationsClass, DistancecombinationsettingsClass
-from task_manager import CoroutineClass
-from utils import class_factory
+
+#from baseclass import BaseClass
+#from classes import CompetitionClass, CompetitionClass_converter, DistancecombinationsClass, DistancecombinationsettingsClass
+
+import competitionnotify.websocket as websocket
+import competitionnotify.utils.utils as utils
+import competitionnotify.dataclasses.base as base
+import competitionnotify.dataclasses.classes as dataclasses
+import competitionnotify.task_manager as task_manager
+import competitionnotify.providers.base.loadable_provider as loadable_provider
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +45,7 @@ class CompetitionProcess:
 		def getClass(self) -> str:
 			return self._type
 
-	_competition: CompetitionClass = attrs.field(converter=CompetitionClass_converter, validator=attrs.validators.instance_of(CompetitionClass))
+	_competition: dataclasses.CompetitionClass = attrs.field(converter=dataclasses.CompetitionClass_converter, validator=attrs.validators.instance_of(dataclasses.CompetitionClass))
 
 	async def load(self) -> None:
 		pass
@@ -97,11 +103,11 @@ class CompetitionProcess:
 				data = json.loads(await response.text())
 				ret = None
 				if not isinstance(data, dict):
-					name = BaseClass.getFirstFieldName(c)
+					name = base.BaseClass.getFirstFieldName(c)
 					if name is not None:
-						ret = class_factory({name: data}, c)
+						ret = utils.class_factory({name: data}, c)
 				else:
-					ret = class_factory(data, c)
+					ret = utils.class_factory(data, c)
 				if ret is None:
 					raise ValueError("failed to create and instance of type " + str(c.__name__) + " with data: " + str(data))
 				return ret
@@ -155,7 +161,7 @@ class CompetitionProcess:
 
 		return True
 
-class SchaatsenDotNl(LoadableProvider, WebsocketInterface):
+class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 	_competitions: set[type[CompetitionProcess]] = set()
 
 	def __init__(self) -> None:
@@ -177,7 +183,7 @@ class SchaatsenDotNl(LoadableProvider, WebsocketInterface):
 
 		# Loop over all the competitions and generate for each a CompetitionProcess
 		for competition in competitions:
-			c = class_factory({'competition': competition}, CompetitionProcess)
+			c = utils.class_factory({'competition': competition}, CompetitionProcess)
 			if c is not None:
 				self._competitions.add(c)
 		print("processed " + str(len(self._competitions)) + "/" + str(len(competitions)) + " competitions")
@@ -197,13 +203,13 @@ class SchaatsenDotNl(LoadableProvider, WebsocketInterface):
 	def listNoTest(self) -> set[type[CompetitionProcess]]:
 		return {c for c in self._competitions if not c.isTest()}
 
-	def getCompetition(self, id: uuid.UUID) -> CoroutineClass|None:
+	def getCompetition(self, id: uuid.UUID) -> task_manager.CoroutineClass|None:
 		for competition in self._competitions:
 			if competition.getId() == id:
-				return CoroutineClass(coroutine=competition.run(True), name=competition.getName())
+				return task_manager.CoroutineClass(coroutine=competition.run(True), name=competition.getName())
 		return None
 
-	async def getCompetitions(self, download: bool, include_open: bool = True, include_open_future: bool = True, include_closed: bool = False, include_test: bool = False) -> set[CoroutineClass]:
+	async def getCompetitions(self, download: bool, include_open: bool = True, include_open_future: bool = True, include_closed: bool = False, include_test: bool = False) -> set[task_manager.CoroutineClass]:
 		if download:
 			await self.load()
 
@@ -214,9 +220,9 @@ class SchaatsenDotNl(LoadableProvider, WebsocketInterface):
 						) & (self.listNoTest() if not include_test else self._competitions)
 
 		# Generate a CoroutineClass object for each listed competition
-		ret: set[CoroutineClass] = set()
+		ret: set[task_manager.CoroutineClass] = set()
 		for competition in run_competitions:
-				ret.add(CoroutineClass(coroutine=competition.run(), name=competition.getName()))
+				ret.add(task_manager.CoroutineClass(coroutine=competition.run(), name=competition.getName()))
 
 		# Return the list of competition coroutines
 		return ret

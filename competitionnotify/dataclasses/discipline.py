@@ -3,7 +3,8 @@
 import attrs
 import typing
 import logging
-import base
+
+import competitionnotify.dataclasses.base as base
 
 logger = logging.getLogger(__name__)
 
@@ -42,10 +43,17 @@ class DisciplineClass(base.BaseClass):
 	def getDisciplineByString(string: str|None) -> "DisciplineClass":
 		d:int = -1
 		if isinstance(string, str):
-			for i in range(len(DisciplineClass._disciplines) - 1):
-				if string == str(DisciplineClass._prefix + DisciplineClass._disciplines[self._discipline]):
+			for i in range(len(DisciplineClass._disciplines)):
+				if string == str(DisciplineClass._prefix + DisciplineClass._disciplines[i]):
 					d = i
 		return DisciplineClass(discipline=d)
 
-def DisciplineClass_converter(data: str|None) -> DisciplineClass:
+def DisciplineClass_converter(data: DisciplineClass|str|None) -> DisciplineClass:
+	if isinstance(data, DisciplineClass):
+		return data
 	return DisciplineClass.getDisciplineByString(string=data)
+
+def DisciplineClassList_converter(data: list[DisciplineClass]|str|None) -> list[DisciplineClass]:
+	if isinstance(data, list):
+		return data
+	return [DisciplineClass.getDisciplineByString(string=data)]

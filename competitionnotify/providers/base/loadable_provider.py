@@ -1,26 +1,43 @@
-class LoadableProvider:
-	_data
-	_loaded: bool = False
-	_url: str
-	_cls: "dataclass"
+#!/bin/python
 
-	def __init__(self, url: str, c: "dataclass"):
+import aiohttp
+import logging
+import json
+
+logger = logging.getLogger(__name__)
+
+class LoadableProvider:
+	#_data
+	_loaded: bool = False
+	_url: str|None
+	#_cls: "dataclass"
+	#_func
+
+	def __init__(self, url: str|None, func):
 		self._url = url
-		self._cls = c
+		self._func = func
+		self._session = aiohttp.ClientSession()
+
+	async def getSession(self):
+		return self._session
 
 	async def load(self) -> None:
 		self._loaded = False
-		logger.debug ("Download the new data file")
-		async with aiohttp.ClientSession() as session:
-			async with session.get(self._url) as response:
-				logger.debug ("New data file downloaded")
-				json = json.loads(await response.text())
-				self._data = class_factory(json, self._cls)
-				self._loaded = True
-				return None
+		if self._url is not None:
+			logger.debug ("Download the new data file")
+			session = await self.getSession()
+			async with session:
+				async with session.get(self._url) as response:
+					logger.debug ("New data file downloaded")
+					data = json.loads(await response.text())
+					await self._func(json=data)
+					#self._data = class_factory(json, self._cls)
+					self._loaded = True
+					return None
+		else:
+			await self._func(json=dict())
+			self._loaded = True
+			return None
 
 	def isLoaded(self) -> bool:
 		return self._loaded
-
-	def getData(self):
-		return self._data

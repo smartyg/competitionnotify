@@ -34,16 +34,16 @@ class CategoryBase(base.BaseClass):
 												("", "")) # Master 80
 
 	@staticmethod
-	def getGenderPosibilities() -> tuple[int]:
-		return tuple(range(len(CategoryBase._genderTypes) - 1))
+	def getGenderPosibilities() -> tuple[int, ...]:
+		return tuple(range(0, len(CategoryBase._genderTypes)))
 
 	@staticmethod
-	def getAgePosibilities() -> tuple[int]:
-		return tuple(range(len(CategoryBase._ageTypes) - 1))
+	def getAgePosibilities() -> tuple[int, ...]:
+		return tuple(range(0, len(CategoryBase._ageTypes)))
 
 	@staticmethod
-	def getAgeSubPosibilities(age: int) -> tuple[int]:
-		return tuple(range(len(CategoryBase._ageSubTypes[age]) - 1))
+	def getAgeSubPosibilities(age: int) -> tuple[int, ...]:
+		return tuple(range(0, len(CategoryBase._ageSubTypes[age])))
 
 	@staticmethod
 	def getGenderValue(text:str) -> int:
@@ -52,16 +52,16 @@ class CategoryBase(base.BaseClass):
 	@staticmethod
 	def getAgeValue(text:str, old_style:bool = False) -> int:
 		if old_style:
-			age = CategoryBase._ageTypes.index(text.upper())
+			return CategoryBase._ageOldTypes.index(text.upper())
 		else:
-			age = CategoryBase._ageTypes.index(text.upper())
+			return CategoryBase._ageTypes.index(text.upper())
 
 	@staticmethod
 	def getAgeSubValue(text:str, age:int, old_style:bool = False) -> int:
 		if old_style:
-			ageSub = CategoryBase._ageSubOldTypes[age].index(text.upper())
+			return CategoryBase._ageSubOldTypes[age].index(text.upper())
 		else:
-			ageSub = CategoryBase._ageSubTypes[age].index(text.upper())
+			return CategoryBase._ageSubTypes[age].index(text.upper())
 
 def category_class_gender_validator(instance: "CategoryClass", attribute: str, value: int):
 	if value > (len(instance._genderTypes) - 1) or value < 0:
@@ -190,6 +190,7 @@ class CategoryClass(CategoryBase):
 		for entry in filter.getList():
 			if self.equal(entry):
 				return True
+		return False
 
 	def equal(self, o: "CategoryClass") -> bool:
 		return (self._gender == o._gender and self._age == o._age and self._ageSub == o._ageSub)
@@ -206,7 +207,9 @@ class CategoryClass(CategoryBase):
 	def __repr__(self) -> str:
 		return self.asString()
 
-def CategoryClass_converter(data: str) -> CategoryClass:
+def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
+	if isinstance(data, CategoryClass):
+		return data
 	ret = CategoryClass.getCategoryByString(string=data)
 	if ret is None:
 		raise ValueError("String '" + data + "' is not a valid category string.")
@@ -231,33 +234,36 @@ class CategoryFilterClass(CategoryBase):
 		else:
 			raise ValueError("Value of parameter `category` is not a valid category ('" + str(category) + "')")
 
+	def numberOfCategories(self) -> int:
+		return len(self._list)
+
 	@staticmethod
 	def fromString(filter_text: str, old_style:bool = False) -> "CategoryFilterClass":
-		filters_text = split(filter_text, ',')
+		filters_text = str.split(filter_text, ',')
 		filters:list[CategoryClass] = []
 		for entry in filters_text:
-			genders:tuple[int]
-			ages:tuple[int]
-			age_subs:tuple[int]|int
+			genders:tuple[int, ...]
+			ages:tuple[int, ...]
+			age_subs:tuple[int, ...]|int
 
 			if len(entry) == 3:
 				if entry[0] == '*' or entry[0] == '?':
 					genders = CategoryBase.getGenderPosibilities()
 				else:
-					genders = tuple(CategoryBase.getGenderValue(entry[0]))
+					genders = tuple(CategoryBase.getGenderValue(entry[0]),)
 
 				if entry[1] == '*' or entry[1] == '?':
 					ages = CategoryBase.getAgePosibilities()
 					age_subs = -1
 				else:
-					ages = tuple(CategoryBase.getAgePosibilities(entry[1]))
+					ages = tuple(CategoryBase.getAgeValue(entry[1]),)
 					if entry[2] == '*' or entry[2] == '?':
 						ages = CategoryBase.getAgeSubPosibilities(ages[0])
 					else:
 						age_subs = tuple(CategoryBase.getAgeSubValue(entry[2], ages[0]))
 
 			elif len(entry) == 2 and (entry[1] == '*' or entry[1] == '?'):
-				genders = tuple(CategoryBase.getGenderValue(entry[0]))
+				genders = tuple(CategoryBase.getGenderValue(entry[0]),)
 				ages = CategoryBase.getAgePosibilities()
 				age_subs = -1
 			elif len(entry) == 1 and (entry == '*' or entry == '?'):

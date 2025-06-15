@@ -4,13 +4,13 @@ import asyncio
 import logging
 import traceback
 
-import providers.venues as venues
-import providers.skaters as skaters
-import providers.results_vantage as results_vantage
-import providers.results_ssr as results_ssr
-import providers.schaatsen_nl as schaatsen_nl
-import task_manager
-import websocket
+import competitionnotify.providers.venues as venues
+import competitionnotify.providers.skaters as skaters
+import competitionnotify.providers.results_vantage as results_vantage
+import competitionnotify.providers.results_ssr as results_ssr
+import competitionnotify.providers.schaatsen_nl as schaatsen_nl
+import competitionnotify.task_manager as task_manager
+import competitionnotify.websocket as websocket
 
 #test
 import uuid
@@ -25,18 +25,18 @@ async def runner() -> None:
 		websocket_process = task_manager.TaskManager()
 
 		# get isntance to venues
-		venues = venues.Venues()
-		utils_processes.startProces(venues.load())
+		venues_provider = venues.Venues()
+		utils_processes.startProces(venues_provider.load())
 
 		# get instance to skaters
-		skaters = skaters.Skaters(file="skaters.h5")
+		skaters_provider = skaters.Skaters(file="skaters.h5")
 		utils_processes.startProces(skaters.load())
 
 		# get instance to Vantage (KNSB) times
-		results_vantage = results_vantage.ResultsVantage()
+		results_provider_vantage = results_vantage.ResultsVantage()
 
 		# get instance to Speed Skating Results
-		results_ssr = results_ssr.ResultsSSR()
+		results_provider_ssr = results_ssr.ResultsSSR()
 
 		# Database with processed competitions
 		processed_competitions = ProcessedCompetitions(file="processed_competitions")
@@ -45,17 +45,17 @@ async def runner() -> None:
 		emails = Emails(prepared_file="prepared_emails", send_file="send_emails")
 
 		# Get an instance of the main download class
-		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters, venues=venues, results=[results_vantage, results_ssr], processed_competitions=processed_competitions, emails=emails)
+		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
 		utils_processes.startProces(competitions.load())
 
 		# start websocket
 		websocket = websocket.Websocket()
 
 		# register all modules for the websocket
-		websocket.registerModule(venues)
-		websocket.registerModule(skaters)
-		websocket.registerModule(results_vantage)
-		websocket.registerModule(results_ssr)
+		websocket.registerModule(venues_provider)
+		websocket.registerModule(skaters_provider)
+		websocket.registerModule(results_provider_vantage)
+		websocket.registerModule(results_provider_ssr)
 		websocket.registerModule(processed_competitions)
 		websocket.registerModule(emails)
 		websocket.registerModule(competitions)
@@ -104,7 +104,27 @@ async def test() -> None:
 	print(c)
 
 
+async def test_venues() -> None:
+	venues_provider = venues.Venues()
+	await venues_provider.load()
+
+	s = venues_provider.getAll()
+	print(type(s))
+	print(s)
+
+async def test_skaters() -> None:
+	venues_provider = venues.Venues()
+	await venues_provider.load()
+
+	skaters_provider = skaters.Skaters("/mnt/projects/development/competitionnotify/skaters.db", venues_provider)
+	await skaters_provider.load()
+
+	s = skaters_provider.getAll()
+	print(type(s))
+	print(s)
+
 if __name__ == '__main__':
 	#logging.basicConfig(filename='wedstrijdkalender.log', level=logging.DEBUG)
-	asyncio.run(runner())
+	#asyncio.run(runner())
 	#asyncio.run(test())
+	asyncio.run(test_skaters())
