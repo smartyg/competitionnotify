@@ -91,8 +91,8 @@ class TestDisciplineClass(unittest.TestCase):
 
 
 	def test_converter_list1(self):
-		test = discipline.DisciplineClassList_converter("SpeedSkating.LongTrack")
-		self.assertIsInstance(test, list)
+		test = discipline.DisciplineClassTuple_converter("SpeedSkating.LongTrack")
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 1)
 		item = test[0]
 		self.assertIsInstance(item, discipline.DisciplineClass)
@@ -101,8 +101,8 @@ class TestDisciplineClass(unittest.TestCase):
 		self.assertFalse(item.isUnknown())
 
 	def test_converter_list2(self):
-		test = discipline.DisciplineClassList_converter("InvalidString")
-		self.assertIsInstance(test, list)
+		test = discipline.DisciplineClassTuple_converter("InvalidString")
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 1)
 		item = test[0]
 		self.assertIsInstance(item, discipline.DisciplineClass)
@@ -111,15 +111,15 @@ class TestDisciplineClass(unittest.TestCase):
 		self.assertTrue(item.isUnknown())
 
 	def test_converter_list3(self):
-		test = discipline.DisciplineClassList_converter(None)
-		self.assertIsInstance(test, list)
+		test = discipline.DisciplineClassTuple_converter(None)
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 0)
 
 	def test_converter_list4(self):
 		cls1 = discipline.DisciplineClass(discipline=0)
 		cls2 = discipline.DisciplineClass(discipline=2)
-		test = discipline.DisciplineClassList_converter([cls1, cls2])
-		self.assertIsInstance(test, list)
+		test = discipline.DisciplineClassTuple_converter(tuple([cls1, cls2]))
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 2)
 
 		item = test[0]

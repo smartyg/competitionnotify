@@ -65,8 +65,8 @@ class TestTrackClass(unittest.TestCase):
 	def test_convertor_list1(self):
 		json_string = '[{"venueCode":"BID","venueDiscipline":"SpeedSkating.Marathon","length":400.000}]'
 		json_data = json.loads(json_string)
-		test = venue.TrackClassList_converter(data=json_data)
-		self.assertIsInstance(test, list)
+		test = venue.TrackClassTuple_converter(data=json_data)
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 1)
 
 		item = test[0]
@@ -77,8 +77,8 @@ class TestTrackClass(unittest.TestCase):
 
 	def test_convertor_list2(self):
 		cls = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.LongTrack")
-		test = venue.TrackClassList_converter(data=[cls])
-		self.assertIsInstance(test, list)
+		test = venue.TrackClassTuple_converter(data=tuple([cls]))
+		self.assertIsInstance(test, tuple)
 		self.assertEqual(len(test), 1)
 
 		item = test[0]
@@ -89,13 +89,43 @@ class TestVenueClass(unittest.TestCase):
 	def test_construct1(self):
 		track = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.Marathon")
 		address = venue.AddressClass()
-		test = venue.VenueClass(address=address, code="AMS", continentCode="EUR", name="Stichting IJscomplex Jaap Edenbaan", discipline="SpeedSkating.Marathon", tracks=[track])
+		test = venue.VenueClass(address=address, code="AMS", continentCode="EUR", name="Stichting IJscomplex Jaap Edenbaan", discipline="SpeedSkating.Marathon", tracks=tuple([track]))
 
 		self.assertIsInstance(test, venue.VenueClass)
 		self.assertEqual(test.getCode(), "AMS")
 		self.assertTrue(test.hasDiscipline(discipline.DisciplineClass(discipline=2)))
 		self.assertTrue(test.hasTrack(track))
 		self.assertEqual(test.getAddress(), address)
+
+	def test_AddDiscipline(self):
+		track = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.Marathon")
+		address = venue.AddressClass()
+		test1 = venue.VenueClass(address=address, code="AMS", continentCode="EUR", name="Stichting IJscomplex Jaap Edenbaan", discipline="SpeedSkating.Marathon", tracks=tuple([track]))
+
+		self.assertIsInstance(test1, venue.VenueClass)
+
+		test2 = test1.AddDiscipline(discipline.DisciplineClass(discipline=1))
+
+		self.assertEqual(test2.numOfDisciplines(), 2)
+		self.assertTrue(test2.hasDiscipline(discipline.DisciplineClass(discipline=1)))
+		self.assertTrue(test2.hasDiscipline(discipline.DisciplineClass(discipline=2)))
+
+	def test_AddTrack(self):
+		track1 = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.Marathon")
+		address = venue.AddressClass()
+		test1 = venue.VenueClass(address=address, code="AMS", continentCode="EUR", name="Stichting IJscomplex Jaap Edenbaan", discipline="SpeedSkating.Marathon", tracks=tuple([track1]))
+
+		self.assertIsInstance(test1, venue.VenueClass)
+
+		track2 = venue.TrackClass(venueCode="AMS", length=100.0, venueDiscipline="SpeedSkating.Inline")
+
+		self.assertIsInstance(track2, venue.TrackClass)
+
+		test2 = test1.AddTrack(track2)
+
+		self.assertEqual(test2.numOfTracks(), 2)
+		self.assertTrue(test2.hasTrack(track1))
+		self.assertTrue(test2.hasTrack(track2))
 
 	def test_convertor1(self):
 		json_string = '{"address":{"line1":null,"line2":null,"stateOrProvince":"Noord-Holland","postalCode":null,"city":"Amsterdam","countryCode":"NED"},"tracks":[{"venueCode":"AMS","venueDiscipline":"SpeedSkating.LongTrack","length":400.000}, {"venueCode":"AMS","venueDiscipline":"SpeedSkating.Marathon","length":400.000}],"name":"Stichting IJscomplex Jaap Edenbaan","code":"AMS","discipline":["SpeedSkating.LongTrack","SpeedSkating.Marathon","SpeedSkating.ShortTrack"],"continentCode":"EUR"}'
@@ -124,4 +154,3 @@ class TestVenueClass(unittest.TestCase):
 		self.assertTrue(test.hasDiscipline(discipline.DisciplineClass(discipline=1)))
 
 		self.assertEqual(test.numOfTracks(), 1)
-
