@@ -26,45 +26,46 @@ async def runner() -> None:
 
 		# get isntance to venues
 		venues_provider = venues.Venues()
-		utils_processes.startProces(venues_provider.load())
+		await utils_processes.startProcess(venues_provider.load())
 
 		# get instance to skaters
-		skaters_provider = skaters.Skaters(file="skaters.h5")
-		utils_processes.startProces(skaters.load())
+		skaters_provider = skaters.Skaters(db_file="/mnt/projects/development/competitionnotify/skaters.db")
+		await utils_processes.startProcess(skaters_provider.load())
 
 		# get instance to Vantage (KNSB) times
-		results_provider_vantage = results_vantage.ResultsVantage()
+		#results_provider_vantage = results_vantage.ResultsVantage()
 
 		# get instance to Speed Skating Results
 		results_provider_ssr = results_ssr.ResultsSSR()
 
 		# Database with processed competitions
-		processed_competitions = ProcessedCompetitions(file="processed_competitions")
+		#processed_competitions = ProcessedCompetitions(db_file="/mnt/projects/development/competitionnotify/processed_competitions.db")
 
 		# And of course the email handling provider
-		emails = Emails(prepared_file="prepared_emails", send_file="send_emails")
+		#emails = Emails(prepared_file="prepared_emails", send_file="send_emails")
 
 		# Get an instance of the main download class
-		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
-		utils_processes.startProces(competitions.load())
+		#competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
+		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
+		await utils_processes.startProcess(competitions.load())
 
 		# start websocket
-		websocket = websocket.Websocket()
+		ws = websocket.Websocket()
 
 		# register all modules for the websocket
-		websocket.registerModule(venues_provider)
-		websocket.registerModule(skaters_provider)
-		websocket.registerModule(results_provider_vantage)
-		websocket.registerModule(results_provider_ssr)
-		websocket.registerModule(processed_competitions)
-		websocket.registerModule(emails)
-		websocket.registerModule(competitions)
+		ws.registerModule(venues_provider)
+		ws.registerModule(skaters_provider)
+		#ws.registerModule(results_provider_vantage)
+		ws.registerModule(results_provider_ssr)
+		#ws.registerModule(processed_competitions)
+		#ws.registerModule(emails)
+		ws.registerModule(competitions)
 
 		# now wait till the util processes are done (all data is loaded)
 		await utils_processes.waitAllProcesses()
 
 		# The modules (incl. data) are properly loaded, now start the web socket
-		websocket_process.startProces(websocket.run())
+		await websocket_process.startProcess(ws.run())
 
 		# Always run the main loop, untill an exception happens
 		while True:
@@ -113,10 +114,7 @@ async def test_venues() -> None:
 	print(s)
 
 async def test_skaters() -> None:
-	venues_provider = venues.Venues()
-	await venues_provider.load()
-
-	skaters_provider = skaters.Skaters("/mnt/projects/development/competitionnotify/skaters.db", venues_provider)
+	skaters_provider = skaters.Skaters("/mnt/projects/development/competitionnotify/skaters.db")
 	await skaters_provider.load()
 
 	s = skaters_provider.getAll()
@@ -125,6 +123,6 @@ async def test_skaters() -> None:
 
 if __name__ == '__main__':
 	#logging.basicConfig(filename='wedstrijdkalender.log', level=logging.DEBUG)
-	#asyncio.run(runner())
+	asyncio.run(runner())
 	#asyncio.run(test())
-	asyncio.run(test_skaters())
+	#asyncio.run(test_skaters())
