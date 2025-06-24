@@ -1,5 +1,7 @@
 #!/bin/python
 
+import typing
+import typeguard
 import asyncio
 import logging
 
@@ -8,5 +10,6 @@ import competitionnotify.websocket as websocket
 
 logger = logging.getLogger(__name__)
 
-class ResultVantage(result_provider.ResultProviderInterface, websocket.WebsocketInterface):
+@typeguard.typechecked
+class ResultsVantage(result_provider.ResultProviderInterface, websocket.WebsocketInterface):
 	pass

@@ -1,6 +1,7 @@
 #!/bin/python
 
-from typing import Any
+import typing
+import typeguard
 import attrs
 import asyncio
 import logging
@@ -8,12 +9,13 @@ import types
 
 logger = logging.getLogger(__name__)
 
+@typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CoroutineClass:
 	_coroutine: types.CoroutineType = attrs.field(validator=attrs.validators.instance_of(types.CoroutineType))
 	_name: str = attrs.field(validator=attrs.validators.instance_of(str))
 
-	def createTask(self) -> asyncio.Task[Any]:
+	def createTask(self) -> asyncio.Task[typing.Any]:
 		task = asyncio.create_task(self._coroutine)
 		task.set_name(self._name)
 		return task
@@ -22,8 +24,9 @@ class CoroutineClass:
 		return self._coroutine
 
 #TODO: implement this with the use of asyncio.TaskGroup
+@typeguard.typechecked
 class TaskManager:
-	tasks: set[asyncio.Task[Any]] = set()
+	tasks: set[asyncio.Task[typing.Any]] = set()
 
 	def __init__(self) -> None:
 		return
@@ -59,8 +62,20 @@ class TaskManager:
 		self.tasks.add(task)
 		return True
 
-	async def waitAllProcesses() -> None:
-		pass
+	async def startProcess(self, cr: types.CoroutineType) -> bool:
+		cr_cls = CoroutineClass(coroutine=cr, name = "")
+		task = cr_cls.createTask()
+		task.add_done_callback(self.tasks.discard)
+		self.tasks.add(task)
+		return True
+
+	async def waitAllProcesses(self) -> None:
+		while len(self.tasks) > 0:
+			task = next(iter(self.tasks))
+			await task
+			#for task in self.tasks:
+			#	logger.info ("wait for task to finsh: " + task.get_name())
+			#	await task
 
 	def runningProcesses(self) -> int:
 		return len(self.tasks)

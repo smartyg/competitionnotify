@@ -1,6 +1,7 @@
 #!/bin/python
 
-from typing import Any, TypeVar
+import typing
+import typeguard
 import aiohttp
 import asyncio
 import attrs
@@ -19,10 +20,13 @@ import competitionnotify.dataclasses.base as base
 import competitionnotify.dataclasses.classes as dataclasses
 import competitionnotify.task_manager as task_manager
 import competitionnotify.providers.base.loadable_provider as loadable_provider
+import competitionnotify.providers.venues as venues
+import competitionnotify.providers.skaters as skaters
+import competitionnotify.providers.base.result_provider_interface as result_provider_interface
 
 logger = logging.getLogger(__name__)
 
-U = TypeVar('U', bound=type[attrs.AttrsInstance]) # Declare type variable "U"
+U = typing.TypeVar('U', bound=type[attrs.AttrsInstance]) # Declare type variable "U"
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CompetitionProcess:
@@ -113,8 +117,8 @@ class CompetitionProcess:
 				return ret
 
 
-	async def downloadCompetitionData_task(self) -> dict[str, asyncio.Task[Any]]:
-		ret: dict[str, asyncio.Task[Any]] = {}
+	async def downloadCompetitionData_task(self) -> dict[str, asyncio.Task[typing.Any]]:
+		ret: dict[str, asyncio.Task[typing.Any]] = {}
 
 		for name, api in self.getApiCalls().items():
 			coroutine = CompetitionProcess.apiDownload(api.getUrl(), api.getClass())
@@ -123,7 +127,7 @@ class CompetitionProcess:
 
 		return ret
 
-	async def waitDownloadTaskCompletion(self, name: str, task: asyncio.Task[Any], c: U) -> U:
+	async def waitDownloadTaskCompletion(self, name: str, task: asyncio.Task[typing.Any], c: U) -> U:
 		while not task.done():
 			await task
 
@@ -156,33 +160,41 @@ class CompetitionProcess:
 
 
 		# Check if current settings have changed
-		# if change ionly affects participants, send email to added participants
+		# if change only affects participants, send email to added participants
 		# else send email to all participants (again)
 
 		return True
 
+@typeguard.typechecked
 class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
+	_venue_provider: venues.Venues
+	_skaters_provider: skaters.Skaters
+	_results_provider: set[result_provider_interface.ResultProviderInterface]
+
 	_competitions: set[type[CompetitionProcess]] = set()
 
-	def __init__(self) -> None:
+	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[typing.Any], processed_competitions: None, emails: None):
 		self._competitions.clear()
+		self._venue_provider = venues
+		self._skaters_provider = skaters
+		self._results_provider = set(results)
+
+		super().__init__('https://inschrijven.schaatsen.nl/api/competitions', self._load_competitions)
 
 	@staticmethod
-	async def download() -> list[dict[str, Any]]:
+	async def download() -> list[dict[str, typing.Any]]:
 		logger.debug ("Download the new competition file")
 		async with aiohttp.ClientSession() as session:
 			async with session.get('https://inschrijven.schaatsen.nl/api/competitions') as response:
 				logger.debug ("New competition file downloaded")
 				return json.loads(await response.text())
 
-	async def load(self) -> None:
-		competitions = await SchaatsenDotNl.download()
-
+	async def _load_competitions(self, json) -> None:
 		# Clear the list of existing coroutines
 		self._competitions.clear()
 
 		# Loop over all the competitions and generate for each a CompetitionProcess
-		for competition in competitions:
+		for competition in json:
 			c = utils.class_factory({'competition': competition}, CompetitionProcess)
 			if c is not None:
 				self._competitions.add(c)
@@ -226,3 +238,17 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInte
 
 		# Return the list of competition coroutines
 		return ret
+
+	def getName(self) -> str:
+		return "competitions"
+
+	def getCommands(self) -> websocket.CommandList:
+		return (
+			("count", self._cmd_count),
+			)
+
+	def _cmd_count(self) -> int:
+		return 1
+
+	def registerWebsocket(self, ws: websocket.Websocket) -> bool:
+		return True

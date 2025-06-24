@@ -1,11 +1,14 @@
 #!/bin/python
 
+import typing
+import typeguard
 import aiohttp
 import logging
 import json
 
 logger = logging.getLogger(__name__)
 
+@typeguard.typechecked
 class LoadableProvider:
 	#_data
 	_loaded: bool = False
@@ -13,7 +16,7 @@ class LoadableProvider:
 	#_cls: "dataclass"
 	#_func
 
-	def __init__(self, url: str|None, func):
+	def __init__(self, url: str|None, func: typing.Callable[dict[str, typing.Any], None]):
 		self._url = url
 		self._func = func
 		self._session = aiohttp.ClientSession()
