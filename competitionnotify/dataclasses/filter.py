@@ -1,6 +1,7 @@
 #!/bin/python
 
 import typing
+import typeguard
 import attrs
 import logging
 from datetime import datetime
@@ -9,14 +10,13 @@ import competitionnotify.utils.utils as utils
 import competitionnotify.dataclasses.base as base
 import competitionnotify.dataclasses.discipline as discipline
 import competitionnotify.dataclasses.categories as categories
-import competitionnotify.dataclasses.venue as venue
 import competitionnotify.dataclasses.skater as skater
 
 logger = logging.getLogger(__name__)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class FilterClass(base.BaseClass):
-	_venue: venue.VenueRefClass
+	_venue: str
 	_discipline: discipline.DisciplineClass
 	_clubs: list[int]|int|None = None
 	_flags: int|None = None
@@ -24,6 +24,7 @@ class FilterClass(base.BaseClass):
 	_validLicense: datetime|None = None
 	_categories: categories.CategoryFilterClass|None = None
 
+	@typeguard.typechecked
 	def _testVenue(self, skater: skater.SkaterClass) -> bool:
 		mail_options = skater.getOptions()
 		home_venue = skater.getHomeVenue()
@@ -33,6 +34,7 @@ class FilterClass(base.BaseClass):
 			return True
 		return False
 
+	@typeguard.typechecked
 	def _testDiscipline(self, disciplines: list[discipline.DisciplineClass]) -> bool:
 		return self._discipline in disciplines
 
@@ -44,9 +46,11 @@ class FilterClass(base.BaseClass):
 		else:
 			return club in self._clubs
 
+	@typeguard.typechecked
 	def _testFlags(self, flags: int) -> bool:
 		return True
 
+	@typeguard.typechecked
 	def _testTransponder(self, transponders: list[str|None]) -> bool:
 		if self._transponder is None:
 			return True
@@ -59,18 +63,21 @@ class FilterClass(base.BaseClass):
 		else:
 			return True
 
+	@typeguard.typechecked
 	def _testLicense(self, skater: skater.SkaterClass) -> bool:
 		if self._validLicense is not None:
 			return skater.isLicenseValid(self._validLicense)
 		else:
 			return True
 
+	@typeguard.typechecked
 	def _testCategorie(self, category: categories.CategoryClass) -> bool:
 		if self._categories is None:
 			return True
 		else:
 			return self._categories(category)
 
+	@typeguard.typechecked
 	def testSkater(skater: skater.SkaterClass) -> bool:
 		# Get mailOptions
 		mail_options = skater.getOptions()

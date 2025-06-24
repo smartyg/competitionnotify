@@ -1,6 +1,7 @@
 #!/bin/python
 
 import typing
+import typeguard
 import attrs
 import logging
 
@@ -19,9 +20,8 @@ class AddressClass(base.BaseClass):
 	_postalCode: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_stateOrProvince: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
-def AddressClass_converter(data: AddressClass|dict[str, typing.Any]|None) -> type[AddressClass]|None:
-	if isinstance(data, AddressClass):
-		return data
+@typeguard.typechecked
+def AddressClass_converter(data: AddressClass|dict[str, typing.Any]|None) -> AddressClass|None:
 	return utils.class_converter_none(data, AddressClass)
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
@@ -36,22 +36,13 @@ class TrackClass(base.BaseClass):
 	def getLength(self) -> float:
 		return self._length
 
+@typeguard.typechecked
 def TrackClass_converter(data: TrackClass|dict[str, typing.Any]|None) -> TrackClass:
-	if isinstance(data, TrackClass):
-		return data
 	return utils.class_converter_except(data, TrackClass)
 
-def TrackClassList_converter(data: list[TrackClass]|list[dict[str, typing.Any]]|None) -> list[TrackClass]:
-	if isinstance(data, list):
-		if len(data) > 0 and isinstance(data[0], TrackClass):
-			return data
-
-	ret: list[TrackClass] = []
-	for d in data:
-		cls = utils.class_converter_except(d, TrackClass)
-		if cls is not None:
-			ret.append(cls)
-	return ret
+@typeguard.typechecked
+def TrackClassTuple_converter(data: tuple[TrackClass, ...]|list[dict[str, typing.Any]]|None) -> tuple[TrackClass, ...]:
+	return utils.ClassTuple_converter(data, TrackClass);
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class VenueClass(base.BaseClass):
@@ -59,27 +50,29 @@ class VenueClass(base.BaseClass):
 	_code: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_continentCode: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_name: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_discipline: list[discipline.DisciplineClass] = attrs.field(converter=discipline.DisciplineClassList_converter, validator=attrs.validators.deep_iterable(
+	_discipline: tuple[discipline.DisciplineClass,...] = attrs.field(converter=discipline.DisciplineClassTuple_converter, validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(discipline.DisciplineClass),
-            iterable_validator=attrs.validators.instance_of(list)))
-	_tracks: list[TrackClass] = attrs.field(default=list, converter=TrackClassList_converter, validator=attrs.validators.deep_iterable(
+            iterable_validator=attrs.validators.instance_of(tuple)))
+	_tracks: tuple[TrackClass, ...] = attrs.field(default=tuple, converter=TrackClassTuple_converter, validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(TrackClass),
-            iterable_validator=attrs.validators.instance_of(list)))
+            iterable_validator=attrs.validators.instance_of(tuple)))
 
 	def AddDiscipline(self, discipline: discipline.DisciplineClass) -> "VenueClass":
 		if self.hasDiscipline(discipline):
 			return self
 		else:
-			l = self._discipline
-			l.append(discipline)
+			#l = self._discipline
+			#l.append(discipline)
+			l = self._discipline + tuple([discipline])
 			return attrs.evolve(self, discipline=l)
 
 	def AddTrack(self, track: TrackClass) -> "VenueClass":
 		if self.hasTrack(track):
 			return self
 		else:
-			l = self._tracks
-			l.append(track)
+			#l = self._tracks
+			#l.append(track)
+			l = self._tracks + tuple([track])
 			return attrs.evolve(self, tracks=l)
 
 	def getCode(self) -> str:
@@ -106,17 +99,6 @@ class VenueClass(base.BaseClass):
 	def getAddress(self) -> AddressClass:
 		return self._address
 
-def VenueClass_converter(data: VenueClass|dict[str, typing.Any]|None) -> type[VenueClass]|None:
-	if isinstance(data, VenueClass):
-		return data
-	else:
-		return utils.class_converter_none(data, VenueClass)
-
-@attrs.define(frozen=True, kw_only=True, slots=False)
-class VenueRefClass(base.BaseClass):
-	_venueNumber: int = attrs.field(validator=attrs.validators.instance_of(int))
-	#_venueProvider: venues.Venues = attrs.field(validator=attrs.validators.instance_of(venues.Venues))
-
-	def getVenue(self) -> VenueClass:
-		pass
-		#return self._venueProvider.getVenueByNumber(self._venueNumber)
+@typeguard.typechecked
+def VenueClass_converter(data: VenueClass|dict[str, typing.Any]|None) -> VenueClass|None:
+	return utils.class_converter_none(data, VenueClass)

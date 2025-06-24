@@ -1,11 +1,12 @@
 #!/bin/python
 
+import typing
+import collections.abc
+import typeguard
 import attrs
 import pickle
 import zlib
 import json
-from typing import Any
-from collections.abc import Callable
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class BaseClass:
@@ -28,9 +29,9 @@ class BaseClass:
 	def json (self) -> str:
 		return json.dumps(self.asdict())
 
-	def asdict(self) -> dict[str, Any]:
+	def asdict(self) -> dict[str, typing.Any]:
 		fields = attrs.fields(type(self))
-		d: dict[str, Any] = {}
+		d: dict[str, typing.Any] = {}
 		for field in fields:
 			field_type: int|None = field.metadata.get(BaseClass._SERIALIZE_TYPE, None)
 			#print(field)
@@ -43,7 +44,7 @@ class BaseClass:
 		return d
 
 	@staticmethod
-	def serializable(serialize_func: Callable[["BaseClass", str, Any], Any]|None|bool, default=attrs.NOTHING, validator=None, repr=True, hash=None, init=True, metadata=None, type=None, converter=None, factory=None, kw_only=False, eq=None, order=None, on_setattr=None, alias=None):
+	def serializable(serialize_func: collections.abc.Callable[["BaseClass", str, typing.Any], typing.Any]|None|bool, default=attrs.NOTHING, validator=None, repr=True, hash=None, init=True, metadata=None, type=None, converter=None, factory=None, kw_only=False, eq=None, order=None, on_setattr=None, alias=None):
 		metadata = metadata or {}
 		metadata[BaseClass._SERIALIZE_TYPE] = serialize_func
 		return attrs.field(default=default, validator=validator, repr=repr, hash=hash, init=init, metadata=metadata, type=type, converter=converter, factory=factory, kw_only=kw_only, eq=eq, order=order, on_setattr=on_setattr, alias=alias)
@@ -103,6 +104,7 @@ class ComparableClass(BaseClass):
 		metadata[BaseClass._COMPARE_TYPE] = cmp_type
 		return attrs.field(default=default, validator=validator, repr=repr, hash=hash, init=init, metadata=metadata, type=type, converter=converter, factory=factory, kw_only=kw_only, eq=eq, order=order, on_setattr=on_setattr, alias=alias)
 
+@typeguard.typechecked
 def getFirstFieldName(c: "BaseClass") -> str|None:
 	fields = attrs.fields(c)
 	if (len(fields)) >= 1:

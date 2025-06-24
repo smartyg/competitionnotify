@@ -1,6 +1,7 @@
 #!/bin/python
 
 import attrs
+import typeguard
 import typing
 import logging
 
@@ -8,7 +9,8 @@ import competitionnotify.dataclasses.base as base
 
 logger = logging.getLogger(__name__)
 
-def discipline_class_discipline_validator(instance: "DisciplineClass", attribute: str, value: int):
+@typeguard.typechecked
+def discipline_class_discipline_validator(instance: "DisciplineClass", attribute: attrs.Attribute, value: int):
 	if value > (len(instance._disciplines) - 1) or value < -1:
 		raise ValueError("No valid value for discipline (" + str(value) + ")")
 
@@ -48,21 +50,22 @@ class DisciplineClass(base.BaseClass):
 					d = i
 		return DisciplineClass(discipline=d)
 
+@typeguard.typechecked
 def DisciplineClass_converter(data: DisciplineClass|str|None) -> DisciplineClass:
 	if isinstance(data, DisciplineClass):
 		return data
-	return DisciplineClass.getDisciplineByString(string=data)
-
-def DisciplineClassList_converter(data: list[DisciplineClass]|list[str]|str|None) -> list[DisciplineClass]:
-	if isinstance(data, list):
-		if len(data) > 0:
-			if isinstance(data[0], DisciplineClass):
-				return data
-			elif isinstance(data[0], str):
-				return [DisciplineClass.getDisciplineByString(string=string) for string in data]
-		else:
-			return []
-	elif isinstance(data, str):
-		return [DisciplineClass.getDisciplineByString(string=data)]
 	else:
-		return []
+		return DisciplineClass.getDisciplineByString(string=data)
+
+@typeguard.typechecked
+def DisciplineClassTuple_converter(data: tuple[DisciplineClass, ...]|list[str]|str|None) -> tuple[DisciplineClass, ...]:
+	if isinstance(data, tuple):
+		typeguard.check_type(data, tuple[DisciplineClass, ...])
+		return data
+	elif isinstance(data, list):
+		typeguard.check_type(data, list[str])
+		return tuple([DisciplineClass.getDisciplineByString(string=string) for string in data])
+	elif isinstance(data, str):
+		return tuple([DisciplineClass.getDisciplineByString(string=data)])
+	else:
+		return tuple()

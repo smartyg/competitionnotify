@@ -1,5 +1,8 @@
-import attrs
+#!/bin/python
+
 import typing
+import typeguard
+import attrs
 import datetime
 import dateutil.relativedelta
 
@@ -63,15 +66,18 @@ class CategoryBase(base.BaseClass):
 		else:
 			return CategoryBase._ageSubTypes[age].index(text.upper())
 
-def category_class_gender_validator(instance: "CategoryClass", attribute: str, value: int):
+@typeguard.typechecked
+def category_class_gender_validator(instance: "CategoryClass", attribute: attrs.Attribute, value: int):
 	if value > (len(instance._genderTypes) - 1) or value < 0:
 		raise ValueError("No valid value for gender (" + str(value) + ")")
 
-def category_class_age_validator(instance: "CategoryClass", attribute: str, value: int):
+@typeguard.typechecked
+def category_class_age_validator(instance: "CategoryClass", attribute: attrs.Attribute, value: int):
 	if value > (len(instance._ageTypes) - 1) or value < 0:
 		raise ValueError("No valid value for age (" + str(value) + ")")
 
-def category_class_age_sub_validator(instance: "CategoryClass", attribute: str, value: int):
+@typeguard.typechecked
+def category_class_age_sub_validator(instance: "CategoryClass", attribute: attrs.Attribute, value: int):
 	if value > (len(instance._ageSubTypes[instance._age]) - 1) or value < 0:
 		raise ValueError("No valid value for sub age (" + str(value) + ")")
 
@@ -207,17 +213,18 @@ class CategoryClass(CategoryBase):
 	def __repr__(self) -> str:
 		return self.asString()
 
+@typeguard.typechecked
 def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
 	if isinstance(data, CategoryClass):
 		return data
-	ret = CategoryClass.getCategoryByString(string=data)
-	if ret is None:
-		raise ValueError("String '" + data + "' is not a valid category string.")
-	return ret
+	else:
+		ret = CategoryClass.getCategoryByString(string=data)
+		if ret is None:
+			raise ValueError("String '" + data + "' is not a valid category string.")
+		return ret
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CategoryFilterClass(CategoryBase):
-
 	_list:tuple[CategoryClass] = attrs.field(validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(CategoryClass),
             iterable_validator=attrs.validators.instance_of(tuple)))
@@ -288,8 +295,9 @@ class CategoryFilterClass(CategoryBase):
 
 	#_categoryFilter: str = attrs.field(validator=attrs.validators.instance_of(str))
 
+@typeguard.typechecked
 def CategoryFilterClass_converter(data: CategoryFilterClass|str) -> CategoryFilterClass:
 	if isinstance(data, CategoryFilterClass):
 		return data
-	return CategoryFilterClass(categoryFilter=data)
-
+	else:
+		return CategoryFilterClass(categoryFilter=data)
