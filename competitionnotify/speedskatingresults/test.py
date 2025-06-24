@@ -1,16 +1,23 @@
 #!/usr/bin/python
 
-from typing import TypeVar
-from SpeedSkatingResults import SpeedSkatingResults, NameClass, BaseSkaterClass, DistanceClass
+import typing
 import asyncio
+import typeguard
 
-U = TypeVar('U', bound=BaseSkaterClass) # Declare type variable "U"
-def getSkater(pbs: list[U], id: type[NameClass]) -> U|None:
+import competitionnotify.utils.utils as utils
+from competitionnotify.speedskatingresults.SpeedSkatingResults import SpeedSkatingResults
+from competitionnotify.speedskatingresults.classes import NameClass, BaseSkaterClass, DistanceClass
+
+U = typing.TypeVar('U', bound=BaseSkaterClass) # Declare type variable "U"
+
+@typeguard.typechecked
+def getSkater(pbs: list[U], id: NameClass) -> U|None:
 	for pb in pbs:
-		if pb.skater == id.id:
+		if pb.getSkater() == id.getId():
 			return pb
 	return None
 
+@typeguard.typechecked
 async def main() -> None:
 	season = 2014
 	skaters_id = await SpeedSkatingResults.getId([
@@ -32,7 +39,7 @@ async def main() -> None:
 		sb = getSkater(sbs, id)
 		c = getSkater(cs, id)
 
-		print(id.getFullName() + " (" + id.gender + str(id.category) + ")")
+		print(id.getFullName() + " (" + id.getGender() + str(id.getCategory()) + ")")
 
 		if pb is not None:
 			print("\tPersoonlijke Records")
@@ -50,16 +57,16 @@ async def main() -> None:
 
 		if c is not None and c.hasCompetitions():
 			print("\tWedstrijden")
-			for r in c.competitions:
-				print("\t\t" + str(r.startdate) + " - " + r.name)
+			for r in c.getCompetitions():
+				print("\t\t" + str(r.getStartdate()) + " - " + r.getName())
 
 		print("\tTijden")
 		for d in DistanceClass.allDistances():
 			if d in ds:
 				for races in ds[d]:
-					if races.skater == id.id and races.hasResults():
-						for race in races.results:
-							print("\t\t" + str(race.distance) + ": " + str(race.time) + " - " + race.name + " (" + str(race.date) + ") - " + race.location)
+					if races.getSkater() == id.getId() and races.hasResults():
+						for race in races.getResults():
+							print("\t\t" + str(race.getDistance()) + ": " + str(race.getTime()) + " - " + race.getName() + " (" + str(race.getDate()) + ") - " + race.getLocation())
 
 	return None
 
