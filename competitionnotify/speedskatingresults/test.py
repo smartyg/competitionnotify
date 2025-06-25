@@ -5,13 +5,14 @@ import asyncio
 import typeguard
 
 import competitionnotify.utils.utils as utils
-from competitionnotify.speedskatingresults.SpeedSkatingResults import SpeedSkatingResults
-from competitionnotify.speedskatingresults.classes import NameClass, BaseSkaterClass, DistanceClass
+import competitionnotify.dataclasses.distance as distance
+import competitionnotify.speedskatingresults.classes as classes
+import competitionnotify.speedskatingresults.SpeedSkatingResults as ssr
 
-U = typing.TypeVar('U', bound=BaseSkaterClass) # Declare type variable "U"
+U = typing.TypeVar('U', bound=classes.BaseSkaterClass) # Declare type variable "U"
 
 @typeguard.typechecked
-def getSkater(pbs: list[U], id: NameClass) -> U|None:
+def getSkater(pbs: list[U], id: classes.NameClass) -> U|None:
 	for pb in pbs:
 		if pb.getSkater() == id.getId():
 			return pb
@@ -20,37 +21,37 @@ def getSkater(pbs: list[U], id: NameClass) -> U|None:
 @typeguard.typechecked
 async def main() -> None:
 	season = 2014
-	skaters_id = await SpeedSkatingResults.getId([
+	skaters_id = await ssr.SpeedSkatingResults.getId([
 		{'familyname': "Goedhart", 'givenname': "Martijn", 'country': "NED", 'gender': 'm'},
 		{'familyname': "Goedhart", 'givenname': "Jos", 'country': "NED", 'gender': 'm'},
 		{'familyname': "van den Bout", 'givenname': "Frans Nico", 'country': "NED", 'gender': 'm'},
 		{'familyname': "Faber", 'givenname': "Swen", 'country': "NED", 'gender': 'm'}])
 
-	pbs = await SpeedSkatingResults.getPersonalRecord(skaters_id)
-	sbs = await SpeedSkatingResults.getSeasonBest(skaters_id, None, season)
-	cs = await SpeedSkatingResults.getCompetitionList(skaters_id, season)
+	pbs = await ssr.SpeedSkatingResults.getPersonalRecord(skaters_id)
+	sbs = await ssr.SpeedSkatingResults.getSeasonBest(skaters_id, None, season)
+	cs = await ssr.SpeedSkatingResults.getCompetitionList(skaters_id, season)
 
 	ds = {}
-	for d in DistanceClass.allDistances():
-		ds[d] = await SpeedSkatingResults.getDistanceResult(skaters_id, d, season)
+	for d in distance.DistanceValueClass.allDistances():
+		ds[d] = await ssr.SpeedSkatingResults.getDistanceResult(skaters_id, d, season)
 
 	for id in skaters_id:
 		pb = getSkater(pbs, id)
 		sb = getSkater(sbs, id)
 		c = getSkater(cs, id)
 
-		print(id.getFullName() + " (" + id.getGender() + str(id.getCategory()) + ")")
+		print(id.getFullName() + " (" + id.getCategory() + ")")
 
 		if pb is not None:
 			print("\tPersoonlijke Records")
-			for d in DistanceClass.allDistances():
+			for d in distance.DistanceValueClass.allDistances():
 				t = pb.getDistanceTime(d)
 				if t is not None:
 					print("\t\t" + str(d) + ": " + str(t))
 
 		if sb is not None:
 			print("\tSeizoens Records (" + str(season) + "/" + str(season + 1) + ")")
-			for d in DistanceClass.allDistances():
+			for d in distance.DistanceValueClass.allDistances():
 				t = sb.getDistanceTime(d)
 				if t is not None:
 					print("\t\t" + str(d) + ": " + str(t))
@@ -61,7 +62,7 @@ async def main() -> None:
 				print("\t\t" + str(r.getStartdate()) + " - " + r.getName())
 
 		print("\tTijden")
-		for d in DistanceClass.allDistances():
+		for d in distance.DistanceValueClass.allDistances():
 			if d in ds:
 				for races in ds[d]:
 					if races.getSkater() == id.getId() and races.hasResults():

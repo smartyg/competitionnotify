@@ -97,7 +97,7 @@ class SkaterClass(base.BaseClass):
 		return self._club
 
 	def getCategory(self) -> str:
-		return self._category
+		return str(self._category)
 
 	def isCategory(self, categories: list[str]) -> bool:
 		return (self._category in categories)

@@ -5,7 +5,7 @@ import typeguard
 import attrs
 import logging
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime
 
 import competitionnotify.dataclasses.base as base
 import competitionnotify.dataclasses.discipline as discipline
@@ -28,6 +28,10 @@ def datetime_converter(data: datetime|str) -> datetime:
 		return data
 	else:
 		return datetime.fromisoformat(data)
+
+@typeguard.typechecked
+def date_converter(date_str: str) -> datetime.date:
+	return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class SeriesClass(base.BaseClass):

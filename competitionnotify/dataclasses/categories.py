@@ -192,6 +192,9 @@ class CategoryClass(CategoryBase):
 		except ValueError:
 			return None
 
+	def getGender(self) -> str:
+		return self._genderTypes[self._gender]
+
 	def match(self, filter: "CategoryFilterClass") -> bool:
 		for entry in filter.getList():
 			if self.equal(entry):
