@@ -5,14 +5,15 @@ import typeguard
 import attrs
 import datetime
 import dateutil.relativedelta
+import re
 
 import competitionnotify.dataclasses.base as base
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CategoryBase(base.BaseClass):
 	_genderTypes: typing.ClassVar[tuple] = ("D", "H")
-	_ageTypes: typing.ClassVar[tuple]    = ("P", "C", "B", "A", "N", "3", "4", "5", "6", "7", "8")
-	_ageOldTypes: typing.ClassVar[tuple] = ("P", "C", "B", "A", "N", "S", "M", "M", "M", "M", "M")
+	_ageTypes: typing.ClassVar[tuple]    = ("P", "C", "B", "A", "N", "3", "4", "5", "6", "7", "8", "9")
+	_ageOldTypes: typing.ClassVar[tuple] = ("P", "C", "B", "A", "N", "S", "M", "M", "M", "M", "M", "M")
 	_ageSubTypes: typing.ClassVar[tuple]    = ( ("F", "E", "D", "C", "B", "A"), # Pupillen
 												("1", "2"), # Junior C
 												("1", "2"), # Junior B
@@ -23,7 +24,8 @@ class CategoryBase(base.BaseClass):
 												("0", "5"), # Master 50
 												("0", "5"), # Master 60
 												("0", "5"), # Master 70
-												("0", "5")) # Master 80
+												("0", "5"), # Master 80
+												("0", "5")) # Master 90
 	_ageSubOldTypes: typing.ClassVar[tuple] = ( ("F", "E", "D", "C", "B", "A"), # Pupillen
 												("1", "2"), # Junior C
 												("1", "2"), # Junior B
@@ -34,7 +36,8 @@ class CategoryBase(base.BaseClass):
 												("C", "D"), # Master 50
 												("E", "F"), # Master 60
 												("G", "H"), # Master 70
-												("", "")) # Master 80
+												("", ""), # Master 80
+												("", "")) # Master 90
 
 	@staticmethod
 	def getGenderPosibilities() -> tuple[int, ...]:
@@ -228,11 +231,11 @@ def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CategoryFilterClass(CategoryBase):
-	_list:tuple[CategoryClass] = attrs.field(validator=attrs.validators.deep_iterable(
+	_list:tuple[CategoryClass, ...] = attrs.field(validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(CategoryClass),
             iterable_validator=attrs.validators.instance_of(tuple)))
 
-	def hasCategory(category:CategoryClass|str) -> bool:
+	def hasCategory(self, category:CategoryClass|str) -> bool:
 		cat: CategoryClass|None
 		if isinstance(category, str):
 			cat = CategoryClass.getCategoryByString(category)
@@ -247,14 +250,21 @@ class CategoryFilterClass(CategoryBase):
 	def numberOfCategories(self) -> int:
 		return len(self._list)
 
+	def getList(self) -> tuple[CategoryClass, ...]:
+		return self._list
+
 	@staticmethod
-	def fromString(filter_text: str, old_style:bool = False) -> "CategoryFilterClass":
-		filters_text = str.split(filter_text, ',')
+	def fromString(filter_text: str, old_style: bool|None = None) -> "CategoryFilterClass":
+		filters_split = re.split(',| ', filter_text)
 		filters:list[CategoryClass] = []
-		for entry in filters_text:
+		for entry in filters_split:
 			genders:tuple[int, ...]
 			ages:tuple[int, ...]
 			age_subs:tuple[int, ...]|int
+			old = old_style
+
+			print(entry)
+			print(old)
 
 			if len(entry) == 3:
 				if entry[0] == '*' or entry[0] == '?':
@@ -266,11 +276,20 @@ class CategoryFilterClass(CategoryBase):
 					ages = CategoryBase.getAgePosibilities()
 					age_subs = -1
 				else:
-					ages = tuple([CategoryBase.getAgeValue(entry[1])])
+					if old is None:
+						try:
+							ages = tuple([CategoryBase.getAgeValue(entry[1], False)])
+							old = False
+						except ValueError:
+							ages = tuple([CategoryBase.getAgeValue(entry[1], True)])
+							old = True
+					else:
+						ages = tuple([CategoryBase.getAgeValue(entry[1], old)])
+
 					if entry[2] == '*' or entry[2] == '?':
 						age_subs = CategoryBase.getAgeSubPosibilities(ages[0])
 					else:
-						age_subs = tuple([CategoryBase.getAgeSubValue(entry[2], ages[0])])
+						age_subs = tuple([CategoryBase.getAgeSubValue(entry[2], ages[0], old)])
 
 			elif len(entry) == 2 and (entry[1] == '*' or entry[1] == '?'):
 				genders = tuple([CategoryBase.getGenderValue(entry[0])])
@@ -281,7 +300,7 @@ class CategoryFilterClass(CategoryBase):
 				ages = CategoryBase.getAgePosibilities()
 				age_subs = -1
 			else:
-				return ValueError("Value (" + entry + ") is not a valid categorie string.")
+				raise ValueError("Value (" + entry + ") is not a valid categorie string.")
 
 			for g in genders:
 				for a in ages:
@@ -296,11 +315,9 @@ class CategoryFilterClass(CategoryBase):
 
 		return CategoryFilterClass(list=tuple(filters))
 
-	#_categoryFilter: str = attrs.field(validator=attrs.validators.instance_of(str))
-
 @typeguard.typechecked
 def CategoryFilterClass_converter(data: CategoryFilterClass|str) -> CategoryFilterClass:
 	if isinstance(data, CategoryFilterClass):
 		return data
 	else:
-		return CategoryFilterClass(categoryFilter=data)
+		return CategoryFilterClass.fromString(filter_text=data, old_style=None)

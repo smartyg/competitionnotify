@@ -66,7 +66,7 @@ class TestCategoryClass(unittest.TestCase):
 
 	def test_constructFail2(self):
 		with pytest.raises(ValueError) as e:
-			test = categories.CategoryClass(gender=0, age=11, ageSub=0)
+			test = categories.CategoryClass(gender=0, age=12, ageSub=0)
 
 	def test_constructFail3(self):
 		with pytest.raises(ValueError) as e:
@@ -81,29 +81,89 @@ class TestCategoryFilterClass(unittest.TestCase):
 		test = categories.CategoryFilterClass.fromString("*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		num = test.numberOfCategories()
-		print(str(test._list))
-		self.assertEqual(num, 56)
+		self.assertEqual(num, 60)
 
 	def test_constructByText2(self):
 		test = categories.CategoryFilterClass.fromString("D*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		num = test.numberOfCategories()
-		self.assertEqual(num, 28)
+		self.assertEqual(num, 30)
+		b = test.hasCategory("DPA")
+		self.assertTrue(b)
+		b = test.hasCategory("HPA")
+		self.assertFalse(b)
 
 	def test_constructByText3(self):
+		test = categories.CategoryFilterClass.fromString("D*,H*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+		num = test.numberOfCategories()
+		self.assertEqual(num, 60)
+
+	def test_constructByText4(self):
 		test = categories.CategoryFilterClass.fromString("?P?")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		num = test.numberOfCategories()
 		self.assertEqual(num, 12)
 
-	def test_constructByText4(self):
+	def test_constructByText5(self):
 		test = categories.CategoryFilterClass.fromString("HC*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		num = test.numberOfCategories()
 		self.assertEqual(num, 2)
 
-	def test_constructByText5(self):
+	def test_constructByText6(self):
 		test = categories.CategoryFilterClass.fromString("HC2")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		num = test.numberOfCategories()
 		self.assertEqual(num, 1)
+		b = test.hasCategory("HC2")
+		self.assertTrue(b)
+		b = test.hasCategory("HC1")
+		self.assertFalse(b)
+
+	def test_hasCategory1(self):
+		test = categories.CategoryFilterClass.fromString("*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+
+		for g in categories.CategoryBase.getGenderPosibilities():
+			for a in categories.CategoryBase.getAgePosibilities():
+				for s in categories.CategoryBase.getAgeSubPosibilities(a):
+					c = categories.CategoryClass(gender=g, age=a, ageSub=s)
+					self.assertIsInstance(c, categories.CategoryClass)
+					b = test.hasCategory(c)
+					self.assertTrue(b)
+
+	def test_hasCategory2(self):
+		test = categories.CategoryFilterClass.fromString("*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+
+		for g in categories.CategoryBase.getGenderPosibilities():
+			for a in categories.CategoryBase.getAgePosibilities():
+				for s in categories.CategoryBase.getAgeSubPosibilities(a):
+					c = categories.CategoryClass(gender=g, age=a, ageSub=s)
+					self.assertIsInstance(c, categories.CategoryClass)
+					string = c.asString(False)
+					b = test.hasCategory(string)
+					self.assertTrue(b)
+
+	def test_hasCategory3(self):
+		test = categories.CategoryFilterClass.fromString("H*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+
+		for a in categories.CategoryBase.getAgePosibilities():
+			for s in categories.CategoryBase.getAgeSubPosibilities(a):
+				c = categories.CategoryClass(gender=1, age=a, ageSub=s)
+				self.assertIsInstance(c, categories.CategoryClass)
+				b = test.hasCategory(c)
+				self.assertTrue(b)
+
+				c = categories.CategoryClass(gender=0, age=a, ageSub=s)
+				self.assertIsInstance(c, categories.CategoryClass)
+				b = test.hasCategory(c)
+				self.assertFalse(b)
+
+	def test_constructByText1(self):
+		test = categories.CategoryFilterClass.fromString("*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+		with pytest.raises(ValueError) as e:
+			b= test.hasCategory("INV")
