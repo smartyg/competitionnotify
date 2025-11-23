@@ -191,7 +191,8 @@ class CategoryClass(CategoryBase):
 			return None
 
 		try:
-			return CategoryClass(gender=gender, age=age, ageSub=ageSub)
+			# Silence mypy error on following line (Argument "age" to "CategoryClass" has incompatible type "int | list[int]"; expected "int"), as code above makes sure age is not a list by this time anymore
+			return CategoryClass(gender=gender, age=age, ageSub=ageSub)  # type: ignore[arg-type]
 		except ValueError:
 			return None
 
@@ -263,8 +264,11 @@ class CategoryFilterClass(CategoryBase):
 			age_subs:tuple[int, ...]|int
 			old = old_style
 
-			print(entry)
-			print(old)
+			if len(entry) == 4 and (entry[3] == '*' or entry[3] == '?'):
+				if entry[0] == '*' or entry[0] == '?':
+					entry = entry[1:]
+				else:
+					entry = entry[:-1]
 
 			if len(entry) == 3:
 				if entry[0] == '*' or entry[0] == '?':
@@ -295,12 +299,29 @@ class CategoryFilterClass(CategoryBase):
 				genders = tuple([CategoryBase.getGenderValue(entry[0])])
 				ages = CategoryBase.getAgePosibilities()
 				age_subs = -1
+			elif len(entry) == 2 and (entry[0] == '*' or entry[0] == '?'):
+				genders = CategoryBase.getGenderPosibilities()
+
+				ages_list: list[int] = []
+				for a in CategoryBase.getAgePosibilities():
+					s = CategoryBase._ageSubOldTypes[a]
+					if entry[1] in s:
+						for i in range(0, len(s)):
+							if entry[1] == s[i]:
+								ages_list.append(a)
+								age_subs = i
+
+
+				ages = tuple(ages_list)
+
 			elif len(entry) == 1 and (entry == '*' or entry == '?'):
 				genders = CategoryBase.getGenderPosibilities()
 				ages = CategoryBase.getAgePosibilities()
 				age_subs = -1
+			elif len(entry) == 0:
+				continue
 			else:
-				raise ValueError("Value (" + entry + ") is not a valid categorie string.")
+				raise ValueError("Value (" + entry + ") is not a valid category string.")
 
 			for g in genders:
 				for a in ages:
@@ -312,6 +333,9 @@ class CategoryFilterClass(CategoryBase):
 						for s in CategoryBase.getAgeSubPosibilities(a):
 							categorie = CategoryClass(gender=g, age=a, ageSub=s)
 							filters.append(categorie)
+					elif isinstance(age_subs, int) and age_subs > -1:
+						categorie = CategoryClass(gender=g, age=a, ageSub=age_subs)
+						filters.append(categorie)
 
 		return CategoryFilterClass(list=tuple(filters))
 
