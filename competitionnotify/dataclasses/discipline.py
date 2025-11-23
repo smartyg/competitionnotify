@@ -3,6 +3,7 @@
 import attrs
 import typeguard
 import typing
+import re
 import logging
 
 import competitionnotify.dataclasses.base as base
@@ -17,9 +18,13 @@ def discipline_class_discipline_validator(instance: "DisciplineClass", attribute
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class DisciplineClass(base.BaseClass):
 	_disciplines: typing.ClassVar[tuple] = ("Inline", "LongTrack", "Marathon", "ShortTrack")
-	_prefix: typing.ClassVar[str] = "SpeedSkating."
+	_prefix: typing.ClassVar[str] = "SpeedSkating"
+	#_subtypes1: typing.ClassVar[tuple] = ("MassStartDistance", "PairsDistance", "PointToPoint", "Track")
+	#_subtypes2: typing.ClassVar[tuple] = ("MarathonDistance", "EliminationDistance", "OneLapDistance", "PointsDistance", "RelayDistance", "SprintDistance", "TimeTrialDistance", "Individual", "TeamPursuit", "TeamRelay", "TeamSprint")
 
 	_discipline:int = attrs.field(validator=[attrs.validators.instance_of(int), discipline_class_discipline_validator])
+	_subtype1:str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_subtype2:str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
 	def isValid(self) -> bool:
 		return True if self._discipline >= 0 and self._discipline < len(self._disciplines) else False
@@ -32,8 +37,13 @@ class DisciplineClass(base.BaseClass):
 
 	def asString(self) -> str:
 		if self._discipline == -1:
-			return DisciplineClass._prefix + "Unknown"
-		return str(DisciplineClass._prefix + DisciplineClass._disciplines[self._discipline])
+			return DisciplineClass._prefix + ".Unknown"
+		return_string: str = DisciplineClass._prefix + "." + DisciplineClass._disciplines[self._discipline]
+		if self._subtype1 is not None and len(self._subtype1) > 0:
+			return_string += "." + self._subtype1
+			if self._subtype2 is not None and len(self._subtype2) > 0:
+				return_string += "." + self._subtype2
+		return return_string
 
 	def __str__(self) -> str:
 		return self.asString()
@@ -41,14 +51,31 @@ class DisciplineClass(base.BaseClass):
 	def __repr__(self) -> str:
 		return self.asString()
 
+	def __eq__(self, o: object) -> bool:
+		if o is attrs.NOTHING:
+			return False
+		if not isinstance(o, DisciplineClass):
+			raise TypeError('Can only use comparison on two DisciplineClass objects')
+		return self.equal(o)
+
 	@staticmethod
 	def getDisciplineByString(string: str|None) -> "DisciplineClass":
 		d:int = -1
+		subtype1: str|None = None
+		subtype2: str|None = None
 		if isinstance(string, str):
+			parts = re.split(r'[.]', string)
+			if parts[0] != DisciplineClass._prefix:
+				print(parts)
+				raise ValueError('String is not a valid discipline text ("' + string + '").')
 			for i in range(len(DisciplineClass._disciplines)):
-				if string == str(DisciplineClass._prefix + DisciplineClass._disciplines[i]):
+				if parts[1] == DisciplineClass._disciplines[i]:
 					d = i
-		return DisciplineClass(discipline=d)
+			if len(parts) > 2:
+				subtype1 = parts[2]
+			if len(parts) > 3:
+				subtype2 = parts[3]
+		return DisciplineClass(discipline=d, subtype1=subtype1, subtype2=subtype2)
 
 @typeguard.typechecked
 def DisciplineClass_converter(data: DisciplineClass|str|None) -> DisciplineClass:

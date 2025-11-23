@@ -4,31 +4,39 @@ import typing
 import typeguard
 import attrs
 import datetime
+import re
 
 import competitionnotify.dataclasses.base as base
 import competitionnotify.utils.utils as utils
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class TimeClass(base.BaseClass):
+	_hours: int = attrs.field(default=0, validator=attrs.validators.instance_of(int))
 	_minutes: int = attrs.field(validator=attrs.validators.instance_of(int))
 	_seconds: int = attrs.field(validator=attrs.validators.instance_of(int))
 	_miliseconds: int = attrs.field(validator=attrs.validators.instance_of(int))
 
+	@_hours.validator
+	def hours_check(self, attribute: attrs.Attribute, value: int) -> bool:
+		if value < 0 or value > 23:
+			raise ValueError("value of " + str(value) + " is not a valid number of hours.")
+		return True
+
 	@_minutes.validator
-	def minutes_check(self, attribute: str, value: int) -> bool:
-		if value < 0 or value >= 60:
+	def minutes_check(self, attribute: attrs.Attribute, value: int) -> bool:
+		if value < 0 or value > 59:
 			raise ValueError("value of " + str(value) + " is not a valid number of minutes.")
 		return True
 
 	@_seconds.validator
-	def seconds_check(self, attribute: str, value: int) -> bool:
-		if value < 0 or value >= 60:
+	def seconds_check(self, attribute: attrs.Attribute, value: int) -> bool:
+		if value < 0 or value > 59:
 			raise ValueError("value of " + str(value) + " is not a valid number of seconds.")
 		return True
 
 	@_miliseconds.validator
-	def miliseconds_check(self, attribute: str, value: int) -> bool:
-		if value < 0 or value >= 1000:
+	def miliseconds_check(self, attribute: attrs.Attribute, value: int) -> bool:
+		if value < 0 or value > 999:
 			raise ValueError("value of " + str(value) + " is not a valid number of miliseconds.")
 		return True
 
@@ -42,34 +50,66 @@ class TimeClass(base.BaseClass):
 			return str(f"{m}:{s:02}.{ms:03}")
 
 	def getTime(self) -> float:
-		return (self._minutes * 60) + self._seconds + (self._miliseconds / 1000)
+		return (self._hours * 3600) + (self._minutes * 60) + self._seconds + (self._miliseconds / 1000)
 
-	@classmethod
-	def from_string(cls, time: str) -> "TimeClass":
-		s1 = time.split(",")
-		if len(s1) != 2:
-			raise ValueError("string (\"" + time + "\") is not a valid time representation.")
+	def getHours(self) -> int:
+		return self._hours
 
-		if len(s1[1]) == 1:
-			miliseconds = int(s1[1]) * 100
-		elif len(s1[1]) == 2:
-			miliseconds = int(s1[1]) * 10
-		elif len(s1[1]) == 3:
-			miliseconds = int(s1[1])
+	def getMinutes(self) -> int:
+		return self._minutes
+
+	def getSeconds(self) -> int:
+		return self._seconds
+
+	def getMiliseconds(self) -> int:
+		return self._miliseconds
+
+	@staticmethod
+	def _getMiliseconds(string: str) -> int:
+		miliseconds: int
+		if len(string) == 1:
+			miliseconds = int(string) * 100
+		elif len(string) == 2:
+			miliseconds = int(string) * 10
+		elif len(string) == 3:
+			miliseconds = int(string)
+		elif len(string) > 3:
+			miliseconds = int(string[0:3])
 		else:
-			raise ValueError("string (\"" + time + "\") is not a valid time representation.")
+			raise ValueError("string (\"" + string + "\") is not a valid time representation.")
+		return miliseconds
 
-		s2 = s1[0].split(".")
-		if len(s2) == 1:
-			minutes = 0
-			seconds = int(s2[0])
-		elif len(s2) == 2:
-			minutes = int(s2[0])
-			seconds = int(s2[1])
+	@staticmethod
+	def from_string(time: str) -> "TimeClass":
+		hours:int = 0
+		minutes:int = 0
+		seconds:int = 0
+		miliseconds:int = 0
+
+		# There are different time notations:
+		# - hh:mm:ss(.sss)
+		# - ((hh:)mm:)ss(.sss)
+		notation1 = re.compile(r'^((?P<minutes>[0-9]+)[:,.])?(?P<seconds>[0-9]+)[.,](?P<miliseconds>[0-9]+)$')
+		notation2 = re.compile(r'^(?P<hours>[0-9]+):(?P<minutes>[0-9]+):(?P<seconds>[0-9]+)([.,](?P<miliseconds>[0-9]+))?$')
+
+		notation1_match = notation1.match(time)
+		notation2_match = notation2.match(time)
+		if notation1_match is not None and bool(notation1_match):
+			if notation1_match['minutes'] is not None:
+				minutes = int(notation1_match['minutes'])
+			seconds = int(notation1_match['seconds'])
+			miliseconds = TimeClass._getMiliseconds(notation1_match['miliseconds'])
+
+		elif notation2_match is not None and bool(notation2.match(time)):
+			hours = int(notation2_match['hours'])
+			minutes = int(notation2_match['minutes'])
+			seconds = int(notation2_match['seconds'])
+			if notation2_match['miliseconds'] is not None:
+				miliseconds = TimeClass._getMiliseconds(notation2_match['miliseconds'])
 		else:
-			raise ValueError("string (\"" + time + "\") is not a valid time representation.")
+			raise ValueError('String is not an time representation ("' + time + '").')
 
-		return cls(minutes=minutes, seconds=seconds, miliseconds=miliseconds)
+		return TimeClass(hours=hours, minutes=minutes, seconds=seconds, miliseconds=miliseconds)
 
 @typeguard.typechecked
 def TimeClass_converter(time: TimeClass|str) -> TimeClass:
@@ -77,3 +117,14 @@ def TimeClass_converter(time: TimeClass|str) -> TimeClass:
 		return time
 	else:
 		return TimeClass.from_string(time)
+
+@typeguard.typechecked
+def TimeClass_converter_none(time: TimeClass|str|None) -> TimeClass|None:
+	if isinstance(time, TimeClass):
+		return time
+	elif isinstance(time, str):
+		try:
+			return TimeClass.from_string(time)
+		except:
+			return None
+	return None

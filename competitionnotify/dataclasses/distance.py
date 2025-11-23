@@ -5,11 +5,10 @@ import typeguard
 import attrs
 import logging
 import uuid
-from datetime import datetime
+import datetime
 
 import competitionnotify.dataclasses.base as base
 import competitionnotify.dataclasses.time as time
-import competitionnotify.dataclasses.classes as classes
 import competitionnotify.dataclasses.discipline as discipline
 import competitionnotify.utils.utils as utils
 
@@ -21,8 +20,8 @@ class DistanceValueClass(base.BaseClass):
 
 	_distance: int = attrs.field(validator=attrs.validators.instance_of(int))
 
-	@_distance.validator
-	def distance_check(self, attribute: str, value: int) -> bool:
+	#@_distance.validator
+	def distance_check(self, attribute: attrs.Attribute, value: int) -> bool:
 		if value not in self._distances:
 			raise ValueError("value of " + str(value) + " is not a valid distance.")
 		return True
@@ -34,6 +33,9 @@ class DistanceValueClass(base.BaseClass):
 			res.append(DistanceValueClass(distance=i))
 
 		return res
+
+	def isValidDistance(self) -> bool:
+		return (self._distance in self._distances)
 
 	def __str__(self) -> str:
 		return str(str(self._distance) + " meter")
@@ -51,22 +53,54 @@ def DistanceValueClass_converter(d: DistanceValueClass|int) -> DistanceValueClas
 	else:
 		return DistanceValueClass(distance=d)
 
+@typeguard.typechecked
+def DistanceValueClass_converter_none(d: DistanceValueClass|int|None) -> DistanceValueClass|None:
+	if isinstance(d, DistanceValueClass):
+		return d
+	if isinstance(d, int):
+		return DistanceValueClass(distance=d)
+	return None
+
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class DistanceClass(base.BaseClass):
-	_id: uuid.UUID = attrs.field(converter=classes.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID))
-	_discipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass))
+	_id: uuid.UUID = attrs.field(converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
+	_discipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
 	_number: int = attrs.field(validator=attrs.validators.instance_of(int))
-	_value: DistanceValueClass = attrs.field(converter=DistanceValueClass_converter, validator=attrs.validators.instance_of(DistanceValueClass))
+	_value: DistanceValueClass = attrs.field(converter=DistanceValueClass_converter, validator=attrs.validators.instance_of(DistanceValueClass)) # type: ignore [misc]
 	_valueQuantity: int = attrs.field(validator=attrs.validators.instance_of(int))
 	_name: str = attrs.field(validator=attrs.validators.instance_of(str))
-	_starts: datetime = attrs.field(converter=classes.datetime_converter, validator=attrs.validators.instance_of(datetime))
+	_starts: datetime.datetime = attrs.field(converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
+
+	def getId(self) -> uuid.UUID:
+		return self._id
+
+	def getDiscipline(self) -> discipline.DisciplineClass:
+		return self._discipline
+
+	def getNumber(self) -> int:
+		return self._number
+
+	def getDistance(self) -> DistanceValueClass:
+		return self._value
 
 	def getDistanceValue(self) -> int:
-		return self._distance.getValue()
+		return self._value.getValue()
+
+	def getQuantity(self) -> int:
+		return self._valueQuantity
+
+	def getName(self) -> str:
+		return self._name
+
+	def getStartDate(self) -> datetime.datetime:
+		return self._starts
+
+	def __str__(self) -> str:
+		return str(self._value)
 
 @typeguard.typechecked
 def DistanceClass_converter(data: DistanceClass|dict[str, typing.Any]) -> DistanceClass:
-	return utils.class_converter_except(d, DistanceClass)
+	return utils.class_converter_except(data, DistanceClass)
 
 @typeguard.typechecked
 def DistanceClassTuple_converter(data: tuple[DistanceClass,...]|list[dict[str, typing.Any]]) -> tuple[DistanceClass,...]:

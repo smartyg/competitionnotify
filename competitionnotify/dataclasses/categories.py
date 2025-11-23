@@ -69,6 +69,29 @@ class CategoryBase(base.BaseClass):
 		else:
 			return CategoryBase._ageSubTypes[age].index(text.upper())
 
+	@staticmethod
+	def getAllCategories(old_style:bool = False) -> tuple[str, ...]:
+		categories: list[str] = []
+
+		for g in CategoryBase._genderTypes:
+			i_a = 0
+			if old_style:
+				for a in CategoryBase._ageOldTypes:
+					for s in CategoryBase._ageSubOldTypes[i_a]:
+						category_string = g + a + s
+						if len(category_string) == 3:
+							categories.append(category_string)
+					i_a += 1
+			else:
+				for a in CategoryBase._ageTypes:
+					for s in CategoryBase._ageSubTypes[i_a]:
+						category_string = g + a + s
+						if len(category_string) == 3:
+							categories.append(category_string)
+					i_a += 1
+
+		return tuple(categories)
+
 @typeguard.typechecked
 def category_class_gender_validator(instance: "CategoryClass", attribute: attrs.Attribute, value: int):
 	if value > (len(instance._genderTypes) - 1) or value < 0:
@@ -102,7 +125,6 @@ class CategoryClass(CategoryBase):
 
 		reference_date = datetime.date(season, 6, 30)
 		age_in_years = dateutil.relativedelta.relativedelta(reference_date, date).years
-
 
 		age:int
 		age_sub:int
@@ -220,6 +242,58 @@ class CategoryClass(CategoryBase):
 	def __repr__(self) -> str:
 		return self.asString()
 
+	def __eq__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+		return self.equal(o)
+
+	def __ne__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+		return not self.equal(o)
+
+	def __le__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+
+		return ((self._age < o._age) or (self._age == o._age and self._ageSub <= o._ageSub))
+
+	def __lt__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+
+		return ((self._age < o._age) or (self._age == o._age and self._ageSub < o._ageSub))
+
+	def __ge__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+
+		return ((self._age > o._age) or (self._age == o._age and self._ageSub >= o._ageSub))
+
+	def __gt__(self, o: object|str) -> bool:
+		if isinstance(o, str):
+			o = CategoryClass.getCategoryByString(o)
+
+		if not isinstance(o, CategoryClass):
+			raise TypeError('Can only use comparison on two CategoryClass objects')
+
+		return ((self._age > o._age) or (self._age == o._age and self._ageSub > o._ageSub))
+
 @typeguard.typechecked
 def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
 	if isinstance(data, CategoryClass):
@@ -255,87 +329,53 @@ class CategoryFilterClass(CategoryBase):
 		return self._list
 
 	@staticmethod
-	def fromString(filter_text: str, old_style: bool|None = None) -> "CategoryFilterClass":
-		filters_split = re.split(',| ', filter_text)
+	def fromString(filter_text: str, old_style: bool|None = None, use_except: bool = True) -> "CategoryFilterClass":
+		filters_split = re.split(r'[,|\s;]+', filter_text)
+		filters_text:list[str] = []
 		filters:list[CategoryClass] = []
+		all_categories_list = CategoryBase.getAllCategories(False)
+		all_categories_list_old = CategoryBase.getAllCategories(True)
 		for entry in filters_split:
-			genders:tuple[int, ...]
-			ages:tuple[int, ...]
-			age_subs:tuple[int, ...]|int
-			old = old_style
-
-			if len(entry) == 4 and (entry[3] == '*' or entry[3] == '?'):
-				if entry[0] == '*' or entry[0] == '?':
-					entry = entry[1:]
-				else:
-					entry = entry[:-1]
-
-			if len(entry) == 3:
-				if entry[0] == '*' or entry[0] == '?':
-					genders = CategoryBase.getGenderPosibilities()
-				else:
-					genders = tuple([CategoryBase.getGenderValue(entry[0])])
-
-				if entry[1] == '*' or entry[1] == '?':
-					ages = CategoryBase.getAgePosibilities()
-					age_subs = -1
-				else:
-					if old is None:
-						try:
-							ages = tuple([CategoryBase.getAgeValue(entry[1], False)])
-							old = False
-						except ValueError:
-							ages = tuple([CategoryBase.getAgeValue(entry[1], True)])
-							old = True
-					else:
-						ages = tuple([CategoryBase.getAgeValue(entry[1], old)])
-
-					if entry[2] == '*' or entry[2] == '?':
-						age_subs = CategoryBase.getAgeSubPosibilities(ages[0])
-					else:
-						age_subs = tuple([CategoryBase.getAgeSubValue(entry[2], ages[0], old)])
-
-			elif len(entry) == 2 and (entry[1] == '*' or entry[1] == '?'):
-				genders = tuple([CategoryBase.getGenderValue(entry[0])])
-				ages = CategoryBase.getAgePosibilities()
-				age_subs = -1
-			elif len(entry) == 2 and (entry[0] == '*' or entry[0] == '?'):
-				genders = CategoryBase.getGenderPosibilities()
-
-				ages_list: list[int] = []
-				for a in CategoryBase.getAgePosibilities():
-					s = CategoryBase._ageSubOldTypes[a]
-					if entry[1] in s:
-						for i in range(0, len(s)):
-							if entry[1] == s[i]:
-								ages_list.append(a)
-								age_subs = i
-
-
-				ages = tuple(ages_list)
-
-			elif len(entry) == 1 and (entry == '*' or entry == '?'):
-				genders = CategoryBase.getGenderPosibilities()
-				ages = CategoryBase.getAgePosibilities()
-				age_subs = -1
-			elif len(entry) == 0:
+			if len(entry) == 0:
 				continue
-			else:
-				raise ValueError("Value (" + entry + ") is not a valid category string.")
 
-			for g in genders:
-				for a in ages:
-					if isinstance(age_subs, tuple):
-						for s in age_subs:
-							categorie = CategoryClass(gender=g, age=a, ageSub=s)
-							filters.append(categorie)
-					elif isinstance(age_subs, int) and age_subs == -1:
-						for s in CategoryBase.getAgeSubPosibilities(a):
-							categorie = CategoryClass(gender=g, age=a, ageSub=s)
-							filters.append(categorie)
-					elif isinstance(age_subs, int) and age_subs > -1:
-						categorie = CategoryClass(gender=g, age=a, ageSub=age_subs)
-						filters.append(categorie)
+			if len(entry) == 4:
+				entry = entry.replace("*", ".*")
+			else:
+				entry = entry.replace("*", ".+")
+			entry = entry.replace("?", ".?")
+			regex = re.compile("(?i)^" + entry + "$")
+			if old_style is None:
+				filtered_categories_list = list(filter(regex.match, all_categories_list))
+				if len(filtered_categories_list) == 0:
+					filtered_categories_list = list(filter(regex.match, all_categories_list_old))
+					if len(filtered_categories_list) == 0 and use_except:
+						raise ValueError("Value of category element is not a valid category ('" + str(entry) + "')")
+					elif len(filtered_categories_list) == 0:
+						continue
+
+				filters_text = filters_text + filtered_categories_list
+			elif old_style:
+				filtered_categories_list = list(filter(regex.match, all_categories_list_old))
+				if len(filtered_categories_list) == 0 and use_except:
+					raise ValueError("Value of category element is not a valid category ('" + str(entry) + "')")
+				elif len(filtered_categories_list) == 0:
+						continue
+				filters_text = filters_text + filtered_categories_list
+			elif not old_style:
+				filtered_categories_list = list(filter(regex.match, all_categories_list))
+				if len(filtered_categories_list) == 0 and use_except:
+					raise ValueError("Value of category element is not a valid category ('" + str(entry) + "')")
+				elif len(filtered_categories_list) == 0:
+						continue
+				filters_text = filters_text + filtered_categories_list
+
+		for i in set(filters_text):
+			c = CategoryClass.getCategoryByString(i)
+			if c is not None:
+				filters.append(c)
+			elif use_except:
+				raise ValueError("Value of category element is not a valid category ('" + i + "')")
 
 		return CategoryFilterClass(list=tuple(filters))
 

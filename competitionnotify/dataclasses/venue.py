@@ -28,7 +28,7 @@ def AddressClass_converter(data: AddressClass|dict[str, typing.Any]|None) -> Add
 class TrackClass(base.BaseClass):
 	_venueCode: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_length: float = attrs.field(validator=attrs.validators.instance_of(float))
-	_venueDiscipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass))
+	_venueDiscipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore[misc]
 
 	def getDiscipline(self) -> discipline.DisciplineClass:
 		return self._venueDiscipline
@@ -46,14 +46,16 @@ def TrackClassTuple_converter(data: tuple[TrackClass, ...]|list[dict[str, typing
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class VenueClass(base.BaseClass):
-	_address: AddressClass|None = attrs.field(default=None, converter=AddressClass_converter, validator=attrs.validators.optional(attrs.validators.instance_of(AddressClass)))
-	_code: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_address: AddressClass|None = attrs.field(default=None, converter=AddressClass_converter, validator=attrs.validators.optional(attrs.validators.instance_of(AddressClass))) # type: ignore[misc]
+	# _code: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_code: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_continentCode: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_name: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_discipline: tuple[discipline.DisciplineClass,...] = attrs.field(converter=discipline.DisciplineClassTuple_converter, validator=attrs.validators.deep_iterable(
+	# _name: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_name: str = attrs.field(validator=attrs.validators.instance_of(str))
+	_discipline: tuple[discipline.DisciplineClass,...] = attrs.field(converter=discipline.DisciplineClassTuple_converter, validator=attrs.validators.deep_iterable( # type: ignore[misc]
             member_validator=attrs.validators.instance_of(discipline.DisciplineClass),
             iterable_validator=attrs.validators.instance_of(tuple)))
-	_tracks: tuple[TrackClass, ...] = attrs.field(default=tuple, converter=TrackClassTuple_converter, validator=attrs.validators.deep_iterable(
+	_tracks: tuple[TrackClass, ...] = attrs.field(default=tuple(), converter=TrackClassTuple_converter, validator=attrs.validators.deep_iterable( # type: ignore[misc]
             member_validator=attrs.validators.instance_of(TrackClass),
             iterable_validator=attrs.validators.instance_of(tuple)))
 
@@ -87,7 +89,7 @@ class VenueClass(base.BaseClass):
 	def hasTrack(self, track: TrackClass) -> bool:
 		return (track in self._tracks)
 
-	def getTracks(self) -> list[TrackClass]:
+	def getTracks(self) -> tuple[TrackClass, ...]:
 		return self._tracks
 
 	def numOfTracks(self) -> int:
@@ -96,7 +98,7 @@ class VenueClass(base.BaseClass):
 	def numOfDisciplines(self) -> int:
 		return len(self._discipline)
 
-	def getAddress(self) -> AddressClass:
+	def getAddress(self) -> AddressClass|None:
 		return self._address
 
 @typeguard.typechecked
