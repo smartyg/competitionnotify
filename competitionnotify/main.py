@@ -38,13 +38,13 @@ async def runner() -> None:
 		results_provider_ssr = results_ssr.ResultsSSR()
 
 		# Database with processed competitions
-		processed_competitions = processed_competitions.ProcessedCompetitions(db_file="/mnt/projects/development/competitionnotify/processed_competitions.db")
+		processed_competitions_provider = processed_competitions.ProcessedCompetitions(db_file="/mnt/projects/development/competitionnotify/processed_competitions.db")
 
 		# And of course the email handling provider
-		emails = emails.Emails(db_file="/mnt/projects/development/competitionnotify/emails.db")
+		email_provider = emails.Emails(db_file="/mnt/projects/development/competitionnotify/emails.db")
 
 		# Get an instance of the main download class
-		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
+		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions_provider, emails=email_provider)
 		#competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
 		await utils_processes.createAndStartProcess(competitions.load())
 
