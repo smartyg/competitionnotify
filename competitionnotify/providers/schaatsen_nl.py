@@ -22,6 +22,8 @@ import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters
 import competitionnotify.providers.base.result_provider_interface as result_provider_interface
+import competitionnotify.providers.emails as emails
+import competitionnotify.providers.processed_competitions as processed_competitions
 
 logger = logging.getLogger(__name__)
 
@@ -49,15 +51,15 @@ class CompetitionProcess:
 		def getClass(self) -> attrs.AttrsInstance:
 			return self._type
 
-	_competition: dataclasses.CompetitionClass = attrs.field(converter=dataclasses.CompetitionClass_converter, validator=attrs.validators.instance_of(dataclasses.CompetitionClass))
+	_competition: competition.CompetitionClass = attrs.field(converter=competition.CompetitionClass_converter, validator=attrs.validators.instance_of(competition.CompetitionClass)) # type: ignore [misc]
 
 	_venue_provider: venues.Venues = attrs.field(validator=attrs.validators.instance_of(venues.Venues))
 	_skaters_provider: skaters.Skaters = attrs.field(validator=attrs.validators.instance_of(skaters.Skaters))
 	_results_provider: set[result_provider_interface.ResultProviderInterface] = attrs.field(validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(result_provider_interface.ResultProviderInterface),
             iterable_validator=attrs.validators.instance_of(set)))
-	#_processed_competition_provider = attrs.field(validator=attrs.validators.instance_of(...))
-	#_email_provider = attrs.field(validator=attrs.validators.instance_of(...))
+	_processed_competition_provider: processed_competitions.ProcessedCompetitions = attrs.field(validator=attrs.validators.instance_of(processed_competitions.ProcessedCompetitions))
+	_email_provider: emails.Emails = attrs.field(validator=attrs.validators.instance_of(emails.Emails))
 
 	async def load(self) -> None:
 		pass
@@ -177,18 +179,18 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.Webs
 	_venue_provider: venues.Venues
 	_skaters_provider: skaters.Skaters
 	_results_provider: set[result_provider_interface.ResultProviderInterface]
-	_processed_competition_provider
-	_email_provider
+	_processed_competition_provider: processed_competitions.ProcessedCompetitions
+	_email_provider: emails.Emails
 
 	_competitions: set[CompetitionProcess] = set()
 
-	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[result_provider_interface.ResultProviderInterface], processed_competitions: None, email_provider: None):
+	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[result_provider_interface.ResultProviderInterface], processed_competitions: processed_competitions.ProcessedCompetitions, emails: emails.Emails):
 		self._competitions.clear()
 		self._venue_provider = venues
 		self._skaters_provider = skaters
 		self._results_provider = set(results)
 		self._processed_competition_provider = processed_competitions
-		self._email_provider = email_provider
+		self._email_provider = emails
 
 		super().__init__('https://inschrijven.schaatsen.nl/api/competitions', self._load_competitions)
 
