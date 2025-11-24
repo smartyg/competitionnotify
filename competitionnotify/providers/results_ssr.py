@@ -6,14 +6,15 @@ import asyncio
 import logging
 import uuid
 
+import websocketframework.websocket as websocket
+import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.providers.base.result_provider_interface as result_provider
-import competitionnotify.websocket as websocket
 
 logger = logging.getLogger(__name__)
 
 #TODO: make class working
 @typeguard.typechecked
-class ResultsSSR(result_provider.ResultProviderInterface, websocket.WebsocketInterface):
+class ResultsSSR(result_provider.ResultProviderInterface, websocketinterface.WebsocketInterface):
 	def __init__(self):
 		return None
 

@@ -11,10 +11,10 @@ import traceback
 import uuid
 import datetime
 
+import taskmanager.taskmanager as task_manager
 import websocketframework.websocket as websocket
 import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.utils.utils as utils
-import taskmanager as task_manager
 import competitionnotify.classes.base as base
 import competitionnotify.classes.competition as competition
 import competitionnotify.classes.distance_combination as distance_combination

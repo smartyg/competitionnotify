@@ -4,13 +4,13 @@ import asyncio
 import logging
 import traceback
 
+import taskmanager.taskmanager as task_manager
+import websocketframework.websocket as websocket
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters
 import competitionnotify.providers.results_vantage as results_vantage
 import competitionnotify.providers.results_ssr as results_ssr
 import competitionnotify.providers.schaatsen_nl as schaatsen_nl
-import competitionnotify.task_manager as task_manager
-import websocketframework.websocket as websocket
 
 logger = logging.getLogger(__name__)
 
