@@ -260,7 +260,7 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.Webs
 			("count", self._cmd_count),
 			)
 
-	def _cmd_count(self) -> int:
+	def _cmd_count(self, client_id: uuid.UUID) -> int:
 		return 1
 
 	def registerWebsocket(self, ws: websocket.Websocket) -> bool:

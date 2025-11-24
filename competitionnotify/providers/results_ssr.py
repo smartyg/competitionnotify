@@ -21,15 +21,16 @@ class ResultsSSR(result_provider.ResultProviderInterface, websocketinterface.Web
 	def get(self) -> str:
 		return "test"
 
+	# Interfaces for WebsocketInterface
 	def getName(self) -> str:
-		return "results_ssr"
+		return "ssr"
 
 	def getCommands(self) -> websocket.CommandList:
 		return (
 			("count", self._cmd_count),
 			)
 
-	def _cmd_count(self) -> int:
+	def _cmd_count(self, client_id: uuid.UUID) -> int:
 		return 1
 
 	def registerWebsocket(self, ws: websocket.Websocket) -> bool:
