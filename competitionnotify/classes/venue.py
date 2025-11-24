@@ -6,8 +6,8 @@ import attrs
 import logging
 
 import competitionnotify.utils.utils as utils
-import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.discipline as discipline
+import competitionnotify.classes.base as base
+import competitionnotify.classes.discipline as discipline
 
 logger = logging.getLogger(__name__)
 

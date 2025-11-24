@@ -14,10 +14,10 @@ import datetime
 import websocketframework.websocket as websocket
 import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.utils.utils as utils
-import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.competition as dataclasses
-import competitionnotify.dataclasses.distance_combination as distance_combination
 import taskmanager as task_manager
+import competitionnotify.classes.base as base
+import competitionnotify.classes.competition as competition
+import competitionnotify.classes.distance_combination as distance_combination
 import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters

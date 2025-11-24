@@ -7,9 +7,9 @@ import logging
 import datetime
 
 import competitionnotify.utils.utils as utils
-import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.discipline as discipline
-import competitionnotify.dataclasses.categories as categories
+import competitionnotify.classes.base as base
+import competitionnotify.classes.discipline as discipline
+import competitionnotify.classes.categories as categories
 
 logger = logging.getLogger(__name__)
 

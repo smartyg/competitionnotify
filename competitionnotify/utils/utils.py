@@ -8,7 +8,7 @@ import logging
 import uuid
 import datetime
 import re
-import competitionnotify.dataclasses.base as base
+import competitionnotify.classes.base as base
 
 logger = logging.getLogger(__name__)
 

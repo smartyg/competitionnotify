@@ -6,7 +6,7 @@ import attrs
 import datetime
 import re
 
-import competitionnotify.dataclasses.base as base
+import competitionnotify.classes.base as base
 import competitionnotify.utils.utils as utils
 
 @attrs.define(frozen=True, kw_only=True, slots=False)

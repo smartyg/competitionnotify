@@ -8,8 +8,8 @@ import attrs
 
 import websocketframework.websocket as websocket
 import websocketframework.websocketinterface as websocketinterface
-import competitionnotify.dataclasses.venue as venue
-import competitionnotify.dataclasses.discipline as discipline
+import competitionnotify.classes.venue as venue
+import competitionnotify.classes.discipline as discipline
 import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.utils.utils as utils
 

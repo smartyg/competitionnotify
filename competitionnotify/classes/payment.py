@@ -5,7 +5,7 @@ import typeguard
 import attrs
 import logging
 
-import competitionnotify.dataclasses.base as base
+import competitionnotify.classes.base as base
 import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)

@@ -4,9 +4,9 @@ import abc
 import typeguard
 import logging
 
-import competitionnotify.dataclasses.skater as skater
-import competitionnotify.dataclasses.distance as distance
-import competitionnotify.dataclasses.time as time
+import competitionnotify.classes.skater as skater
+import competitionnotify.classes.distance as distance
+import competitionnotify.classes.time as time
 
 logger = logging.getLogger(__name__)
 

@@ -11,9 +11,9 @@ import sqlite3
 
 import websocketframework.websocket as websocket
 import websocketframework.websocketinterface as websocketinterface
-import competitionnotify.dataclasses.discipline as discipline
-import competitionnotify.dataclasses.skater as skater
-import competitionnotify.dataclasses.filter as filter
+import competitionnotify.classes.discipline as discipline
+import competitionnotify.classes.skater as skater
+import competitionnotify.classes.filter as filter
 import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.utils.utils as utils
 

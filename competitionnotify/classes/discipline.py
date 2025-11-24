@@ -6,7 +6,7 @@ import typing
 import re
 import logging
 
-import competitionnotify.dataclasses.base as base
+import competitionnotify.classes.base as base
 
 logger = logging.getLogger(__name__)
 

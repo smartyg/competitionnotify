@@ -7,7 +7,7 @@ import datetime
 import dateutil.relativedelta
 import re
 
-import competitionnotify.dataclasses.base as base
+import competitionnotify.classes.base as base
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CategoryBase(base.BaseClass):

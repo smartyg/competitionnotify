@@ -7,10 +7,10 @@ import logging
 import uuid
 import  datetime
 
-import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.discipline as discipline
-import competitionnotify.dataclasses.categories as categories
-import competitionnotify.dataclasses.venue as venue
+import competitionnotify.classes.base as base
+import competitionnotify.classes.discipline as discipline
+import competitionnotify.classes.categories as categories
+import competitionnotify.classes.venue as venue
 import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
