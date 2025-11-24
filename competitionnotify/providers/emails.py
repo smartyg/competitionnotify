@@ -39,14 +39,12 @@ class Emails(websocketinterface.WebsocketInterface):
 		return "emails"
 
 	def getCommands(self) -> websocket.CommandList:
-		return ()
-			# ("count", self._cmd_count, "Return the number of skaters in the database"),
-			# ("add", self._cmd_add, "Add a skaters to the list with KNSB number and email address."),
-			# ("update", self._cmd_update, "update mail settings of a skater"),
-			# ("remove", self._cmd_remove, "Remove a skater from the database by KNSB number."),
-			# ("get", self._cmd_get, "Get the details of a skater in the database."),
-			# ("search_name", self._cmd_search, "Search a skater by (part of) a name.")
-			# )
+		return (
+			("count", self._cmd_count),
+			)
+
+	def _cmd_count(self, client_id: uuid.UUID) -> int:
+		return 1
 
 	def registerWebsocket(self, ws: websocket.Websocket) -> bool:
 		return True
