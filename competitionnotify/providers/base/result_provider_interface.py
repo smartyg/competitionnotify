@@ -7,6 +7,7 @@ import logging
 import competitionnotify.classes.skater as skater
 import competitionnotify.classes.distance as distance
 import competitionnotify.classes.time as time
+import competitionnotify.classes.searchresults as searchresults
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class ResultProviderInterface(metaclass=abc.ABCMeta):
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def search_skater(self, first_name: str|None = None, last_name: str|None = None) -> list[SearchResultsClass]:
+	def search_skater(self, first_name: str|None = None, last_name: str|None = None) -> list[searchresults.SearchResultsClass]:
 		"""Load in the data set"""
 		raise NotImplementedError
 
