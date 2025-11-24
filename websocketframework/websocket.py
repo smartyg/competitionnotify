@@ -26,6 +26,8 @@ import websocketframework.dataclasses.registrationcommandargument as rca
 
 logger = logging.getLogger(__name__)
 
+CommandList = wst.CommandList #collections.abc.Sequence[tuple[str, wst.Callback]|tuple[str, wst.Callback, str]]
+
 @typeguard.typechecked
 @attrs.define(frozen=False, kw_only=True, slots=False)
 class Websocket(wsi.WebsocketInterface):
@@ -150,7 +152,7 @@ class Websocket(wsi.WebsocketInterface):
 	def getName(self) -> str:
 		return "main"
 
-	def getCommands(self) -> wst.CommandList:
+	def getCommands(self) -> CommandList:
 		return (
 			("connection_id", self._cmd_connection_id),
 			("clients", self._cmd_clients),
@@ -159,6 +161,7 @@ class Websocket(wsi.WebsocketInterface):
 			("purge", self._cmd_purge),
 			("modules", self._cmd_modules),
 			("help", self._cmd_help, "List all modules and commands"),
+			("inspect", self._cmd_inspect, "List all parameters and return type of a command."),
 			)
 
 	def _cmd_connection_id(self, client_id: uuid.UUID) -> str:
@@ -189,6 +192,9 @@ class Websocket(wsi.WebsocketInterface):
 		for m in self._modules:
 			ret[m] = self._modules[m].list_all()
 		return ret
+
+	def _cmd_inspect(self, client_id: uuid.UUID, module: str, command: str) -> dict[str, str|list[tuple[str, str]|tuple[str, str, str]]]:
+		return {'module': 'main', 'command': 'inspect', 'parameters': [("client_id", "uuid.UUID"), ("module", "str"), ("command", "str")], 'return': "dict"}
 
 	def registerWebsocket(self, ws: "Websocket") -> bool:
 		return True

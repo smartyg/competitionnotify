@@ -37,7 +37,7 @@ class Registration:
 			help_str = None if len(c) < 3 else c[2]
 			typeguard.check_type(func, wst.Callback)
 			sig = inspect.signature(func)
-			func_args: dict[str, rc.aRegistrationCommandArgument] = dict()
+			func_args: dict[str, rca.RegistrationCommandArgument] = dict()
 			for parameter in sig.parameters.values():
 				print("  argument: " + parameter.name)
 				name: str = parameter.name
