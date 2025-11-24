@@ -102,7 +102,7 @@ class CompetitionProcess:
 
 	def getApiCalls(self) -> dict[str, apiCall]:
 		urls = {
-			'competition': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()), dataclasses.CompetitionClass),
+			'competition': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()), competition.CompetitionClass),
 			'distancecombinations': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/distancecombinations', distance_combination.DistancecombinationsClass),
 			'distancecombinationsettings': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/settings/distancecombinations', distance_combination.DistancecombinationsettingsClass)
 		}
@@ -161,7 +161,7 @@ class CompetitionProcess:
 		# Get record from processed competitions for this competition
 
 		print("competition...")
-		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], dataclasses.CompetitionClass)
+		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], competition.CompetitionClass)
 		print("distancecombinations...")
 		distancecombinations = await self.waitDownloadTaskCompletion('distancecombinations', download_task['distancecombinations'], distance_combination.DistancecombinationsClass)
 		print("distancecombinationsettings...")
@@ -202,7 +202,7 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.Webs
 				logger.debug ("New competition file downloaded")
 				return json.loads(await response.text())
 
-	async def _load_competitions(self, json) -> None:
+	async def _load_competitions(self, json: list) -> None:
 		# Clear the list of existing coroutines
 		self._competitions.clear()
 
@@ -211,7 +211,7 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.Webs
 			c = utils.class_factory({'competition': competition}, CompetitionProcess)
 			if c is not None:
 				self._competitions.add(c)
-		print("processed " + str(len(self._competitions)) + "/" + str(len(competitions)) + " competitions")
+		print("processed " + str(len(self._competitions)) + "/" + str(len(json)) + " competitions")
 
 	def listOpen(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isOpen()}
