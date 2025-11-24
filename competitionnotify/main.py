@@ -25,11 +25,11 @@ async def runner() -> None:
 
 		# get instance to venues
 		venues_provider = venues.Venues()
-		await utils_processes.startProcess(venues_provider.load())
+		await utils_processes.createAndStartProcess(venues_provider.load())
 
 		# get instance to skaters
 		skaters_provider = skaters.Skaters(db_file="/mnt/projects/development/competitionnotify/skaters.db")
-		await utils_processes.startProcess(skaters_provider.load())
+		await utils_processes.createAndStartProcess(skaters_provider.load())
 
 		# get instance to Vantage (KNSB) times
 		results_provider_vantage = results_vantage.ResultsVantage()
@@ -46,7 +46,7 @@ async def runner() -> None:
 		# Get an instance of the main download class
 		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
 		#competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
-		await utils_processes.startProcess(competitions.load())
+		await utils_processes.createAndStartProcess(competitions.load())
 
 		# start websocket
 		ws = websocket.Websocket()
@@ -64,17 +64,17 @@ async def runner() -> None:
 		await utils_processes.waitAllProcesses()
 
 		# The modules (incl. data) are properly loaded, now start the web socket
-		await websocket_process.startProcess(ws.run())
+		await websocket_process.createAndStartProcess(ws.run())
 
 		# Always run the main loop, untill an exception happens
 		while True:
 			# get a new list of competition coroutines
-			competitions = await competitions.getCompetitions(download=True)
+			competition_list: set[task_manager.CoroutineClass] = await competitions.getCompetitions(download=True)
 
 			# Cancel all existing (running) tasks, as now we have a new list of tasks prepared
 			await competition_processes.cancelProcesses()
 			# Run the new list of prepared tasks
-			await competition_processes.startProcesses(competitions)
+			await competition_processes.startProcesses(competition_list)
 
 			# Run this loop once every 24 hours
 			await asyncio.sleep(24*3600)
