@@ -10,10 +10,7 @@ import competitionnotify.providers.results_vantage as results_vantage
 import competitionnotify.providers.results_ssr as results_ssr
 import competitionnotify.providers.schaatsen_nl as schaatsen_nl
 import competitionnotify.task_manager as task_manager
-import competitionnotify.websocket as websocket
-
-#test
-import uuid
+import websocketframework.websocket as websocket
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +21,7 @@ async def runner() -> None:
 		utils_processes = task_manager.TaskManager()
 		websocket_process = task_manager.TaskManager()
 
-		# get isntance to venues
+		# get instance to venues
 		venues_provider = venues.Venues()
 		await utils_processes.startProcess(venues_provider.load())
 
@@ -33,20 +30,20 @@ async def runner() -> None:
 		await utils_processes.startProcess(skaters_provider.load())
 
 		# get instance to Vantage (KNSB) times
-		#results_provider_vantage = results_vantage.ResultsVantage()
+		results_provider_vantage = results_vantage.ResultsVantage()
 
 		# get instance to Speed Skating Results
 		results_provider_ssr = results_ssr.ResultsSSR()
 
 		# Database with processed competitions
-		#processed_competitions = ProcessedCompetitions(db_file="/mnt/projects/development/competitionnotify/processed_competitions.db")
+		processed_competitions = ProcessedCompetitions(db_file="/mnt/projects/development/competitionnotify/processed_competitions.db")
 
 		# And of course the email handling provider
-		#emails = Emails(prepared_file="prepared_emails", send_file="send_emails")
+		emails = Emails(prepared_file="prepared_emails", send_file="send_emails")
 
 		# Get an instance of the main download class
-		#competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
-		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
+		competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_vantage, results_provider_ssr], processed_competitions=processed_competitions, emails=emails)
+		#competitions = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
 		await utils_processes.startProcess(competitions.load())
 
 		# start websocket
@@ -55,10 +52,10 @@ async def runner() -> None:
 		# register all modules for the websocket
 		ws.registerModule(venues_provider)
 		ws.registerModule(skaters_provider)
-		#ws.registerModule(results_provider_vantage)
+		ws.registerModule(results_provider_vantage)
 		ws.registerModule(results_provider_ssr)
-		#ws.registerModule(processed_competitions)
-		#ws.registerModule(emails)
+		ws.registerModule(processed_competitions)
+		ws.registerModule(emails)
 		ws.registerModule(competitions)
 
 		# now wait till the util processes are done (all data is loaded)

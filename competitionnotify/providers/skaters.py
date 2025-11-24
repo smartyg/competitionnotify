@@ -1,25 +1,26 @@
 #!/usr/bin/python
 
 import typing
-from typeguard import typechecked
+import typeguard
+import attrs
 import asyncio
 import logging
 import uuid
 import json
 import sqlite3
 
-import competitionnotify.websocket as websocket
+import websocketframework.websocket as websocket
+import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.dataclasses.discipline as discipline
 import competitionnotify.dataclasses.skater as skater
 import competitionnotify.dataclasses.filter as filter
 import competitionnotify.providers.base.loadable_provider as loadable_provider
-import competitionnotify.providers.venues as venues
 import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
 
-@typechecked
-class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
+@typeguard.typechecked
+class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):
 	# saved data:
 	#  - KNSB nummer
 	#  - email adres
@@ -32,10 +33,16 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 	_cursor: sqlite3.Cursor
 	_db_file: str|None
 
-	def __init__(self, db_file: str|None):
+	def __init__(self, db_file: str|None = None):
 		self._db_file = db_file
-		self._connection = sqlite3.connect(db_file)
+		if isinstance(db_file, str):
+			self._connection = sqlite3.connect(db_file)
+		else:
+			self._connection = sqlite3.connect(":memory:")
 		self._cursor = self._connection.cursor()
+
+		#TODO: check if table skaters exists, if not, create it.
+
 		super().__init__(None, self._loadData)
 
 	def __del__(self):
@@ -83,10 +90,6 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 			ret = utils.class_factory(entry, skater.SkaterClass)
 			return ret
 
-	#async def _searchSkater(self):
-
-		#url = "https://tijden-service.schaatsen.nl/api/SearchSkater?name="
-
 	def getSkaterByName(self, name: str) -> skater.SkaterClass|None:
 		for skater in self._skaters:
 			if skater.getName() == name:
@@ -109,24 +112,25 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 		return self._skaters
 
 	def addOrUpdate(self, skater: skater.SkaterClass) -> bool:
-		number = skater.getNumber()
+		number = skater.getId()
 		for old_skater in self._skaters:
-			if old_skater.getNumber() == number:
+			if old_skater.getId() == number:
 				self._skaters.remove(old_skater)
 		self._skaters.append(skater)
 		return self.save()
 
-	def filterSkatersEmail(filter: filter.FilterClass) -> list[str]:
+	def filterSkatersEmailAddress(self, filter: filter.FilterClass) -> list[str]:
 		#return [skater.getEmail() if skater.filter(filter) for skater in self._skaters]
-		return [skater.getEmail() for skater in self._skaters if filter.testSkater(skater)]
+		return [skater.getEmailAddress() for skater in self._skaters if filter.testSkater(skater)]
 
-	def filterSkaters(filter: filter.FilterClass) -> list[skater.SkaterClass]:
+	def filterSkaters(self, filter: filter.FilterClass) -> list[skater.SkaterClass]:
 		#return [skater if skater.filter(filter) for skater in self._skaters]
 		return [skater for skater in self._skaters if filter.testSkater(skater)]
 
 	def save(self) -> bool:
 		#self._table = [skater.exportDict() for skater in self._skaters]
 		pass
+		return False
 
 	# Interfaces for WebsocketInterface
 	def getName(self) -> str:
@@ -146,15 +150,27 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 		return len(self._skaters)
 
 	def _cmd_add(self, client_id: uuid.UUID, number: str, email: str) -> bool:
+		pass
+		return False
+		# session = await self.getSession()
+		# skater['number'] = client_id
+		# skater['emailAddress'] = email
+		# skater['homeVenue'] = False
+		# skater['venues'] = []
+		# skater['disciplines'] = []
+		# record = await self._loadSkater(session, record)
+		# self._skaters.append(record)
 
 		return True
 
-	def _cmd_update(self, client_id: uuid.UUID, number: str, email: str|None = None, home_venue: bool|None = None, venues=list[str]|None = None, disciplines=list[int]|None = None) -> bool:
+	def _cmd_update(self, client_id: uuid.UUID, number: str, email: str|None = None, home_venue: bool|None = None, venues: list[str]|None = None, disciplines: list[int]|None = None) -> bool:
 		s = self.getSkaterByNumber(number)
 		if s is None:
 			return False
 
 		o = s.getOptions()
+		if o is None:
+			o = skater.MailOptionsClass(emailAddress="", homeVenue=False, venues=tuple(), disciplines=tuple())
 
 		if email is not None:
 			o_new = attrs.evolve(o, emailAddress=email)
@@ -169,8 +185,8 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 			o = o_new
 
 		if disciplines is not None:
-			ddisciplines_new = [discipline.Discipline(d) for d in disciplines]
-			o_new = attrs.evolve(o, disciplines=tuple(ddisciplines_new))
+			disciplines_new = [discipline.DisciplineClass(discipline=d) for d in disciplines]
+			o_new = attrs.evolve(o, disciplines=tuple(disciplines_new))
 			o = o_new
 
 		s_new = attrs.evolve(s, mailOptions=o)
@@ -193,31 +209,49 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 		if s is None:
 			return {}
 		else:
-			return attrs.asdict(res)
+			return attrs.asdict(s)
 
-	def _cmd_search(self, client_id: uuid.UUID, initials: str|None = None, first_name: str|None = None, last_name_prefix: str|None = None, last_name: str|None = None, category: str|None = None, club: int|None = None) -> list[tuple(str, str, str, int)]:
+	def _cmd_search(self, client_id: uuid.UUID, first_name: str|None = None, last_name_prefix: str|None = None, last_name: str|None = None, category: str|None = None, club: int|None = None) -> list[dict[str, typing.Any]]:
+		results: list[dict[str, typing.Any]] = []
 		for s in self._skaters:
 			p = s._personName
 
-			if _firstName: str = attrs.field(validator=attrs.validators.instance_of(str))
-	_initials: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_surname: str = attrs.field(validator=attrs.validators.instance_of(str))
-	_surnamePrefix
+			match: bool = False
 
+			if first_name is not None:
+				if first_name == s.getFirstName():
+					match = True
+				else:
+					match = False
 
+			if last_name_prefix is not None:
+				if last_name_prefix == s.getPrefix():
+					match = True
+				else:
+					match = False
+
+			if last_name is not None:
+				if first_name == s.getSurename():
+					match = True
+				else:
+					match = False
+
+			if category is not None:
+				if category == s.getFirstName():
+					match = True
+				else:
+					match = False
+
+			if club is not None:
+				if club == s.getClub():
+					match = True
+				else:
+					match = False
+
+			if match:
+				results.append(attrs.asdict(s))
+
+		return results
 
 	def registerWebsocket(self, ws: websocket.Websocket) -> bool:
 		return True
-
-import asyncio
-import competitionnotify.websocket as websocket
-
-async def run() -> None:
-	skaters_provider = Skaters()
-	await skaters_provider.load()
-	ws = websocket.Websocket()
-	ws.registerModule(skaters_provider)
-	await ws.run()
-
-if __name__ == '__main__':
-	asyncio.run(run())

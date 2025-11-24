@@ -6,7 +6,8 @@ import logging
 import uuid
 import attrs
 
-import competitionnotify.websocket as websocket
+import websocketframework.websocket as websocket
+import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.dataclasses.venue as venue
 import competitionnotify.dataclasses.discipline as discipline
 import competitionnotify.providers.base.loadable_provider as loadable_provider
@@ -15,7 +16,7 @@ import competitionnotify.utils.utils as utils
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-class Venues(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
+class Venues(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):
 	_api_url = "https://inschrijven.schaatsen.nl/api/venues"
 	_venues: dict[int, venue.VenueClass] = dict()
 
@@ -28,12 +29,14 @@ class Venues(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 			code = self._getVenueRefByCode(entry['code'])
 			if code is None:
 				venue_cls = utils.class_factory(entry, venue.VenueClass)
-				self._addVenue(venue_cls)
+				if venue_cls is not None:
+					self._addVenue(venue_cls)
 			else:
 				self._addDiscipline(code, discipline.DisciplineClass.getDisciplineByString(string=entry['discipline']))
 				for track_entry in entry['tracks']:
 					track = utils.class_factory(track_entry, venue.TrackClass)
-					self._addTrack(code, track)
+					if track is not None:
+						self._addTrack(code, track)
 
 	def _getVenueRefByCode(self, code: str) -> int|None:
 		for key, venue in self._venues.items():
@@ -62,21 +65,23 @@ class Venues(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 
 	def hasVenue(self, code: str|None = None, name: str|None = None, discipline: discipline.DisciplineClass|None = None) -> bool:
 		if code is None and name is None:
-			raise TypeError
+			raise TypeError("At least one of the parameters `code` or `name` must be given.")
 		for venue_cls in self._venues.values():
 			return testVenue(venue_cls, code, name, discipline)
+		return False
 
-	def getVenue(self, code: str|None = None, name: str|None = None, discipline: discipline.DisciplineClass|None = None) -> venue.VenueClass:
-			if code is None and name is None:
-				raise TypeError
-			for venue_cls in self._venues.values():
-				if testVenue(venue_cls, code, name, discipline):
-					return venue_cls
+	def getVenue(self, code: str|None = None, name: str|None = None, discipline: discipline.DisciplineClass|None = None) -> venue.VenueClass|None:
+		if code is None and name is None:
+			raise TypeError("At least one of the parameters `code` or `name` must be given.")
+		for venue_cls in self._venues.values():
+			if testVenue(venue_cls, code, name, discipline):
+				return venue_cls
+		return None
 
 	def getVenueCodes(self, code: str|None = None, name: str|None = None, discipline: discipline.DisciplineClass|None = None) -> list[str]:
 		return [v.getCode() for v in self._venues.values() if testVenue(v, code, name, discipline)]
 
-	def getVenueByCode(self, code: str) -> venue.VenueClass:
+	def getVenueByCode(self, code: str) -> venue.VenueClass|None:
 		return self.getVenue(code=code)
 
 	def getAll(self) -> dict[int, venue.VenueClass]:
@@ -98,13 +103,15 @@ class Venues(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 
 	def _cmd_get(self, client_id: uuid.UUID, code: str) -> dict[str, typing.Any]:
 		res = self.getVenue(code=code)
-		return attrs.asdict(res)
+		if res is not None:
+			return attrs.asdict(res)
+		return {}
 
-	def _cmd_list(self, client_id: uuid.UUID, d: str|None = None) -> list[str]:
+	def _cmd_list(self, client_id: uuid.UUID, only_discipline: str|None = None) -> list[str]:
 		res: list[str] = []
 		d_cls: discipline.DisciplineClass|None = None
-		if d is not None:
-			d_cls = discipline.DisciplineClass.getDisciplineByString(string=d)
+		if only_discipline is not None:
+			d_cls = discipline.DisciplineClass.getDisciplineByString(string=only_discipline)
 
 		return self.getVenueCodes(discipline=d_cls)
 
@@ -123,16 +130,3 @@ def testVenue(venue_cls: venue.VenueClass, code: str|None = None, name: str|None
 		if not venue_cls.hasDiscipline(discipline):
 			return False
 	return True
-
-import asyncio
-import competitionnotify.websocket as websocket
-
-async def run() -> None:
-	venues_provider = Venues()
-	await venues_provider.load()
-	ws = websocket.Websocket()
-	ws.registerModule(venues_provider)
-	await ws.run()
-
-if __name__ == '__main__':
-	asyncio.run(run())
