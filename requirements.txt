@@ -9,3 +9,4 @@ uuid>=1
 pytest>=8.4
 typeguard>=4
 websocketframework>=0.0.1
+taskmanager>=0.0.1

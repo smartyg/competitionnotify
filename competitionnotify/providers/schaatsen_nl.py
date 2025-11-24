@@ -9,16 +9,15 @@ import json
 import logging
 import traceback
 import uuid
-from datetime import datetime, timezone
+import datetime
 
-#from baseclass import BaseClass
-#from classes import CompetitionClass, CompetitionClass_converter, DistancecombinationsClass, DistancecombinationsettingsClass
-
-import competitionnotify.websocket as websocket
+import websocketframework.websocket as websocket
+import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.utils.utils as utils
 import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.classes as dataclasses
-import competitionnotify.task_manager as task_manager
+import competitionnotify.dataclasses.competition as dataclasses
+import competitionnotify.dataclasses.distance_combination as distance_combination
+import taskmanager as task_manager
 import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters
@@ -28,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 U = typing.TypeVar('U', bound=type[attrs.AttrsInstance]) # Declare type variable "U"
 
+@typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class CompetitionProcess:
 
@@ -40,16 +40,24 @@ class CompetitionProcess:
 		def _check_type(self, attribute, value):
 			print("_check_type: subclasses:")
 			print([cls.__name__ for cls in value.__subclasses__()])
-			if not issubclass(value, (CompetitionClass, DistancecombinationsClass, DistancecombinationsettingsClass)): #attrs.AttrsInstance):
+			if not issubclass(value, (CompetitionClass, distance_combination.DistancecombinationsClass, distance_combination.DistancecombinationsettingsClass)): #attrs.AttrsInstance):
 				raise ValueError("value (" + str(type(value)) + ") is not a subclass of attrs.AttrsInstance")
 
 		def getUrl(self) -> str:
 			return self._url
 
-		def getClass(self) -> str:
+		def getClass(self) -> attrs.AttrsInstance:
 			return self._type
 
 	_competition: dataclasses.CompetitionClass = attrs.field(converter=dataclasses.CompetitionClass_converter, validator=attrs.validators.instance_of(dataclasses.CompetitionClass))
+
+	_venue_provider: venues.Venues = attrs.field(validator=attrs.validators.instance_of(venues.Venues))
+	_skaters_provider: skaters.Skaters = attrs.field(validator=attrs.validators.instance_of(skaters.Skaters))
+	_results_provider: set[result_provider_interface.ResultProviderInterface] = attrs.field(validator=attrs.validators.deep_iterable(
+            member_validator=attrs.validators.instance_of(result_provider_interface.ResultProviderInterface),
+            iterable_validator=attrs.validators.instance_of(set)))
+	#_processed_competition_provider = attrs.field(validator=attrs.validators.instance_of(...))
+	#_email_provider = attrs.field(validator=attrs.validators.instance_of(...))
 
 	async def load(self) -> None:
 		pass
@@ -61,15 +69,15 @@ class CompetitionProcess:
 		return self._competition.getName()
 
 	def isOpen(self) -> bool:
-		now = datetime.now(timezone.utc)
+		now = datetime.datetime.now(datetime.timezone.utc)
 		return (self._competition.opens() < now and self._competition.closes() > now)
 
 	def isOpenFuture(self) -> bool:
-		now = datetime.now(timezone.utc)
+		now = datetime.datetime.now(datetime.timezone.utc)
 		return (self._competition.opens() > now and self._competition.closes() > now)
 
 	def isClosed(self) -> bool:
-		now = datetime.now(timezone.utc)
+		now = datetime.datetime.now(datetime.timezone.utc)
 		return (self._competition.closes() < now)
 
 	def isTest(self) -> bool:
@@ -92,12 +100,11 @@ class CompetitionProcess:
 
 	def getApiCalls(self) -> dict[str, apiCall]:
 		urls = {
-			'competition': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()), CompetitionClass),
-			'distancecombinations': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/distancecombinations', DistancecombinationsClass),
-			'distancecombinationsettings': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/settings/distancecombinations', DistancecombinationsettingsClass)
+			'competition': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()), dataclasses.CompetitionClass),
+			'distancecombinations': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/distancecombinations', distance_combination.DistancecombinationsClass),
+			'distancecombinationsettings': CompetitionProcess.apiCall('https://inschrijven.schaatsen.nl/api/competitions/' + str(self._competition.getId()) + '/settings/distancecombinations', distance_combination.DistancecombinationsettingsClass)
 		}
 		return urls
-
 
 	@staticmethod
 	async def apiDownload(url: str, c: U) -> U:
@@ -107,7 +114,7 @@ class CompetitionProcess:
 				data = json.loads(await response.text())
 				ret = None
 				if not isinstance(data, dict):
-					name = base.BaseClass.getFirstFieldName(c)
+					name = base.getFirstFieldName(c)
 					if name is not None:
 						ret = utils.class_factory({name: data}, c)
 				else:
@@ -134,14 +141,14 @@ class CompetitionProcess:
 		return task.result()
 
 	async def waitTillOpen(self) -> None:
-		delta = self._competition.opens() - datetime.now(timezone.utc)
+		delta = self._competition.opens() - datetime.datetime.now(datetime.timezone.utc)
 		wait = int(delta.total_seconds ()) + 1
 		logger.debug ("(" + str(self.getId()) + "): wait for " + str(wait) + " seconds to start processing competition")
 		await asyncio.sleep(wait)
 
-	async def run (self, nowait:bool = False) -> bool:
+	async def run(self, nowait:bool = False) -> bool:
 		if not nowait:
-			while datetime.now(timezone.utc) < self._competition.opens():
+			while datetime.datetime.now(datetime.timezone.utc) < self._competition.opens():
 				await self.waitTillOpen()
 
 		print("run competition process: " + self.getName())
@@ -152,11 +159,11 @@ class CompetitionProcess:
 		# Get record from processed competitions for this competition
 
 		print("competition...")
-		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], CompetitionClass)
+		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], dataclasses.CompetitionClass)
 		print("distancecombinations...")
-		distancecombinations = await self.waitDownloadTaskCompletion('distancecombinations', download_task['distancecombinations'], DistancecombinationsClass)
+		distancecombinations = await self.waitDownloadTaskCompletion('distancecombinations', download_task['distancecombinations'], distance_combination.DistancecombinationsClass)
 		print("distancecombinationsettings...")
-		distancecombinationsettings = await self.waitDownloadTaskCompletion('distancecombinationsettings', download_task['distancecombinationsettings'], DistancecombinationsettingsClass)
+		distancecombinationsettings = await self.waitDownloadTaskCompletion('distancecombinationsettings', download_task['distancecombinationsettings'], distance_combination.DistancecombinationsettingsClass)
 
 
 		# Check if current settings have changed
@@ -166,18 +173,22 @@ class CompetitionProcess:
 		return True
 
 @typeguard.typechecked
-class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
+class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):
 	_venue_provider: venues.Venues
 	_skaters_provider: skaters.Skaters
 	_results_provider: set[result_provider_interface.ResultProviderInterface]
+	_processed_competition_provider
+	_email_provider
 
-	_competitions: set[type[CompetitionProcess]] = set()
+	_competitions: set[CompetitionProcess] = set()
 
-	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[typing.Any], processed_competitions: None, emails: None):
+	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[result_provider_interface.ResultProviderInterface], processed_competitions: None, email_provider: None):
 		self._competitions.clear()
 		self._venue_provider = venues
 		self._skaters_provider = skaters
 		self._results_provider = set(results)
+		self._processed_competition_provider = processed_competitions
+		self._email_provider = email_provider
 
 		super().__init__('https://inschrijven.schaatsen.nl/api/competitions', self._load_competitions)
 
@@ -200,19 +211,19 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInte
 				self._competitions.add(c)
 		print("processed " + str(len(self._competitions)) + "/" + str(len(competitions)) + " competitions")
 
-	def listOpen(self) -> set[type[CompetitionProcess]]:
+	def listOpen(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isOpen()}
 
-	def listOpenFuture(self) -> set[type[CompetitionProcess]]:
+	def listOpenFuture(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isOpenFuture()}
 
-	def listClosed(self) -> set[type[CompetitionProcess]]:
+	def listClosed(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isClosed()}
 
-	def listTest(self) -> set[type[CompetitionProcess]]:
+	def listTest(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isTest()}
 
-	def listNoTest(self) -> set[type[CompetitionProcess]]:
+	def listNoTest(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if not c.isTest()}
 
 	def getCompetition(self, id: uuid.UUID) -> task_manager.CoroutineClass|None:

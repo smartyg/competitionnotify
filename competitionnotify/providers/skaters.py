@@ -41,12 +41,14 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 			self._connection = sqlite3.connect(":memory:")
 		self._cursor = self._connection.cursor()
 
-		#TODO: check if table skaters exists, if not, create it.
+		logger.info ("Check if database contains a table `skaters`, if not create it.")
+		self._cursor.execute("CREATE TABLE IF NOT EXISTS skaters (number INTEGER PRIMARY KEY NOT NULL, email TEXT NOT NULL, home_venue INTEGER DEFAULT FALSE, venues TEXT DEFAULT '', disciplines INTEGER DEFAULT 0, team INTEGER DEFAULT 0) STRICT")
 
 		super().__init__(None, self._loadData)
 
 	def __del__(self):
 		if self._connection is not None:
+			self.save()
 			self._connection.close()
 		self._connection = None
 
@@ -103,9 +105,9 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 		return True
 
 	def getSkaterByNumber(self, id: int|str) -> skater.SkaterClass|None:
-		for skater in self._skaters:
-			if skater.getId() == str(id):
-				return skater
+		for s in self._skaters:
+			if s.getId() == str(id):
+				return s
 		return None
 
 	def getAll(self) -> list[skater.SkaterClass]:
@@ -120,17 +122,16 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 		return self.save()
 
 	def filterSkatersEmailAddress(self, filter: filter.FilterClass) -> list[str]:
-		#return [skater.getEmail() if skater.filter(filter) for skater in self._skaters]
 		return [skater.getEmailAddress() for skater in self._skaters if filter.testSkater(skater)]
 
 	def filterSkaters(self, filter: filter.FilterClass) -> list[skater.SkaterClass]:
-		#return [skater if skater.filter(filter) for skater in self._skaters]
 		return [skater for skater in self._skaters if filter.testSkater(skater)]
 
 	def save(self) -> bool:
-		#self._table = [skater.exportDict() for skater in self._skaters]
-		pass
-		return False
+		data: list[dict[str, str|int|bool]] = [skater.sqlDict() for skater in self._skaters]
+		sql_insert = "INSERT OR REPLACE INTO `skaters` (number, email, home_venue, venues, disciplines, team) VALUES (:number, :email, :home_venue, :venues, :disciplines, :team)" # + ",".join(data)
+		self._cursor.executemany(sql_insert, data)
+		return True
 
 	# Interfaces for WebsocketInterface
 	def getName(self) -> str:
@@ -149,18 +150,16 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 	def _cmd_count(self, client_id: uuid.UUID) -> int:
 		return len(self._skaters)
 
-	def _cmd_add(self, client_id: uuid.UUID, number: str, email: str) -> bool:
-		pass
-		return False
-		# session = await self.getSession()
-		# skater['number'] = client_id
-		# skater['emailAddress'] = email
-		# skater['homeVenue'] = False
-		# skater['venues'] = []
-		# skater['disciplines'] = []
-		# record = await self._loadSkater(session, record)
-		# self._skaters.append(record)
-
+	async def _cmd_add(self, client_id: uuid.UUID, number: str, email: str) -> bool:
+		session = await self.getSession()
+		record: dict[str, typing.Any] = {}
+		record['number'] = number
+		record['emailAddress'] = email
+		record['homeVenue'] = False
+		record['venues'] = []
+		record['disciplines'] = []
+		s = await self._loadSkater(session, record)
+		self._skaters.append(s)
 		return True
 
 	def _cmd_update(self, client_id: uuid.UUID, number: str, email: str|None = None, home_venue: bool|None = None, venues: list[str]|None = None, disciplines: list[int]|None = None) -> bool:

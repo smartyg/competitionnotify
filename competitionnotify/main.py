@@ -90,33 +90,33 @@ async def runner() -> None:
 
 	return None
 
-async def test() -> None:
-	wedstrijden = SchaatsenDotNl()
-	await wedstrijden.load()
-
-	i = uuid.UUID("41d4c490-d4d9-4c6b-8daa-ccac6f90bd33", version=4)
-	cr = wedstrijden.getCompetition(i)
-
-	c = await cr.getCoroutine()
-	print(type(c))
-	print(c)
-
-
-async def test_venues() -> None:
-	venues_provider = venues.Venues()
-	await venues_provider.load()
-
-	s = venues_provider.getAll()
-	print(type(s))
-	print(s)
-
-async def test_skaters() -> None:
-	skaters_provider = skaters.Skaters("/mnt/projects/development/competitionnotify/skaters.db")
-	await skaters_provider.load()
-
-	s = skaters_provider.getAll()
-	print(type(s))
-	print(s)
+# async def test() -> None:
+# 	wedstrijden = SchaatsenDotNl()
+# 	await wedstrijden.load()
+#
+# 	i = uuid.UUID("41d4c490-d4d9-4c6b-8daa-ccac6f90bd33", version=4)
+# 	cr = wedstrijden.getCompetition(i)
+#
+# 	c = await cr.getCoroutine()
+# 	print(type(c))
+# 	print(c)
+#
+#
+# async def test_venues() -> None:
+# 	venues_provider = venues.Venues()
+# 	await venues_provider.load()
+#
+# 	s = venues_provider.getAll()
+# 	print(type(s))
+# 	print(s)
+#
+# async def test_skaters() -> None:
+# 	skaters_provider = skaters.Skaters("/mnt/projects/development/competitionnotify/skaters.db")
+# 	await skaters_provider.load()
+#
+# 	s = skaters_provider.getAll()
+# 	print(type(s))
+# 	print(s)
 
 if __name__ == '__main__':
 	#logging.basicConfig(filename='wedstrijdkalender.log', level=logging.DEBUG)

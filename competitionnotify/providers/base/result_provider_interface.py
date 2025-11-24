@@ -1,15 +1,31 @@
 #!/bin/python
 
 import abc
+import typeguard
 import logging
+
+import competitionnotify.dataclasses.skater as skater
+import competitionnotify.dataclasses.distance as distance
+import competitionnotify.dataclasses.time as time
 
 logger = logging.getLogger(__name__)
 
+@typeguard.typechecked
 class ResultProviderInterface(metaclass=abc.ABCMeta):
 	@classmethod
 	def __subclasshook__(cls, subclass):
 		return (hasattr(subclass, 'get') and
-				callable(subclass.get) or
+				callable(subclass.get) and
+				hasattr(subclass, 'search_skater') and
+				callable(subclass.search_skater) and
+				hasattr(subclass, 'convertNumber2SkaterId') and
+				callable(subclass.convertNumber2SkaterId) and
+				hasattr(subclass, 'getBests') and
+				callable(subclass.getBests) and
+				hasattr(subclass, 'getAllResults') and
+				callable(subclass.getAllResults) and
+				hasattr(subclass, 'getCompetitionList') and
+				callable(subclass.getCompetitionList) or
 				NotImplemented)
 
 	@abc.abstractmethod
@@ -17,12 +33,27 @@ class ResultProviderInterface(metaclass=abc.ABCMeta):
 		"""Load in the data set"""
 		raise NotImplementedError
 
-	def search_skater(self,...) -> list[SearchResultsClass]:
+	@abc.abstractmethod
+	def search_skater(self, first_name: str|None = None, last_name: str|None = None) -> list[SearchResultsClass]:
+		"""Load in the data set"""
+		raise NotImplementedError
 
-	def convertNumber2SkaterId(self, number: str|int) -> Nameclass:
+	@abc.abstractmethod
+	def convertNumber2SkaterId(self, number: str|int) -> skater.PersonNameClass:
+		"""Load in the data set"""
+		raise NotImplementedError
 
-	def getBests(self, skater_id, distance, season) -> list[TimeClass]:
+	@abc.abstractmethod
+	def getBests(self, skater_id, distance, season: int) -> list[time.TimeClass]:
+		"""Load in the data set"""
+		raise NotImplementedError
 
-	def getAllResults(self, skater_id, distance, season_start, season_end) -> list[TimeClass]:
+	@abc.abstractmethod
+	def getAllResults(self, skater_id, distance: distance.DistanceValueClass, season_start: int, season_end: int) -> list[time.TimeClass]:
+		"""Load in the data set"""
+		raise NotImplementedError
 
-	def getCompetitionList((self, skater_id, season) -> list[]:
+	@abc.abstractmethod
+	def getCompetitionList(self, skater_id, season: int) -> list[object]:
+		"""Load in the data set"""
+		raise NotImplementedError

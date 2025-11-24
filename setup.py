@@ -15,5 +15,17 @@ setup(
 	author_email='competitionnotify@martijn-goedhart.nl',
 	url='https://martijn-goedhart.nl/competitionnotify',
 	license=license,
-	packages=find_packages(exclude=('tests', 'docs'))
+	#packages=["competitionnotify", "websocketframework", "taskmanager"],
+	packages=find_packages(exclude=('tests', 'docs')),
+	# package_dir={
+	# 	"": ".",
+	# 	"websocketframework": "websocketframework/websocketframework",
+	# 	"taskmanager": "task-manager",
+	# },
+	# package_data={
+	# 	"competitionnotify": ["py.typed"],
+	# 	"websocketframework": ["py.typed"],
+	# 	"taskmanager": ["py.typed"],
+	# },
+	python_requires=">=3.12, <4"
 )

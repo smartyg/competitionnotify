@@ -103,7 +103,6 @@ class SkaterClass(base.BaseClass):
 	_transponder2: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_validFrom: datetime.datetime = attrs.field(converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
 	_validTo: datetime.datetime = attrs.field(converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
-	#_venueCode: str|None = attrs.field(validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_venueCode: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_mailOptions: MailOptionsClass|None = attrs.field(default=None, converter=MailOptionsClass_converter, validator=attrs.validators.optional(attrs.validators.instance_of(MailOptionsClass))) # type: ignore [misc]
 
@@ -161,6 +160,20 @@ class SkaterClass(base.BaseClass):
 
 	def getHomeVenue(self) -> str|None:
 		return self._venueCode
+
+	def sqlDict(self) -> dict[str, str|int|bool]:
+		o = self.getOptions()
+		if o is None:
+			o = MailOptionsClass(emailAddress="", homeVenue=False, venues=[], disciplines=[])
+		data: dict[str, str|int|bool] = {
+			'number': self._key,
+			'email': o._emailAddress,
+			'home_venue': o.homeVenue(),
+			'venues': ",".join(o.getVenues()),
+			'disciplines': 0,
+			'team': 0,
+		}
+		return data
 
 @typeguard.typechecked
 def SkaterClass_converter(data: SkaterClass|dict[str, typing.Any]|None) -> SkaterClass:

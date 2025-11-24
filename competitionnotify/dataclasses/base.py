@@ -7,6 +7,7 @@ import attrs
 import pickle
 import zlib
 import json
+import datetime
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class BaseClass:
@@ -26,8 +27,16 @@ class BaseClass:
 		compressed = zlib.compress(data, level=9)
 		return compressed
 
+	@staticmethod
+	def jsonSerial(obj):
+		"""JSON serializer for objects not serializable by default json code"""
+
+		if isinstance(obj, (datetime.datetime, datetime.date)):
+			return obj.isoformat()
+		raise TypeError("Type %s not serializable" % type(obj))
+
 	def json (self) -> str:
-		return json.dumps(self.asdict())
+		return json.dumps(self.asdict(), default=BaseClass.jsonSerial)
 
 	def asdict(self) -> dict[str, typing.Any]:
 		fields = attrs.fields(type(self))
