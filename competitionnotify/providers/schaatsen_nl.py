@@ -18,6 +18,9 @@ import competitionnotify.utils.utils as utils
 import competitionnotify.classes.base as base
 import competitionnotify.classes.competition as competition
 import competitionnotify.classes.distance_combination as distance_combination
+import competitionnotify.classes.skater as skater
+import competitionnotify.classes.result as result
+import competitionnotify.classes.filter as filter
 import competitionnotify.providers.base.loadable_provider as loadable_provider
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters
@@ -158,9 +161,8 @@ class CompetitionProcess:
 		logger.info("Run competition process: " + self.getName())
 
 		# Download the competition files
+		logger.debug("Create download tasks.")
 		download_task = await self.downloadCompetitionData_task()
-
-		# Get record from processed competitions for this competition
 
 		logger.debug("download competition file ...")
 		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], competition.CompetitionClass)
@@ -169,34 +171,80 @@ class CompetitionProcess:
 		logger.debug("download distance combination settings file ...")
 		distancecombinationsettings = await self.waitDownloadTaskCompletion('distancecombinationsettings', download_task['distancecombinationsettings'], distance_combination.DistancecombinationsettingsClass)
 
-		filters_list: list[] = []
-		for d in distancecombinations:
-			for dc in distancecombinationsettings:
-				if d.getId() == dc.getId():
-					filters_list.append(filter.fromDistanceCombination(competition.getId(), d, dc))
-		filters: tuple[filter.filterClass] = tuple(filters_list)
+		first_run: bool = False
+		filters_list: list[filter.FilterClass] = []
+		logger.debug("compile list of filters.")
+		for dc in distancecombinations.getTuple():
+			for dcs in distancecombinationsettings.getTuple():
+				if dc.getId() == dcs.getId():
+					filters_list.append(filter.fromDistanceCombination(competition, dc, dcs))
+
+		filters: tuple[filter.FilterClass, ...] = tuple(filters_list)
+		if (len(filters)) == 0:
+			logger.warning("For this competition there are no filter criteria present, nothing to do.")
+			# There are no filters for this competition present, now we can not do anything with this, so stop.
+			return True
 
 		# get stored filter info
-		stored_filters: tuple[[filter.filterClass] = self._processed_competition_provider.getFilters(competition.getId())
+		stored_filters: tuple[filter.FilterClass, ...] = self._processed_competition_provider.getFilters(competition.getId())
 
-		# Get the list of all skaters that can attend this race
-		recipients: list[...] = self._skaters_provider.filterSkaters(filters)
+		# If no filters were previously stored, we assume this is a first run
+		if len(stored_filters) > 0:
+			first_run = True
+
+		# Now compare the stored filters with the new filters
+		if filters == stored_filters:
+			# Filters are the same, so assume nothing has changed worth notifing
+			logger.info("Competition (" + self.getName() + ") has not been changed, nothing to do.")
+			return True
+
+		# There were either no filters stored (first run) or something significant has changed
+		# Get a new list of all skaters that can attend this race
+		recipients_step3: list[skater.SkaterClass] = []
+
+		# Loop over all induvidual filters in the list of filters
+		logger.debug("compile list of recipients.")
+		for f in filters:
+			# Filtering of the skaters that are allowed to attend happens in 2 steps:
+			#   1 - Select skaters based on all filters, except time limits
+			#   2 - from the remaining set, look up the personal bests and filter those
+			recipients_step1: list[skater.SkaterClass] = self._skaters_provider.filterSkaters(f)
+			if f.hasTimeFilter():
+				recipients_step2: list[skater.SkaterClass] = []
+				# Request the pbs for all remaining skaters
+				pbs: dict[skater.SkaterClass, result.BestTimesClass] = self._results_provider.getBests(recipients_step2)
+				for s in pbs:
+					pb: result.BestTimesClass|None = pbs.get(s, None)
+					if pb is not None:
+						if f.testTime(pb):
+							# Skaters personal best(s) are good enough, append to the list of this step
+							recipients_step2.append(s)
+
+				# Step 2 is done, extend the total list of recipients with it
+				recipients_step3.extend(recipients_step2)
+			else:
+				# No step 2 was needed (no time limit), extend the total list of recipients with step 1
+				recipients_step3.extend(recipients_step1)
+
+		# Now create a set, which effectivaly filters out duplicates
+		recipients: set[skater.SkaterClass] = set(recipients_step3)
+		logger.debug("Competition (" + self.getName() + ") total length of recipients is: " + str(len(recipients)) + ".")
 		
-		send_to_all: bool = False
+		# send_to_all is always True for a first run
+		send_to_all: bool = first_run
 		if len(stored_filters) != len(filters):
 			# There is a change in number of distances (or this race was never proccessed), now send to all recipients (again)
 			send_to_all = True
-			self._email_provider.generateEmail(competition.getId(), recipients, competition, distancecombinations, distancecombinationsettings)
+			return self._email_provider.generateEmail(competition.getId(), recipients, competition, distancecombinations, distancecombinationsettings, not first_run)
 			
 		if not send_to_all:
-			old_recipients: list[...] = self._email_provider.getRecipients(competition.getId())
+			old_recipients: set[skater.SkaterClass] = self._skaters_provider.getSkaters(self._email_provider.getRecipients(competition.getId()))
+			added_recipients: set[skater.SkaterClass] = recipients.difference(old_recipients) # [r for r in recipients if r not in old_recipients]
+			logger.debug("Competition (" + self.getName() + ") total length of recipients for the update is: " + str(len(added_recipients)) + ".")
+			return self._email_provider.generateEmail(competition.getId(), added_recipients, competition, distancecombinations, distancecombinationsettings, True)
 
-		
-		# Check if current settings have changed
-		# if change only affects participants, send email to added participants
-		# else send email to all participants (again)
-
-		return True
+		logger.error("We should not reach this point.")
+		return False
 
 @typeguard.typechecked
 class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):

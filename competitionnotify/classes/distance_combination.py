@@ -13,6 +13,7 @@ import competitionnotify.classes.categories as categories
 import competitionnotify.classes.distance as distance
 import competitionnotify.classes.payment as payment
 import competitionnotify.classes.time as time
+import competitionnotify.classes.timefilter as timefilter
 import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
@@ -58,6 +59,9 @@ class DistancecombinationsClass(base.BaseClass):
 		member_validator=attrs.validators.instance_of(DistancecombinationClass),
 		iterable_validator=attrs.validators.instance_of(tuple)))
 
+	def getTuple(self) -> tuple[DistancecombinationClass, ...]:
+		return self._distancecombinations
+
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class DistancecombinationsettingClass(base.BaseClass):
 	_distanceCombinationId: uuid.UUID = attrs.field(converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
@@ -70,16 +74,18 @@ class DistancecombinationsettingClass(base.BaseClass):
 	_requireSerieRegistration: bool = attrs.field(validator=attrs.validators.instance_of(bool))
 	_maxCompetitors: int|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(int)))
 	_requireVenueSubscription: bool = attrs.field(validator=attrs.validators.instance_of(bool))
-	_limitTimeDistanceDiscipline: discipline.DisciplineClass = attrs.field(default=discipline.DisciplineClass(discipline=-1), converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
+	_limitTimeDistanceDiscipline: discipline.DisciplineClass|None = attrs.field(default=None, converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
 	_limitTimeDistanceValue: distance.DistanceValueClass|None = attrs.field(default=None, converter=distance.DistanceValueClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass))) # type: ignore [misc]
 	_limitTime: time.TimeClass|None = attrs.field(default=None, converter=time.TimeClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass))) # type: ignore [misc]
-	_thresholdTimeDistanceDiscipline: discipline.DisciplineClass = attrs.field(default=discipline.DisciplineClass(discipline=-1), converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
+	_thresholdTimeDistanceDiscipline: discipline.DisciplineClass|None = attrs.field(default=None, converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
 	_thresholdTimeDistanceValue: distance.DistanceValueClass|None = attrs.field(default=None, converter=distance.DistanceValueClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass))) # type: ignore [misc]
 	_thresholdTime: time.TimeClass|None = attrs.field(default=None, converter=time.TimeClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass))) # type: ignore [misc]
 	_clubCodeFilter: tuple[int,...] = attrs.field(default=tuple(), converter=utils.string_to_tuple_int_converter, validator=attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(int),
 		iterable_validator=attrs.validators.instance_of(tuple)))
-	_homeVenueFilter: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_homeVenueFilter: tuple[str,...]|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
+		member_validator=attrs.validators.instance_of(str),
+		iterable_validator=attrs.validators.instance_of(tuple))))
 	_seriePaymentOption: payment.PaymentClass|None = attrs.field(default=None, converter=payment.PaymentClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(payment.PaymentClass))) # type: ignore [misc]
 	_competitionPaymentOption: payment.PaymentClass|None = attrs.field(default=None, converter=payment.PaymentClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(payment.PaymentClass))) # type: ignore [misc]
 	#_competitionPaymentOption: float|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(float))) #TODO: fix type
@@ -91,11 +97,21 @@ class DistancecombinationsettingClass(base.BaseClass):
 	def getClubCodes(self) -> tuple[int, ...]|None:
 		return self._clubCodeFilter
 
-	def getHomeVenueFilter(self) -> typing.Any:
+	def getHomeVenueFilter(self) -> tuple[str,...]|None:
 		return self._homeVenueFilter
 
 	def getInvitees(self) -> typing.Any:
 		return self._invitees
+
+	def getTimeFilter(self) -> timefilter.TimeFilterClass:
+		return timefilter.TimeFilterClass(
+			limitTimeDistanceDiscipline=self._limitTimeDistanceDiscipline,
+			limitTimeDistanceValue=self._limitTimeDistanceValue,
+			limitTime=self._limitTime,
+			thresholdTimeDistanceDiscipline=self._thresholdTimeDistanceDiscipline,
+			thresholdTimeDistanceValue=self._thresholdTimeDistanceValue,
+			thresholdTime=self._thresholdTime
+		)
 
 @typeguard.typechecked
 def DistancecombinationsettingClass_converter(data: DistancecombinationsettingClass|dict[str, typing.Any]) -> DistancecombinationsettingClass:
@@ -110,3 +126,6 @@ class DistancecombinationsettingsClass(base.BaseClass):
 	_distancecombinationsettings: tuple[DistancecombinationsettingClass, ...] = attrs.field(converter=DistancecombinationsettingClassTuple_converter, validator=attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(DistancecombinationsettingClass),
 		iterable_validator=attrs.validators.instance_of(tuple)))
+
+	def getTuple(self) -> tuple[DistancecombinationsettingClass, ...]:
+		return self._distancecombinationsettings

@@ -12,6 +12,7 @@ import sqlite3
 import websocketframework.websocket as websocket
 import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.utils.utils as utils
+import competitionnotify.classes.filter as filter
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +34,10 @@ class ProcessedCompetitions(websocketinterface.WebsocketInterface):
 
 		logger.info ("Check if database contains a table `skaters`, if not create it.")
 		#self._cursor.execute("CREATE TABLE IF NOT EXISTS skaters (number INTEGER PRIMARY KEY NOT NULL, email TEXT NOT NULL, home_venue INTEGER DEFAULT FALSE, venues TEXT DEFAULT '', disciplines INTEGER DEFAULT 0, team INTEGER DEFAULT 0) STRICT")
+
+	def getFilters(self, id: uuid.UUID) -> tuple[filter.FilterClass, ...]:
+		pass #TODO: write implementation
+		return tuple()
 
 	# Interfaces for WebsocketInterface
 	def getName(self) -> str:

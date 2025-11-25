@@ -110,6 +110,9 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 				return s
 		return None
 
+	def getSkatersByNumber(self, ids: list[int|str]) -> set[skater.SkaterClass]:
+		return set([self.getSkaterByNumber(i) for i in ids if self.hasSkaterByNumber(i)]) # type: ignore[misc]
+
 	def getAll(self) -> list[skater.SkaterClass]:
 		return self._skaters
 

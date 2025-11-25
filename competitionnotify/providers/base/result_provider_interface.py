@@ -45,7 +45,7 @@ class ResultProviderInterface(metaclass=abc.ABCMeta):
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def getBests(self, skater_id, distance, season: int) -> list[time.TimeClass]:
+	def getBests(self, skater_id, distance = -1, season: int = -1) -> list[time.TimeClass]:
 		"""Load in the data set"""
 		raise NotImplementedError
 
