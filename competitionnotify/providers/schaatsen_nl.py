@@ -111,9 +111,11 @@ class CompetitionProcess:
 	@staticmethod
 	async def apiDownload(url: str, c: U) -> U:
 		async with aiohttp.ClientSession() as session:
+			logger.debug ("download file: " + url + " ...")
 			async with session.get(url) as response:
-				logger.debug ("Download competition data file for competition ...")
+				#logger.debug ("Download competition data file for competition ...")
 				data = json.loads(await response.text())
+				logger.debug ("Download completed.")
 				ret = None
 				if not isinstance(data, dict):
 					name = base.getFirstFieldName(c)
@@ -153,21 +155,41 @@ class CompetitionProcess:
 			while datetime.datetime.now(datetime.timezone.utc) < self._competition.opens():
 				await self.waitTillOpen()
 
-		print("run competition process: " + self.getName())
+		logger.info("Run competition process: " + self.getName())
 
 		# Download the competition files
 		download_task = await self.downloadCompetitionData_task()
 
 		# Get record from processed competitions for this competition
 
-		print("competition...")
+		logger.debug("download competition file ...")
 		competition = await self.waitDownloadTaskCompletion('competition', download_task['competition'], competition.CompetitionClass)
-		print("distancecombinations...")
+		logger.debug("download distance combinations file ...")
 		distancecombinations = await self.waitDownloadTaskCompletion('distancecombinations', download_task['distancecombinations'], distance_combination.DistancecombinationsClass)
-		print("distancecombinationsettings...")
+		logger.debug("download distance combination settings file ...")
 		distancecombinationsettings = await self.waitDownloadTaskCompletion('distancecombinationsettings', download_task['distancecombinationsettings'], distance_combination.DistancecombinationsettingsClass)
 
+		filters_list: list[] = []
+		for d in distancecombinations:
+			for dc in distancecombinationsettings:
+				if d.getId() == dc.getId():
+					filters_list.append(filter.fromDistanceCombination(competition.getId(), d, dc))
+		filters: tuple[filter.filterClass] = tuple(filters_list)
 
+		# get stored filter info
+		stored_filters: tuple[[filter.filterClass] = self._processed_competition_provider.getFilters(competition.getId())
+
+		# Get the list of all skaters that can attend this race
+		recipients: list[...] = self._skaters_provider.filterSkaters(filters)
+		
+		send_to_all: bool = False
+		if len(stored_filters) != len(filters):
+			# There is a change in number of distances (or this race was never proccessed), now send to all recipients (again)
+			send_to_all = True
+		else:
+			old_recipients: list[...] = self._email_provider.getRecipients(competition.getId())
+
+		
 		# Check if current settings have changed
 		# if change only affects participants, send email to added participants
 		# else send email to all participants (again)
