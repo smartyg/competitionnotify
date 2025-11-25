@@ -186,7 +186,9 @@ class CompetitionProcess:
 		if len(stored_filters) != len(filters):
 			# There is a change in number of distances (or this race was never proccessed), now send to all recipients (again)
 			send_to_all = True
-		else:
+			self._email_provider.generateEmail(competition.getId(), recipients, competition, distancecombinations, distancecombinationsettings)
+			
+		if not send_to_all:
 			old_recipients: list[...] = self._email_provider.getRecipients(competition.getId())
 
 		
