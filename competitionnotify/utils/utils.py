@@ -8,9 +8,14 @@ import logging
 import uuid
 import datetime
 import re
-import competitionnotify.classes.base as base
 
 logger = logging.getLogger(__name__)
+
+@typeguard.typechecked
+def testAttrsClass(cls: typing.Any) -> bool:
+	if isinstance(cls, type):
+		return attrs.has(cls)
+	return attrs.has(cls.__class__)
 
 @typeguard.typechecked
 def sanitize(fields: dict[str, attrs.Attribute], d: dict[str, typing.Any]) -> dict[str, typing.Any]|None:

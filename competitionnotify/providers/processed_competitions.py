@@ -2,22 +2,17 @@
 
 import typing
 import typeguard
-import attrs
-import asyncio
 import logging
 import uuid
-import json
 import sqlite3
 
 import websocketframework.websocket as websocket
-import websocketframework.websocketinterface as websocketinterface
-import competitionnotify.utils.utils as utils
 import competitionnotify.classes.filter as filter
 
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-class ProcessedCompetitions(websocketinterface.WebsocketInterface):
+class ProcessedCompetitions(websocket.WebsocketInterface):
 
 	_competitions: list[object] = []
 	_connection: sqlite3.Connection|None = None

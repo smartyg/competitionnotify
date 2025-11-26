@@ -2,16 +2,11 @@
 
 import typing
 import typeguard
-import attrs
-import asyncio
 import logging
 import uuid
-import json
 import sqlite3
 
 import websocketframework.websocket as websocket
-import websocketframework.websocketinterface as websocketinterface
-import competitionnotify.utils.utils as utils
 import competitionnotify.classes.skater as skater
 import competitionnotify.classes.competition as competition
 import competitionnotify.classes.distance_combination as distance_combination
@@ -19,7 +14,7 @@ import competitionnotify.classes.distance_combination as distance_combination
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-class Emails(websocketinterface.WebsocketInterface):
+class Emails(websocket.WebsocketInterface):
 
 	_emails: list[object] = []
 	_connection: sqlite3.Connection|None = None
@@ -41,7 +36,7 @@ class Emails(websocketinterface.WebsocketInterface):
 		pass # TODO: write implemention
 		return []
 
-	def generateEmail(self, id: uuid.UUID, recipients: skater.SkaterClass, c: competition.CompetitionClass, dc: distance_combination.DistancecombinationsClass, dcs: distance_combination.DistancecombinationsettingsClass, update: bool) -> bool:
+	def generateEmail(self, id: uuid.UUID, recipients: set[skater.SkaterClass], c: competition.CompetitionClass, dc: distance_combination.DistancecombinationsClass, dcs: distance_combination.DistancecombinationsettingsClass, update: bool) -> bool:
 		pass # TODO: write implemention
 		return True
 

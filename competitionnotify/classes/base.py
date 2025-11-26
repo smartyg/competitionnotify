@@ -9,6 +9,8 @@ import zlib
 import json
 import datetime
 
+import competitionnotify.utils.utils as utils
+
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class BaseClass:
 	_SERIALIZE_TYPE = '__serialize_type'
@@ -114,7 +116,9 @@ class ComparableClass(BaseClass):
 		return attrs.field(default=default, validator=validator, repr=repr, hash=hash, init=init, metadata=metadata, type=type, converter=converter, factory=factory, kw_only=kw_only, eq=eq, order=order, on_setattr=on_setattr, alias=alias)
 
 @typeguard.typechecked
-def getFirstFieldName(c: "BaseClass") -> str|None:
+def getFirstFieldName(c: type) -> str|None:
+	if not utils.testAttrsClass(c):
+		return None
 	fields = attrs.fields(c)
 	if (len(fields)) >= 1:
 		return fields[0].alias

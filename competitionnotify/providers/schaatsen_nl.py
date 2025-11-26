@@ -13,7 +13,6 @@ import datetime
 
 import taskmanager.taskmanager as task_manager
 import websocketframework.websocket as websocket
-import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.utils.utils as utils
 import competitionnotify.classes.base as base
 import competitionnotify.classes.competition as competition
@@ -30,7 +29,7 @@ import competitionnotify.providers.processed_competitions as processed_competiti
 
 logger = logging.getLogger(__name__)
 
-U = typing.TypeVar('U', bound=type[attrs.AttrsInstance]) # Declare type variable "U"
+U = typing.TypeVar('U', bound=attrs.AttrsInstance) # Declare type variable "U"
 
 @typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False)
@@ -39,28 +38,27 @@ class CompetitionProcess:
 	@attrs.define(frozen=True, kw_only=False, slots=False)
 	class apiCall:
 		_url: str = attrs.field(validator=attrs.validators.instance_of(str))
-		_type: attrs.AttrsInstance = attrs.field()#validator=attrs.validators.instance_of(attrs.AttrsInstance))
+		_type: type = attrs.field(validator=attrs.validators.instance_of(type))
 
 		@_type.validator
 		def _check_type(self, attribute, value):
-			print("_check_type: subclasses:")
-			print([cls.__name__ for cls in value.__subclasses__()])
-			if not issubclass(value, (CompetitionClass, distance_combination.DistancecombinationsClass, distance_combination.DistancecombinationsettingsClass)): #attrs.AttrsInstance):
-				raise ValueError("value (" + str(type(value)) + ") is not a subclass of attrs.AttrsInstance")
+			if utils.testAttrsClass(value):
+				return True
+			raise ValueError("value (" + str(type(value)) + ") is not a subclass of attrs.AttrsInstance")
 
 		def getUrl(self) -> str:
 			return self._url
 
-		def getClass(self) -> attrs.AttrsInstance:
+		def getClass(self) -> type: #attrs.AttrsInstance:
 			return self._type
 
 	_competition: competition.CompetitionClass = attrs.field(converter=competition.CompetitionClass_converter, validator=attrs.validators.instance_of(competition.CompetitionClass)) # type: ignore [misc]
 
 	_venue_provider: venues.Venues = attrs.field(validator=attrs.validators.instance_of(venues.Venues))
 	_skaters_provider: skaters.Skaters = attrs.field(validator=attrs.validators.instance_of(skaters.Skaters))
-	_results_provider: set[result_provider_interface.ResultProviderInterface] = attrs.field(validator=attrs.validators.deep_iterable(
+	_results_provider: tuple[result_provider_interface.ResultProviderInterface, ...] = attrs.field(validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(result_provider_interface.ResultProviderInterface),
-            iterable_validator=attrs.validators.instance_of(set)))
+            iterable_validator=attrs.validators.instance_of(tuple)))
 	_processed_competition_provider: processed_competitions.ProcessedCompetitions = attrs.field(validator=attrs.validators.instance_of(processed_competitions.ProcessedCompetitions))
 	_email_provider: emails.Emails = attrs.field(validator=attrs.validators.instance_of(emails.Emails))
 
@@ -112,7 +110,7 @@ class CompetitionProcess:
 		return urls
 
 	@staticmethod
-	async def apiDownload(url: str, c: U) -> U:
+	async def apiDownload(url: str, c: type[U]) -> U:
 		async with aiohttp.ClientSession() as session:
 			logger.debug ("download file: " + url + " ...")
 			async with session.get(url) as response:
@@ -141,7 +139,7 @@ class CompetitionProcess:
 
 		return ret
 
-	async def waitDownloadTaskCompletion(self, name: str, task: asyncio.Task[typing.Any], c: U) -> U:
+	async def waitDownloadTaskCompletion(self, name: str, task: asyncio.Task[typing.Any], c: type[U]) -> U:
 		while not task.done():
 			await task
 
@@ -177,7 +175,7 @@ class CompetitionProcess:
 		for dc in distancecombinations.getTuple():
 			for dcs in distancecombinationsettings.getTuple():
 				if dc.getId() == dcs.getId():
-					filters_list.append(filter.fromDistanceCombination(competition, dc, dcs))
+					filters_list.append(filter.FilterClass.fromDistanceCombination(competition, dc, dcs))
 
 		filters: tuple[filter.FilterClass, ...] = tuple(filters_list)
 		if (len(filters)) == 0:
@@ -238,7 +236,7 @@ class CompetitionProcess:
 			return self._email_provider.generateEmail(competition.getId(), recipients, competition, distancecombinations, distancecombinationsettings, not first_run)
 			
 		if not send_to_all:
-			old_recipients: set[skater.SkaterClass] = self._skaters_provider.getSkaters(self._email_provider.getRecipients(competition.getId()))
+			old_recipients: set[skater.SkaterClass] = self._skaters_provider.getSkatersByNumber(self._email_provider.getRecipients(competition.getId()))
 			added_recipients: set[skater.SkaterClass] = recipients.difference(old_recipients) # [r for r in recipients if r not in old_recipients]
 			logger.debug("Competition (" + self.getName() + ") total length of recipients for the update is: " + str(len(added_recipients)) + ".")
 			return self._email_provider.generateEmail(competition.getId(), added_recipients, competition, distancecombinations, distancecombinationsettings, True)
@@ -247,7 +245,7 @@ class CompetitionProcess:
 		return False
 
 @typeguard.typechecked
-class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):
+class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 	_venue_provider: venues.Venues
 	_skaters_provider: skaters.Skaters
 	_results_provider: set[result_provider_interface.ResultProviderInterface]
@@ -280,7 +278,7 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocketinterface.Webs
 
 		# Loop over all the competitions and generate for each a CompetitionProcess
 		for competition in json:
-			c = utils.class_factory({'competition': competition}, CompetitionProcess)
+			c = utils.class_factory({'competition': competition, 'venue_provider': self._venue_provider, 'skaters_provider': self._skaters_provider, 'results_provider': self._results_provider, 'processed_competition_provider': self._processed_competition_provider, 'email_provider': self._email_provider}, CompetitionProcess)
 			if c is not None:
 				self._competitions.add(c)
 		print("processed " + str(len(self._competitions)) + "/" + str(len(json)) + " competitions")

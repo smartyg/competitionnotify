@@ -5,12 +5,12 @@ import typeguard
 import attrs
 import asyncio
 import logging
+import collections.abc
 import uuid
 import json
 import sqlite3
 
 import websocketframework.websocket as websocket
-import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.classes.discipline as discipline
 import competitionnotify.classes.skater as skater
 import competitionnotify.classes.filter as filter
@@ -20,7 +20,7 @@ import competitionnotify.utils.utils as utils
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketInterface):
+class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 	# saved data:
 	#  - KNSB nummer
 	#  - email adres
@@ -110,7 +110,7 @@ class Skaters(loadable_provider.LoadableProvider, websocketinterface.WebsocketIn
 				return s
 		return None
 
-	def getSkatersByNumber(self, ids: list[int|str]) -> set[skater.SkaterClass]:
+	def getSkatersByNumber(self, ids: collections.abc.Sequence[int|str]) -> set[skater.SkaterClass]:
 		return set([self.getSkaterByNumber(i) for i in ids if self.hasSkaterByNumber(i)]) # type: ignore[misc]
 
 	def getAll(self) -> list[skater.SkaterClass]:
