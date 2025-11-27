@@ -5,6 +5,7 @@ import typeguard
 import typing
 import re
 import logging
+import collections.abc
 
 import competitionnotify.classes.base as base
 
@@ -85,14 +86,18 @@ def DisciplineClass_converter(data: DisciplineClass|str|None) -> DisciplineClass
 		return DisciplineClass.getDisciplineByString(string=data)
 
 @typeguard.typechecked
-def DisciplineClassTuple_converter(data: tuple[DisciplineClass, ...]|list[str]|str|None) -> tuple[DisciplineClass, ...]:
+def DisciplineClassTuple_converter(data: tuple[DisciplineClass, ...]|collections.abc.Sequence[DisciplineClass|str]|str|None) -> tuple[DisciplineClass, ...]:
 	if isinstance(data, tuple):
-		typeguard.check_type(data, tuple[DisciplineClass, ...])
-		return data
-	elif isinstance(data, list):
-		typeguard.check_type(data, list[str])
-		return tuple([DisciplineClass.getDisciplineByString(string=string) for string in data])
+		return typeguard.check_type(data, tuple[DisciplineClass, ...])
 	elif isinstance(data, str):
 		return tuple([DisciplineClass.getDisciplineByString(string=data)])
+	elif isinstance(data, collections.abc.Sequence):
+		data = typeguard.check_type(data, collections.abc.Sequence[DisciplineClass|str])
+		if len(data) == 0:
+			return tuple()
+		elif isinstance(data[0], str):
+			data = typeguard.check_type(data, collections.abc.Sequence[str])
+			return tuple([DisciplineClass.getDisciplineByString(string=e) for e in data])
+		return tuple(typeguard.check_type(data, collections.abc.Sequence[DisciplineClass]))
 	else:
 		return tuple()

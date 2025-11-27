@@ -1,4 +1,4 @@
-import competitionnotify.dataclasses.distance_combination as distance_combination
+import competitionnotify.classes.distance_combination as distance_combination
 
 import json
 import unittest

@@ -27,11 +27,11 @@ class LoadableProvider:
 	async def load(self) -> None:
 		self._loaded = False
 		if self._url is not None:
-			logger.debug ("Download the new data file")
+			logger.debug ("Download the new data file: " + self._url)
 			session = await self.getSession()
 			async with session:
 				async with session.get(self._url) as response:
-					logger.debug ("New data file downloaded")
+					logger.debug ("New data file downloaded from: " + self._url)
 					data = json.loads(await response.text())
 					await self._func(json=data)
 					#self._data = class_factory(json, self._cls)

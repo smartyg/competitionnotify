@@ -1,4 +1,4 @@
-import competitionnotify.dataclasses.categories as categories # CategoryFilterClass, CategoryClass
+import competitionnotify.classes.categories as categories
 
 import unittest
 import pytest
@@ -416,6 +416,11 @@ class TestCategoryClass(unittest.TestCase):
 		test_2 = categories.CategoryClass.getCategoryByString(string=category_text_2)
 		self.assertTrue(test_1 > test_2)
 
+	def test_hash(self):
+		test = test_1 = categories.CategoryClass.getCategoryByString(string="DN4")
+		self.assertIsInstance(test, categories.CategoryClass)
+		self.assertIsInstance(hash(test), int)
+
 class TestCategoryFilterClass(unittest.TestCase):
 	def test_constructByText1(self):
 		test = categories.CategoryFilterClass.fromString("*")
@@ -687,3 +692,8 @@ class TestCategoryFilterClass(unittest.TestCase):
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		with pytest.raises(ValueError) as e:
 			b= test.hasCategory("INV")
+
+	def test_hash(self):
+		test = categories.CategoryFilterClass.fromString("*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+		self.assertIsInstance(hash(test), int)

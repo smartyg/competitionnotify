@@ -1,4 +1,4 @@
-import competitionnotify.dataclasses.time as time
+import competitionnotify.classes.time as time
 
 import unittest
 import pytest
@@ -93,3 +93,8 @@ class TestTimeClass(unittest.TestCase):
 		self.assertEqual(test.getMinutes(), 0)
 		self.assertEqual(test.getSeconds(), 12)
 		self.assertEqual(test.getMiliseconds(), 345)
+
+	def test_hash(self):
+		test = time.TimeClass.from_string("12:34:56.789")
+		self.assertIsInstance(test, time.TimeClass)
+		self.assertIsInstance(hash(test), int)

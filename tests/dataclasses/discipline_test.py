@@ -1,4 +1,4 @@
-import competitionnotify.dataclasses.discipline as discipline
+import competitionnotify.classes.discipline as discipline
 
 import unittest
 import pytest
@@ -148,3 +148,8 @@ class TestDisciplineClass(unittest.TestCase):
 		self.assertTrue(item.isValid())
 		self.assertFalse(item.isUnknown())
 		self.assertEqual(item, cls2)
+
+	def test_hash(self):
+		test = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertIsInstance(hash(test), int)

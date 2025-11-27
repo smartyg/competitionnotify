@@ -1,4 +1,4 @@
-import competitionnotify.dataclasses.competition as competition
+import competitionnotify.classes.competition as competition
 
 import json
 import unittest

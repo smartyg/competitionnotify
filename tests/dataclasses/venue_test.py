@@ -1,5 +1,5 @@
-import competitionnotify.dataclasses.venue as venue
-import competitionnotify.dataclasses.discipline as discipline
+import competitionnotify.classes.venue as venue
+import competitionnotify.classes.discipline as discipline
 
 import json
 import unittest
@@ -34,6 +34,13 @@ class TestAdressClass(unittest.TestCase):
 		self.assertEqual(test._postalCode, "9408 CZ")
 		self.assertEqual(test._city, "Assen")
 		self.assertEqual(test._countryCode, "NED")
+
+	def test_hash(self):
+		json_string = '{"line1":"Hoogspanningsweg 6","line2":null,"stateOrProvince":"Drenthe","postalCode":"9408 CZ","city":"Assen","countryCode":"NED"}'
+		json_data = json.loads(json_string)
+		test = venue.AddressClass_converter(data=json_data)
+		self.assertIsInstance(test, venue.AddressClass)
+		self.assertIsInstance(hash(test), int)
 
 class TestTrackClass(unittest.TestCase):
 	def test_construct1(self):
@@ -84,6 +91,11 @@ class TestTrackClass(unittest.TestCase):
 		item = test[0]
 		self.assertIsInstance(item, venue.TrackClass)
 		self.assertEqual(item, cls)
+
+	def test_hash(self):
+		test = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.LongTrack")
+		self.assertIsInstance(test, venue.TrackClass)
+		self.assertIsInstance(hash(test), int)
 
 class TestVenueClass(unittest.TestCase):
 	def test_construct1(self):
@@ -154,3 +166,11 @@ class TestVenueClass(unittest.TestCase):
 		self.assertTrue(test.hasDiscipline(discipline.DisciplineClass(discipline=1)))
 
 		self.assertEqual(test.numOfTracks(), 1)
+
+	def test_hash(self):
+		track = venue.TrackClass(venueCode="AMS", length=400.0, venueDiscipline="SpeedSkating.Marathon")
+		address = venue.AddressClass()
+		test = venue.VenueClass(address=address, code="AMS", continentCode="EUR", name="Stichting IJscomplex Jaap Edenbaan", discipline="SpeedSkating.Marathon", tracks=tuple([track]))
+
+		self.assertIsInstance(test, venue.VenueClass)
+		self.assertIsInstance(hash(test), int)

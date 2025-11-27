@@ -2,6 +2,7 @@
 
 import typing
 import typeguard
+import collections.abc
 import aiohttp
 import asyncio
 import attrs
@@ -56,14 +57,14 @@ class CompetitionProcess:
 
 	_venue_provider: venues.Venues = attrs.field(validator=attrs.validators.instance_of(venues.Venues))
 	_skaters_provider: skaters.Skaters = attrs.field(validator=attrs.validators.instance_of(skaters.Skaters))
-	_results_provider: tuple[result_provider_interface.ResultProviderInterface, ...] = attrs.field(validator=attrs.validators.deep_iterable(
+	_results_provider: set[result_provider_interface.ResultProviderInterface] = attrs.field(validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(result_provider_interface.ResultProviderInterface),
-            iterable_validator=attrs.validators.instance_of(tuple)))
+            iterable_validator=attrs.validators.instance_of(set)))
 	_processed_competition_provider: processed_competitions.ProcessedCompetitions = attrs.field(validator=attrs.validators.instance_of(processed_competitions.ProcessedCompetitions))
 	_email_provider: emails.Emails = attrs.field(validator=attrs.validators.instance_of(emails.Emails))
 
 	async def load(self) -> None:
-		pass
+		raise NotImplementedError
 
 	def getId(self) -> uuid.UUID:
 		return self._competition.getId()
@@ -87,10 +88,10 @@ class CompetitionProcess:
 		return self._competition.isTest()
 
 	# def filterSkaters(skaters: Skaters) -> list[SkaterClass]:
-	# 	pass
+	# 	raise NotImplementedError
  #
 	# def generateMail(template: jinja2) -> str:
-	# 	pass
+	# 	raise NotImplementedError
 
 	def getLinks(self) -> dict[str, str]:
 		links = {
@@ -252,7 +253,7 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInte
 	_processed_competition_provider: processed_competitions.ProcessedCompetitions
 	_email_provider: emails.Emails
 
-	_competitions: set[CompetitionProcess] = set()
+	_competitions: list[CompetitionProcess] = list()
 
 	def __init__(self, skaters: skaters.Skaters, venues: venues.Venues, results: typing.Sequence[result_provider_interface.ResultProviderInterface], processed_competitions: processed_competitions.ProcessedCompetitions, emails: emails.Emails):
 		self._competitions.clear()
@@ -280,8 +281,8 @@ class SchaatsenDotNl(loadable_provider.LoadableProvider, websocket.WebsocketInte
 		for competition in json:
 			c = utils.class_factory({'competition': competition, 'venue_provider': self._venue_provider, 'skaters_provider': self._skaters_provider, 'results_provider': self._results_provider, 'processed_competition_provider': self._processed_competition_provider, 'email_provider': self._email_provider}, CompetitionProcess)
 			if c is not None:
-				self._competitions.add(c)
-		print("processed " + str(len(self._competitions)) + "/" + str(len(json)) + " competitions")
+				self._competitions.append(c)
+		logger.info("processed " + str(len(self._competitions)) + "/" + str(len(json)) + " competitions")
 
 	def listOpen(self) -> set[CompetitionProcess]:
 		return {c for c in self._competitions if c.isOpen()}

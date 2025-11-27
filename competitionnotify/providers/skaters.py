@@ -41,7 +41,7 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 			self._connection = sqlite3.connect(":memory:")
 		self._cursor = self._connection.cursor()
 
-		logger.info ("Check if database contains a table `skaters`, if not create it.")
+		logger.info("Check if database contains a table `skaters`, if not create it.")
 		self._cursor.execute("CREATE TABLE IF NOT EXISTS skaters (number INTEGER PRIMARY KEY NOT NULL, email TEXT NOT NULL, home_venue INTEGER DEFAULT FALSE, venues TEXT DEFAULT '', disciplines INTEGER DEFAULT 0, team INTEGER DEFAULT 0) STRICT")
 
 		super().__init__(None, self._loadData)
@@ -54,11 +54,14 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 
 	async def _loadData(self, json: dict) -> None:
 		session = await self.getSession()
+		logger.debug("Try to load data.")
 		self._skaters = await asyncio.gather(*[self._loadSkater(session, e) for e in self._loadDB()])
 
 	def _loadDB(self) -> list[dict[str, typing.Any]]:
 		result: list[dict[str, typing.Any]] = []
+		logger.debug("Loading saved skaters from database.")
 		for entry in self._cursor.execute("SELECT number, email, home_venue, venues, disciplines, team FROM skaters;"):
+			logger.debug("found skater '" + str(entry[0]) + "'.")
 			result_entry: dict[str, typing.Any] = {}
 			result_entry['number'] = entry[0]
 			result_entry['emailAddress'] = entry[1]
@@ -81,6 +84,7 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 
 	async def _loadSkater(self, session, s: dict[str, typing.Any]) -> skater.SkaterClass:
 		url = "https://inschrijven.schaatsen.nl/api/licenses/KNSB/SpeedSkating.LongTrack/" + str(s['number'])
+		logger.debug("loading skater data from licensing API '" + url + "'.")
 		async with session.get(url) as response:
 			logger.debug ("Download record for skater id " + str(s['number']) + " ...")
 			entry = json.loads(await response.text())

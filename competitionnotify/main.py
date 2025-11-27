@@ -94,5 +94,5 @@ async def runner() -> None:
 	return None
 
 if __name__ == '__main__':
-	logging.basicConfig(filename='wedstrijdkalender.log', level=logging.DEBUG)
+	logging.basicConfig(filename='wedstrijdkalender.log', level=logging.DEBUG, filemode='w')
 	asyncio.run(runner())
