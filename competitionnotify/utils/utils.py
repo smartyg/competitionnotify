@@ -39,32 +39,43 @@ def sanitize(fields: dict[str, attrs.Attribute], d: dict[str, typing.Any]) -> di
 	return e
 
 U = typing.TypeVar('U', bound=attrs.AttrsInstance) # Declare type variable "U"
+T = typing.TypeVar('T') # Declare type variable "U"
 
 @typeguard.typechecked
-def class_factory(d: dict[str, typing.Any], c: type[U]) -> U|None:
+def class_factory(d: dict[str, typing.Any], c: type[U], t: type[T]|None = None) -> U|None:
 	e = sanitize(attrs.fields_dict(c), d)
 	if e is None:
 		return None
-	return c(**e)
+	if t is None:
+		return c(**e)
+	else:
+		return c[T](**e) # type: ignore [index,misc]
+
+# @typeguard.typechecked
+# def class_factory(d: dict[str, typing.Any], c: type[U]) -> U|None:
+# 	e = sanitize(attrs.fields_dict(c), d)
+# 	if e is None:
+# 		return None
+# 	return c(**e)
 
 @typeguard.typechecked
-def class_converter_none(data: U|dict[str, typing.Any]|None, c: type[U]) -> U|None:
+def class_converter_none(data: U|dict[str, typing.Any]|None, c: type[U], t: type[T]|None = None) -> U|None:
 	if isinstance(data, c):
 		typeguard.check_type(data, c)
 		return data
 	elif data is not None:
-		res = class_factory(data, c) # type: ignore[arg-type]
+		res = class_factory(data, c, t) # type: ignore[arg-type]
 		if res is not None:
 			return res
 	return None
 
 @typeguard.typechecked
-def class_converter_except(data: U|dict[str, typing.Any]|None, c: type[U]) -> U:
+def class_converter_except(data: U|dict[str, typing.Any]|None, c: type[U], t: type[T]|None = None) -> U:
 	if isinstance(data, c):
 		typeguard.check_type(data, c)
 		return data
 	elif data is not None:
-		res = class_factory(data, c) # type: ignore[arg-type]
+		res = class_factory(data, c, t) # type: ignore[arg-type]
 		if res is not None:
 			return res
 	raise ValueError('error in SettingClass_converter')
@@ -118,7 +129,7 @@ def date_converter(date_str: str) -> datetime.date:
 	return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
 
 @typeguard.typechecked
-def string_to_tuple_int_converter(string: tuple[int, ...]|str|None) -> tuple[int, ...]:
+def string_to_tuple_int_converter(string: collections.abc.Sequence[int]|str|None) -> tuple[int, ...]:
 	if isinstance(string, tuple):
 		typeguard.check_type(string, tuple[int, ...])
 		return string
@@ -139,3 +150,17 @@ def string_to_tuple_int_converter(string: tuple[int, ...]|str|None) -> tuple[int
 			l.append(value)
 
 	return tuple(l)
+
+@typeguard.typechecked
+def string_to_tuple_str_converter(data: collections.abc.Sequence[str]|str|None) -> tuple[str, ...]:
+	if data is None:
+		return tuple()
+	elif isinstance(data, tuple):
+		return typeguard.check_type(data, tuple[str, ...])
+	elif isinstance(data, collections.abc.Sequence):
+		return tuple([p for p in data if (isinstance(p, str) and len(p) > 0)])
+	elif isinstance(data, str):
+		parts = re.split(r'[,;|\s]+', data)
+		return tuple([p for p in parts if len(p) > 0])
+	else:
+		return tuple()

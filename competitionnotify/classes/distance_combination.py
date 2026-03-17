@@ -18,7 +18,7 @@ import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class DistancecombinationClass(base.BaseClass):
 	_id: uuid.UUID = attrs.field(converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
 	_number: int = attrs.field(validator=attrs.validators.instance_of(int))
@@ -53,7 +53,7 @@ def DistancecombinationClass_converter(data: DistancecombinationClass|dict[str, 
 def DistancecombinationClassTuple_converter(data: tuple[DistancecombinationClass,...]|list[dict[str, typing.Any]]) -> tuple[DistancecombinationClass,...]:
 	return utils.ClassTuple_converter(data, DistancecombinationClass)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class DistancecombinationsClass(base.BaseClass):
 	_distancecombinations: tuple[DistancecombinationClass, ...] = attrs.field(converter=DistancecombinationClassTuple_converter, validator=attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(DistancecombinationClass),
@@ -62,7 +62,7 @@ class DistancecombinationsClass(base.BaseClass):
 	def getTuple(self) -> tuple[DistancecombinationClass, ...]:
 		return self._distancecombinations
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class DistancecombinationsettingClass(base.BaseClass):
 	_distanceCombinationId: uuid.UUID = attrs.field(converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
 	_isClosed: bool = attrs.field(validator=attrs.validators.instance_of(bool))
@@ -83,7 +83,7 @@ class DistancecombinationsettingClass(base.BaseClass):
 	_clubCodeFilter: tuple[int,...] = attrs.field(default=tuple(), converter=utils.string_to_tuple_int_converter, validator=attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(int),
 		iterable_validator=attrs.validators.instance_of(tuple)))
-	_homeVenueFilter: tuple[str,...]|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
+	_homeVenueFilter: tuple[str,...]|None = attrs.field(default=None, converter=utils.string_to_tuple_str_converter, validator=attrs.validators.optional(attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(str),
 		iterable_validator=attrs.validators.instance_of(tuple))))
 	_seriePaymentOption: payment.PaymentClass|None = attrs.field(default=None, converter=payment.PaymentClass_converter_none, validator=attrs.validators.optional(attrs.validators.instance_of(payment.PaymentClass))) # type: ignore [misc]
@@ -121,7 +121,7 @@ def DistancecombinationsettingClass_converter(data: DistancecombinationsettingCl
 def DistancecombinationsettingClassTuple_converter(data: tuple[DistancecombinationsettingClass,...]|list[dict[str, typing.Any]]|dict[str, typing.Any]) -> tuple[DistancecombinationsettingClass,...]:
 	return utils.ClassTuple_converter(data, DistancecombinationsettingClass)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class DistancecombinationsettingsClass(base.BaseClass):
 	_distancecombinationsettings: tuple[DistancecombinationsettingClass, ...] = attrs.field(converter=DistancecombinationsettingClassTuple_converter, validator=attrs.validators.deep_iterable( # type: ignore [misc]
 		member_validator=attrs.validators.instance_of(DistancecombinationsettingClass),

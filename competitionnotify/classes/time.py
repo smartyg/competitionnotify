@@ -6,48 +6,40 @@ import attrs
 import datetime
 import re
 
-import competitionnotify.classes.base as base
 import competitionnotify.utils.utils as utils
+import competitionnotify.classes.base as base
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@typeguard.typechecked
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class TimeClass(base.BaseClass):
-	_hours: int = attrs.field(default=0, validator=attrs.validators.instance_of(int))
-	_minutes: int = attrs.field(validator=attrs.validators.instance_of(int))
-	_seconds: int = attrs.field(validator=attrs.validators.instance_of(int))
-	_miliseconds: int = attrs.field(validator=attrs.validators.instance_of(int))
+	_hours: int = base.BaseClass.serializable(True, default=0, validator=attrs.validators.instance_of(int))
+	_minutes: int = base.BaseClass.serializable(True, default=0, validator=attrs.validators.instance_of(int))
+	_seconds: int = base.BaseClass.serializable(True, default=0, validator=attrs.validators.instance_of(int))
+	_miliseconds: int = base.BaseClass.serializable(True, default=0, validator=attrs.validators.instance_of(int))
 
 	@_hours.validator
 	def hours_check(self, attribute: attrs.Attribute, value: int) -> bool:
 		if value < 0 or value > 23:
-			raise ValueError("value of " + str(value) + " is not a valid number of hours.")
+			raise ValueError(f'value of {value!s} is not a valid number of hours.')
 		return True
 
 	@_minutes.validator
 	def minutes_check(self, attribute: attrs.Attribute, value: int) -> bool:
 		if value < 0 or value > 59:
-			raise ValueError("value of " + str(value) + " is not a valid number of minutes.")
+			raise ValueError(f'value of {value!s} is not a valid number of minutes.')
 		return True
 
 	@_seconds.validator
 	def seconds_check(self, attribute: attrs.Attribute, value: int) -> bool:
 		if value < 0 or value > 59:
-			raise ValueError("value of " + str(value) + " is not a valid number of seconds.")
+			raise ValueError(f'value of {value!s} is not a valid number of seconds.')
 		return True
 
 	@_miliseconds.validator
 	def miliseconds_check(self, attribute: attrs.Attribute, value: int) -> bool:
 		if value < 0 or value > 999:
-			raise ValueError("value of " + str(value) + " is not a valid number of miliseconds.")
+			raise ValueError(f'value of {value!s} is not a valid number of miliseconds.')
 		return True
-
-	def __str__(self) -> str:
-		ms = self._miliseconds
-		s = self._seconds
-		m = self._minutes
-		if self._minutes == 0:
-			return str(f"{s}.{ms:03}")
-		else:
-			return str(f"{m}:{s:02}.{ms:03}")
 
 	def getTime(self) -> float:
 		return (self._hours * 3600) + (self._minutes * 60) + self._seconds + (self._miliseconds / 1000)
@@ -64,6 +56,58 @@ class TimeClass(base.BaseClass):
 	def getMiliseconds(self) -> int:
 		return self._miliseconds
 
+	def equal(self, o: "TimeClass|float") -> bool:
+		if isinstance(o, float):
+			return self.getTime() == o
+		else:
+			return (self._hours == o._hours and
+				self._minutes == o._minutes and
+				self._seconds == o._seconds and
+				self._miliseconds == o._miliseconds)
+
+	def __str__(self) -> str:
+		ms = self._miliseconds
+		s = self._seconds
+		m = self._minutes
+		h = self._hours
+		if self._hours > 0:
+			return str(f'{h}:{m:02}:{s:02}.{ms:03}')
+		elif self._minutes > 0:
+			return str(f'{m}:{s:02}.{ms:03}')
+		else:
+			return str(f'{s}.{ms:03}')
+
+	def __repr__(self) -> str:
+		return self.__str__()
+
+	def __lt__(self, o: object|float) -> bool:
+		if isinstance(o, float):
+			return self.getTime() < o
+		else:
+			o = typeguard.check_type(o, type(self))
+			return self.getTime() < o.getTime()
+
+	def __le__(self, o: object|float) -> bool:
+		if isinstance(o, float):
+			return self.getTime() <= o
+		else:
+			o = typeguard.check_type(o, type(self))
+			return self.getTime() <= o.getTime()
+
+	def __gt__(self, o: object|float) -> bool:
+		if isinstance(o, float):
+			return self.getTime() > o
+		else:
+			o = typeguard.check_type(o, type(self))
+			return self.getTime() > o.getTime()
+
+	def __ge__(self, o: object|float) -> bool:
+		if isinstance(o, float):
+			return self.getTime() >= o
+		else:
+			o = typeguard.check_type(o, type(self))
+			return self.getTime() >= o.getTime()
+
 	@staticmethod
 	def _getMiliseconds(string: str) -> int:
 		miliseconds: int
@@ -76,7 +120,7 @@ class TimeClass(base.BaseClass):
 		elif len(string) > 3:
 			miliseconds = int(string[0:3])
 		else:
-			raise ValueError("string (\"" + string + "\") is not a valid time representation.")
+			raise ValueError(f'string ({string!r}) is not a valid time representation.')
 		return miliseconds
 
 	@staticmethod
@@ -107,7 +151,7 @@ class TimeClass(base.BaseClass):
 			if notation2_match['miliseconds'] is not None:
 				miliseconds = TimeClass._getMiliseconds(notation2_match['miliseconds'])
 		else:
-			raise ValueError('String is not an time representation ("' + time + '").')
+			raise ValueError(f'String is not an time representation ({time!r}).')
 
 		return TimeClass(hours=hours, minutes=minutes, seconds=seconds, miliseconds=miliseconds)
 

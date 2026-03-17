@@ -2,11 +2,15 @@
 
 import typing
 import typeguard
+#import attrs
+#import asyncio
 import logging
 import uuid
+#import json
 import sqlite3
 
 import websocketframework.websocket as websocket
+#import competitionnotify.utils.utils as utils
 import competitionnotify.classes.filter as filter
 
 logger = logging.getLogger(__name__)
@@ -40,7 +44,7 @@ class ProcessedCompetitions(websocket.WebsocketInterface):
 
 	def getCommands(self) -> websocket.CommandList:
 		return (
-			("count", self._cmd_count),
+			("count", self._cmd_count, ""),
 			)
 
 	def _cmd_count(self, client_id: uuid.UUID) -> int:

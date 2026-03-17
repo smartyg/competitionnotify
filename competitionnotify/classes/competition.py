@@ -15,13 +15,20 @@ import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class SeriesClass(base.BaseClass):
 	_competitionsCount: int = attrs.field(validator=attrs.validators.instance_of(int))
 	_discipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
 	_id: uuid.UUID = attrs.field(converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
 	_name: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_season: int = attrs.field(validator=attrs.validators.instance_of(int))
+
+	def equal(self, o: "SeriesClass") -> bool:
+		return (self._competitionsCount == o._competitionsCount and
+			self._discipline == o._discipline and
+			self._id == o._id and
+			self._name == o._name and
+			self._season == o._season)
 
 @typeguard.typechecked
 def SeriesClass_converter(data: SeriesClass|dict[str, typing.Any]|None) -> SeriesClass|None:
@@ -47,7 +54,7 @@ def name_converter(data: str|dict[str, str|None]|None) -> str|None:
 			name = firstName + " " + name
 		return name
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class ContactClass(base.BaseClass):
 	_organizationName: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_name: str|None = attrs.field(default=None, converter=name_converter, validator=attrs.validators.optional(attrs.validators.instance_of(str))) # type: ignore [misc]
@@ -57,11 +64,20 @@ class ContactClass(base.BaseClass):
 	_extra: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 	_url: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
+	def equal(self, o: "ContactClass") -> bool:
+		return (self._organizationName == o._organizationName and
+			self._name == o._name and
+			self._email == o._email and
+			self._phone == o._phone and
+			self._address == o._address and
+			self._extra == o._extra and
+			self._url == o._url)
+
 @typeguard.typechecked
 def ContactClass_converter(data: ContactClass|dict[str, typing.Any]|None) -> ContactClass|None:
 	return utils.class_converter_none(data, ContactClass)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class SettingClass(base.BaseClass):
 	_opens: datetime.datetime = attrs.field(converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
 	_closes: datetime.datetime = attrs.field(converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
@@ -75,11 +91,23 @@ class SettingClass(base.BaseClass):
 	_currency: str = attrs.field(default=str(), validator=attrs.validators.instance_of(str))
 	_contact: ContactClass|None = attrs.field(converter=ContactClass_converter, validator=attrs.validators.optional(attrs.validators.instance_of(ContactClass))) # type: ignore [misc]
 
+	def equal(self, o: "SettingClass") -> bool:
+		return (self._opens == o._opens and
+			self._closes == o._closes and
+			self._withdrawUntil == o._withdrawUntil and
+			self._isClosed == o._isClosed and
+			self._isRegularOpen == o._isRegularOpen and
+			self._isLateOpen == o._isLateOpen and
+			self._maxCompetitors == o._maxCompetitors and
+			self._extra == o._extra and
+			self._currency == o._currency and
+			self._contact == o._contact)
+
 @typeguard.typechecked
 def SettingClass_converter(data: SettingClass|dict[str, typing.Any]) -> SettingClass:
 	return utils.class_converter_except(data, SettingClass)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class CompetitionClass(base.BaseClass):
 	_settings: SettingClass = attrs.field(converter=SettingClass_converter, validator=attrs.validators.instance_of(SettingClass)) # type: ignore [misc]
 	_isLive: bool = attrs.field(default=False, validator=attrs.validators.instance_of(bool))
@@ -131,6 +159,29 @@ class CompetitionClass(base.BaseClass):
 
 	def getDiscipline(self) -> discipline.DisciplineClass:
 		return self._discipline
+
+	def equal(self, o: "CompetitionClass") -> bool:
+		return (self._settings == o._settings and
+			self._isLive == o._isLive and
+			self._serie == o._serie and
+			self._venue == o._venue and
+			self._code == o._code and
+			self._test == o._test and
+			self._defaultStarter == o._defaultStarter and
+			self._defaultReferee1 == o._defaultReferee1 and
+			self._defaultReferee2 == o._defaultReferee2 and
+			self._isuId == o._isuId and
+			self._allowToSendLive == o._allowToSendLive and
+			self._location == o._location and
+			self._locationFlags == o._locationFlags and
+			self._extra == o._extra and
+			self._id == o._id and
+			self._discipline == o._discipline and
+			self._sponsor == o._sponsor and
+			self._name == o._name and
+			self._starts == o._starts and
+			self._ends == o._ends)
+
 
 @typeguard.typechecked
 def CompetitionClass_converter(data: CompetitionClass|dict[str, typing.Any]) -> CompetitionClass:

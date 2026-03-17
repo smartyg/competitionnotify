@@ -3,6 +3,8 @@ import competitionnotify.classes.discipline as discipline
 import unittest
 import pytest
 
+import json
+
 class TestDisciplineClass(unittest.TestCase):
 	def test_construct1(self):
 		test = discipline.DisciplineClass(discipline=0)
@@ -98,7 +100,6 @@ class TestDisciplineClass(unittest.TestCase):
 		self.assertFalse(test.isUnknown())
 		self.assertEqual(test, cls)
 
-
 	def test_converter_list1(self):
 		test = discipline.DisciplineClassTuple_converter("SpeedSkating.LongTrack")
 		self.assertIsInstance(test, tuple)
@@ -153,3 +154,42 @@ class TestDisciplineClass(unittest.TestCase):
 		test = discipline.DisciplineClass(discipline=0)
 		self.assertIsInstance(test, discipline.DisciplineClass)
 		self.assertIsInstance(hash(test), int)
+
+	def test_hasEqual(self):
+		test1 = discipline.DisciplineClass(discipline=0)
+		test2 = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test1, discipline.DisciplineClass)
+		self.assertIsInstance(test2, discipline.DisciplineClass)
+		self.assertTrue(test1 == test2)
+
+	def test_notEqual(self):
+		test1 = discipline.DisciplineClass(discipline=0)
+		test2 = discipline.DisciplineClass(discipline=1)
+		self.assertIsInstance(test1, discipline.DisciplineClass)
+		self.assertIsInstance(test2, discipline.DisciplineClass)
+		self.assertTrue(test1 != test2)
+
+	def test_hashable(self):
+		test = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test, discipline.DisciplineClass)
+		self.assertIsInstance(hash(test), int)
+
+	def test_json(self):
+		test1 = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test1, discipline.DisciplineClass)
+		json_string = test1.json()
+		self.assertIsInstance(json_string, str)
+
+		d = json.loads(json_string)
+		test2 = discipline.DisciplineClass(**d)
+		self.assertIsInstance(test2, discipline.DisciplineClass)
+		self.assertTrue(test1 == test2)
+
+	def test_serializable(self):
+		test1 = discipline.DisciplineClass(discipline=0)
+		self.assertIsInstance(test1, discipline.DisciplineClass)
+		s = test1.serialize()
+
+		test2 = discipline.DisciplineClass.deserialize(s)
+		self.assertIsInstance(test2, discipline.DisciplineClass)
+		self.assertTrue(test1 == test2)

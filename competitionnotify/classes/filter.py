@@ -20,24 +20,24 @@ import competitionnotify.classes.distance_combination as distance_combination
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class FilterClass(base.BaseClass):
-	_competition_id: uuid.UUID = attrs.field(validator=attrs.validators.instance_of(uuid.UUID))
-	_distance_id: uuid.UUID = attrs.field(validator=attrs.validators.instance_of(uuid.UUID))
-	_venue: str = attrs.field(validator=attrs.validators.instance_of(str))
-	_discipline: discipline.DisciplineClass = attrs.field(converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
-	_clubs: tuple[int, ...]|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
+	_competition_id: uuid.UUID = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(uuid.UUID))
+	_distance_id: uuid.UUID = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(uuid.UUID))
+	_venue: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
+	_discipline: discipline.DisciplineClass = base.BaseClass.serializable(True, converter=discipline.DisciplineClass_converter, validator=attrs.validators.instance_of(discipline.DisciplineClass)) # type: ignore [misc]
+	_time_filter: timefilter.TimeFilterClass = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(timefilter.TimeFilterClass))
+	_clubs: tuple[int, ...]|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(int),
             iterable_validator=attrs.validators.instance_of(tuple))))
-	_flags: int|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(int)))
-	_transponder: bool|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(bool)))
-	_validLicense: datetime.datetime|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(datetime.datetime)))
-	_categories: categories.CategoryFilterClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(categories.CategoryFilterClass)))
-	_homeVenues: tuple[str, ...]|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
+	_flags: int|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(int)))
+	_transponder: bool|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(bool)))
+	_validLicense: datetime.datetime|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(datetime.datetime)))
+	_categories: categories.CategoryFilterClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(categories.CategoryFilterClass)))
+	_homeVenues: tuple[str, ...]|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(str),
             iterable_validator=attrs.validators.instance_of(tuple))))
-	_invitees: None = attrs.field(default=None) # TODO: figure out how these invitees lists work and implement
-	_time_filter: timefilter.TimeFilterClass = attrs.field(validator=attrs.validators.instance_of(timefilter.TimeFilterClass))
+	_invitees: None = base.BaseClass.serializable(True, default=None) # TODO: figure out how these invitees lists work and implement
 
 	def hasTimeFilter(self) -> bool:
 		return self._time_filter.isValid()
@@ -106,22 +106,18 @@ class FilterClass(base.BaseClass):
 		return self._time_filter.testResult(test_time)
 
 	def equal(self, o: "FilterClass") -> bool:
-		pass
-		return True
-
-	def __eq__(self, o: object) -> bool:
-		if o is attrs.NOTHING:
-			return False
-		if not isinstance(o, FilterClass):
-			raise TypeError('Can only use comparison on two FilterClass objects')
-		return self.equal(o)
-
-	def __ne__(self, o: object) -> bool:
-		if o is attrs.NOTHING:
-			return False
-		if not isinstance(o, FilterClass):
-			raise TypeError('Can only use comparison on two FilterClass objects')
-		return not self.equal(o)
+		return (self._competition_id == o._competition_id and
+			self._distance_id == o._distance_id and
+			self._venue == o._venue and
+			self._discipline == o._discipline and
+			self._clubs == o._clubs and
+			self._flags == o._flags and
+			self._transponder == o._transponder and
+			self._validLicense == o._validLicense and
+			self._categories == o._categories and
+			self._homeVenues == o._homeVenues and
+			self._invitees == o._invitees and
+			self._time_filter == o._time_filter)
 
 	@staticmethod
 	def fromDistanceCombination(c: competition.CompetitionClass, dc: distance_combination.DistancecombinationClass, dcs: distance_combination.DistancecombinationsettingClass) -> "FilterClass":
@@ -133,9 +129,9 @@ class FilterClass(base.BaseClass):
 			venue=c.getVenueCode(),
 			discipline=c.getDiscipline(),
 			clubs=dcs.getClubCodes(),
-	#_flags: int|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(int)))
-	#_transponder: bool|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(bool)))
-	#_validLicense: datetime.datetime|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(datetime.datetime)))
+	#_flags: int|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(int)))
+	#_transponder: bool|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(bool)))
+	#_validLicense: datetime.datetime|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(datetime.datetime)))
 			categories=dc.getCategoryFilter(),
 			homeVenues=dcs.getHomeVenueFilter(),
 			invitees=dcs.getInvitees(),

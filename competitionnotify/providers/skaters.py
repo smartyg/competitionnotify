@@ -11,6 +11,7 @@ import json
 import sqlite3
 
 import websocketframework.websocket as websocket
+#import websocketframework.websocketinterface as websocketinterface
 import competitionnotify.classes.discipline as discipline
 import competitionnotify.classes.skater as skater
 import competitionnotify.classes.filter as filter
@@ -93,6 +94,7 @@ class Skaters(loadable_provider.LoadableProvider, websocket.WebsocketInterface):
 			entry['mailOptions']['homeVenue'] = s['homeVenue']
 			entry['mailOptions']['venues'] = s['venues']
 			entry['mailOptions']['disciplines'] = s['disciplines']
+			#logger.debug("Construct skater information: `" + str(entry) + "`.")
 			ret = utils.class_factory(entry, skater.SkaterClass)
 			return ret
 

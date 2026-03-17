@@ -16,16 +16,17 @@ def discipline_class_discipline_validator(instance: "DisciplineClass", attribute
 	if value > (len(instance._disciplines) - 1) or value < -1:
 		raise ValueError("No valid value for discipline (" + str(value) + ")")
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@typeguard.typechecked
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class DisciplineClass(base.BaseClass):
 	_disciplines: typing.ClassVar[tuple] = ("Inline", "LongTrack", "Marathon", "ShortTrack")
 	_prefix: typing.ClassVar[str] = "SpeedSkating"
 	#_subtypes1: typing.ClassVar[tuple] = ("MassStartDistance", "PairsDistance", "PointToPoint", "Track")
 	#_subtypes2: typing.ClassVar[tuple] = ("MarathonDistance", "EliminationDistance", "OneLapDistance", "PointsDistance", "RelayDistance", "SprintDistance", "TimeTrialDistance", "Individual", "TeamPursuit", "TeamRelay", "TeamSprint")
 
-	_discipline:int = attrs.field(validator=[attrs.validators.instance_of(int), discipline_class_discipline_validator])
-	_subtype1:str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_subtype2:str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_discipline:int = base.BaseClass.serializable(True, validator=[attrs.validators.instance_of(int), discipline_class_discipline_validator])
+	_subtype1:str|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_subtype2:str|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
 	def isValid(self) -> bool:
 		return True if self._discipline >= 0 and self._discipline < len(self._disciplines) else False
@@ -51,13 +52,6 @@ class DisciplineClass(base.BaseClass):
 
 	def __repr__(self) -> str:
 		return self.asString()
-
-	def __eq__(self, o: object) -> bool:
-		if o is attrs.NOTHING:
-			return False
-		if not isinstance(o, DisciplineClass):
-			raise TypeError('Can only use comparison on two DisciplineClass objects')
-		return self.equal(o)
 
 	@staticmethod
 	def getDisciplineByString(string: str|None) -> "DisciplineClass":

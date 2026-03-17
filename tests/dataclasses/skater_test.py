@@ -5,9 +5,6 @@ import datetime
 import unittest
 import pytest
 
-#class TestAdressClass(unittest.TestCase):
-
-
 class TestSkaterClass(unittest.TestCase):
 	def test_convertor1(self):
 		json_string = '{"personName":{"initials":"M.","firstName":"Martijn","surnamePrefix":null,"surname":"Goedhart"},"personBirthDate":"0001-01-01T00:00:00Z","key":"10156390","flags":10,"season":2024,"sponsor":null,"club":{"countryCode":"NED","code":6640,"shortName":"YC HGI","shortCode":"YCHGI","fullName":"IJsclub Hard Gaat ie"},"validFrom":"2025-02-24T00:00:00Z","validTo":"2026-05-24T00:00:00Z","category":"HSB","legNumber":null,"number":null,"venueCode":"AMS","transponder1":"TZ-75324","transponder2":null}'

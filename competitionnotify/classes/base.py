@@ -11,18 +11,18 @@ import datetime
 
 import competitionnotify.utils.utils as utils
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=False, str=False, eq=False, order=False)
 class BaseClass:
 	_SERIALIZE_TYPE = '__serialize_type'
 
 	@staticmethod
-	def deserialize(compressed_data: bytes):
+	def deserialize(compressed_data: bytes) -> "BaseClass":
 		decompressed = zlib.decompress(compressed_data)
 		obj = pickle.loads(decompressed)
-		if issubclass(type(obj), BaseClass):
+		obj_type = type(obj)
+		if issubclass(obj_type, BaseClass):
 			return obj
-		else:
-			print("error")
+		raise ValueError(f'Deserializing resulted in an object of type {obj_type!s} which is not supported.')
 
 	def serialize(self) -> bytes:
 		data = pickle.dumps(self, pickle.DEFAULT_PROTOCOL)
@@ -35,6 +35,8 @@ class BaseClass:
 
 		if isinstance(obj, (datetime.datetime, datetime.date)):
 			return obj.isoformat()
+		elif isinstance(obj, BaseClass):
+			return obj.asdict()
 		raise TypeError("Type %s not serializable" % type(obj))
 
 	def json (self) -> str:
@@ -53,6 +55,46 @@ class BaseClass:
 			d[field.alias] = self.__getattribute__(field.name)
 
 		return d
+
+	def __eq__(self, o: object) -> bool:
+		if not self._hasCallableMethod("equal"):
+			cls_name = type(self).__name__
+			raise TypeError(f'Class `{cls_name}` does provide an `equal` method and is therefor not comparable.')
+		if o is attrs.NOTHING:
+			return False
+		if not isinstance(o, type(self)):
+			self_cls_name = type(self).__name__
+			o_cls_name = type(o).__name__
+			raise TypeError(f'Can only use comparison on two objects of the same type (given: {self_cls_name}, {o_cls_name}).')
+		return self.equal(o) # type: ignore [attr-defined]
+
+	def __nq__(self, o: object) -> bool:
+		if not self._hasCallableMethod("equal"):
+			cls_name = type(self).__name__
+			raise TypeError(f'Class `{cls_name}` does provide an `equal` method and is therefor not comparable.')
+		if o is attrs.NOTHING:
+			return False
+		if not isinstance(o, type(self)):
+			self_cls_name = type(self).__name__
+			o_cls_name = type(o).__name__
+			raise TypeError(f'Can only use comparison on two objects of the same type (given: {self_cls_name}, {o_cls_name}).')
+		return not self.equal(o) # type: ignore [attr-defined]
+
+	def _hasCallableMethod(self, method_name: str) -> bool:
+		test = getattr(self, method_name, None)
+		if test is None:
+			return False
+		return callable(test)
+
+	def raiseNotSameObject(self, o: object) -> bool:
+		if o is attrs.NOTHING:
+			return False
+		if not isinstance(o, type(self)):
+			self_cls_name = type(self).__name__
+			o_cls_name = type(o).__name__
+			raise TypeError(f'Objects are not of the same type (given: {self_cls_name}, {o_cls_name}).')
+		else:
+			return True
 
 	@staticmethod
 	def serializable(serialize_func: collections.abc.Callable[["BaseClass", str, typing.Any], typing.Any]|None|bool, default=attrs.NOTHING, validator=None, repr=True, hash=None, init=True, metadata=None, type=None, converter=None, factory=None, kw_only=False, eq=None, order=None, on_setattr=None, alias=None):
@@ -74,13 +116,13 @@ class ComparableClass(BaseClass):
 		result:int = 0
 		fields = attrs.fields(type(self))
 		for field in fields:
-			cmp_type: int|None = field.metadata.get(BaseClass._COMPARE_TYPE, None)
+			cmp_type: int|None = field.metadata.get(ComparableClass._COMPARE_TYPE, None)
 			if cmp_type is None:
 				continue
-			if cmp_type == BaseClass.NO_COMPARE:
+			if cmp_type == ComparableClass.NO_COMPARE:
 				continue
 
-			if cmp_type == BaseClass.COMPARE_DEEP:
+			if cmp_type == ComparableClass.COMPARE_DEEP:
 				a = self.__getattribute__(field.name)
 				result |= a.compare(c.__getattribute__(field.name))
 			elif field.eq:
@@ -107,12 +149,12 @@ class ComparableClass(BaseClass):
 		return result
 
 	def getFirstFieldName(self) -> str|None:
-		return getFirstFieldName(self)
+		return getFirstFieldName(type(self))
 
 	@staticmethod
 	def comparable(cmp_type: int = -1, default=attrs.NOTHING, validator=None, repr=True, hash=None, init=True, metadata=None, type=None, converter=None, factory=None, kw_only=False, eq=None, order=None, on_setattr=None, alias=None):
 		metadata = metadata or {}
-		metadata[BaseClass._COMPARE_TYPE] = cmp_type
+		metadata[ComparableClass._COMPARE_TYPE] = cmp_type
 		return attrs.field(default=default, validator=validator, repr=repr, hash=hash, init=init, metadata=metadata, type=type, converter=converter, factory=factory, kw_only=kw_only, eq=eq, order=order, on_setattr=on_setattr, alias=alias)
 
 @typeguard.typechecked

@@ -7,8 +7,8 @@ import os
 import os.path
 import uuid
 
-import competitionnotify.dataclasses.distance as distance
-import competitionnotify.dataclasses.categories as categories
+import competitionnotify.classes.distance as distance
+import competitionnotify.classes.categories as categories
 
 class TestDistancecombinationClass(unittest.TestCase):
 

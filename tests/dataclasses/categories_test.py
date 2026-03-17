@@ -4,6 +4,7 @@ import unittest
 import pytest
 
 import datetime
+import json
 
 class TestCategoryBase(unittest.TestCase):
 	def test_getGenderPosibilities(self):
@@ -416,10 +417,31 @@ class TestCategoryClass(unittest.TestCase):
 		test_2 = categories.CategoryClass.getCategoryByString(string=category_text_2)
 		self.assertTrue(test_1 > test_2)
 
-	def test_hash(self):
-		test = test_1 = categories.CategoryClass.getCategoryByString(string="DN4")
+	def test_hashable(self):
+		test = categories.CategoryClass.getCategoryByString(string="DN4")
 		self.assertIsInstance(test, categories.CategoryClass)
 		self.assertIsInstance(hash(test), int)
+
+	def test_json(self):
+		test1 = categories.CategoryClass.getCategoryByString(string="HB2")
+		self.assertIsInstance(test1, categories.CategoryClass)
+		json_string = test1.json()
+		self.assertIsInstance(json_string, str)
+
+		d = json.loads(json_string)
+		test2 = categories.CategoryClass(**d)
+		self.assertIsInstance(test2, categories.CategoryClass)
+		self.assertTrue(test1 == test2)
+
+	def test_serializable(self):
+		test1 = categories.CategoryClass.getCategoryByString(string="DSB")
+		self.assertIsInstance(test1, categories.CategoryClass)
+		s = test1.serialize()
+
+		test2 = categories.CategoryClass.deserialize(s)
+		self.assertIsInstance(test2, categories.CategoryClass)
+		self.assertTrue(test1 == test2)
+
 
 class TestCategoryFilterClass(unittest.TestCase):
 	def test_constructByText1(self):
@@ -691,9 +713,48 @@ class TestCategoryFilterClass(unittest.TestCase):
 		test = categories.CategoryFilterClass.fromString("*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		with pytest.raises(ValueError) as e:
-			b= test.hasCategory("INV")
+			b = test.hasCategory("INV")
 
 	def test_hash(self):
 		test = categories.CategoryFilterClass.fromString("*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)
 		self.assertIsInstance(hash(test), int)
+
+	def test_hasEqual(self):
+		test1 = categories.CategoryFilterClass.fromString("HS*,HM*")
+		test2 = categories.CategoryFilterClass.fromString("H?0,H?5")
+		self.assertIsInstance(test1, categories.CategoryFilterClass)
+		self.assertIsInstance(test2, categories.CategoryFilterClass)
+		self.assertTrue(test1 == test2)
+
+	def test_notEqual(self):
+		test1 = categories.CategoryFilterClass.fromString("HS*,HM*")
+		test2 = categories.CategoryFilterClass.fromString("H3*")
+		self.assertIsInstance(test1, categories.CategoryFilterClass)
+		self.assertIsInstance(test2, categories.CategoryFilterClass)
+		self.assertTrue(test1 != test2)
+
+	def test_hashable(self):
+		test = categories.CategoryFilterClass.fromString("HS*,HM*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+		self.assertIsInstance(hash(test), int)
+
+	def test_json(self):
+		test1 = categories.CategoryFilterClass.fromString("HS*,HM*")
+		self.assertIsInstance(test1, categories.CategoryFilterClass)
+		json_string = test1.json()
+		self.assertIsInstance(json_string, str)
+
+		d = json.loads(json_string)
+		test2 = categories.CategoryFilterClass(**d)
+		self.assertIsInstance(test2, categories.CategoryFilterClass)
+		self.assertTrue(test1 == test2)
+
+	def test_serializable(self):
+		test1 = categories.CategoryFilterClass.fromString("HS*,HM*")
+		self.assertIsInstance(test1, categories.CategoryFilterClass)
+		s = test1.serialize()
+
+		test2 = categories.CategoryFilterClass.deserialize(s)
+		self.assertIsInstance(test2, categories.CategoryFilterClass)
+		self.assertTrue(test1 == test2)

@@ -10,7 +10,7 @@ import competitionnotify.utils.utils as utils
 
 logger = logging.getLogger(__name__)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class SearchResultsClass(base.BaseClass):
 	pass
 #	_currency: str = attrs.field(validator=attrs.validators.instance_of(str))
