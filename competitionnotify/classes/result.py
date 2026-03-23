@@ -29,7 +29,7 @@ class BaseSkaterClass[T](base.BaseClass):
 class ResultClass(base.BaseClass):
 	_distance: distance.DistanceValueClass = base.BaseClass.serializable(True, converter=distance.DistanceValueClass_converter, validator=attrs.validators.instance_of(distance.DistanceValueClass)) #type: ignore [misc]
 	_time: time.TimeClass = base.BaseClass.serializable(True, converter=time.TimeClass_converter, validator=attrs.validators.instance_of(time.TimeClass)) #type: ignore [misc]
-	_date: datetime.date = base.BaseClass.serializable(True, converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.date)) #type: ignore [misc]
+	_date: datetime.date = base.BaseClass.serializable(True, converter=utils.date_converter, validator=attrs.validators.instance_of(datetime.date)) #type: ignore [misc]
 	_location: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
 	_name: str = base.BaseClass.serializable(True, factory=str, validator=attrs.validators.instance_of(str))
 	_link: str = base.BaseClass.serializable(True, factory=str, validator=attrs.validators.instance_of(str))

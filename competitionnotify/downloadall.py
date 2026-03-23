@@ -7,7 +7,8 @@ import asyncio
 import json
 import logging
 
-import competitionnotify.task_manager as task_manager
+#import competitionnotify.task_manager as task_manager
+import taskmanager.taskmanager as task_manager
 
 logger = logging.getLogger(__name__)
 
@@ -47,13 +48,14 @@ async def runner() -> None:
 			urls: dict[str, str] = {
 				i + '-competition.json': 'https://inschrijven.schaatsen.nl/api/competitions/' + i,
 				i + '-distancecombinations.json': 'https://inschrijven.schaatsen.nl/api/competitions/' + i + '/distancecombinations',
-				i + '-distancecombinationsettings.json': 'https://inschrijven.schaatsen.nl/api/competitions/' + i + '/settings/distancecombinations'
+				i + '-distancecombinationsettings.json': 'https://inschrijven.schaatsen.nl/api/competitions/' + i + '/settings/distancecombinations',
+				i + '-competitors.json': 'https://inschrijven.schaatsen.nl/api/competitions/' + i + '/competitors'
 			}
 
 			for f, u in urls.items():
 				logger.debug ("start download of file: " + f + " (" + u + ")")
 				download = downloader(session, u, f)
-				await tasks.startProcess(download.run())
+				await tasks.startProcess(task_manager.CoroutineClass(coroutine=download.run(), name=""))
 				await asyncio.sleep(0.1)
 
 			await asyncio.sleep(0.5)

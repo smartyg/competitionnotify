@@ -668,6 +668,17 @@ class TestCategoryFilterClass(unittest.TestCase):
 		self.assertTrue(test.hasCategory("HPA"))
 		self.assertFalse(test.hasCategory("HPB"))
 
+	def test_constructByText21(self):
+		test = categories.CategoryFilterClass.fromString("DA*,DN*,DS*,D40*,DSA*")
+		self.assertIsInstance(test, categories.CategoryFilterClass)
+		self.assertEqual(test.numberOfCategories(), 9)
+		self.assertTrue(test.hasCategory("DA1"))
+		self.assertTrue(test.hasCategory("DA2"))
+		self.assertTrue(test.hasCategory("D40"))
+		self.assertFalse(test.hasCategory("DPA"))
+		self.assertFalse(test.hasCategory("HA1"))
+		self.assertFalse(test.hasCategory("D45"))
+
 	def test_hasCategory1(self):
 		test = categories.CategoryFilterClass.fromString("*")
 		self.assertIsInstance(test, categories.CategoryFilterClass)

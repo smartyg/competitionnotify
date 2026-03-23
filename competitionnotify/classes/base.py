@@ -8,6 +8,7 @@ import pickle
 import zlib
 import json
 import datetime
+import uuid
 
 import competitionnotify.utils.utils as utils
 
@@ -35,8 +36,12 @@ class BaseClass:
 
 		if isinstance(obj, (datetime.datetime, datetime.date)):
 			return obj.isoformat()
+		elif isinstance(obj, set):
+			return list(obj)
 		elif isinstance(obj, BaseClass):
 			return obj.asdict()
+		elif isinstance(obj, uuid.UUID):
+			return str(obj)
 		raise TypeError("Type %s not serializable" % type(obj))
 
 	def json (self) -> str:

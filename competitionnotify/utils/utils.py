@@ -125,8 +125,13 @@ def datetime_converter_none(data: datetime.datetime|str|None) -> datetime.dateti
 		return datetime_converter(data)
 
 @typeguard.typechecked
-def date_converter(date_str: str) -> datetime.date:
-	return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+def date_converter(data: datetime.date|datetime.datetime|str) -> datetime.date:
+	if isinstance(data, datetime.date):
+		return data
+	elif isinstance(data, datetime.datetime):
+		return data.date()
+	else:
+		return datetime.datetime.strptime(data, "%Y-%m-%d").date()
 
 @typeguard.typechecked
 def string_to_tuple_int_converter(string: collections.abc.Sequence[int]|str|None) -> tuple[int, ...]:

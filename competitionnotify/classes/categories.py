@@ -215,7 +215,7 @@ class CategoryClass(CategoryBase):
 		try:
 			# Silence mypy error on following line (Argument "age" to "CategoryClass" has incompatible type "int | list[int]"; expected "int"), as code above makes sure age is not a list by this time anymore
 			return CategoryClass(gender=gender, age=age, ageSub=ageSub)  # type: ignore[arg-type]
-		except ValueError:
+		except:
 			return None
 
 	def getGender(self) -> str:
@@ -286,6 +286,18 @@ def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
 		ret = CategoryClass.getCategoryByString(string=data)
 		if ret is None:
 			raise ValueError("String '" + data + "' is not a valid category string.")
+		return ret
+
+@typeguard.typechecked
+def CategoryClass_converter_none(data: CategoryClass|str|None) -> CategoryClass|None:
+	if isinstance(data, CategoryClass):
+		return data
+	elif data is None:
+		return None
+	else:
+		ret = CategoryClass.getCategoryByString(string=data)
+		if ret is None:
+			return None
 		return ret
 
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
@@ -377,3 +389,13 @@ def CategoryFilterClass_converter(data: CategoryFilterClass|str) -> CategoryFilt
 		return data
 	else:
 		return CategoryFilterClass.fromString(filter_text=data, old_style=None)
+
+@typeguard.typechecked
+def CategoryFilterClass_converter_none(data: CategoryFilterClass|str|None) -> CategoryFilterClass|None:
+	if isinstance(data, CategoryFilterClass):
+		return data
+	else:
+		try:
+			return CategoryFilterClass.fromString(filter_text=data, old_style=None)
+		except:
+			return None
