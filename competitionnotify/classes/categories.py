@@ -2,12 +2,15 @@
 
 import typing
 import typeguard
+import logging
 import attrs
 import datetime
 import dateutil.relativedelta
 import re
 
 import competitionnotify.classes.base as base
+
+logger = logging.getLogger(__name__)
 
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class CategoryBase(base.BaseClass):

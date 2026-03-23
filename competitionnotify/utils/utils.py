@@ -169,3 +169,14 @@ def string_to_tuple_str_converter(data: collections.abc.Sequence[str]|str|None) 
 		return tuple([p for p in parts if len(p) > 0])
 	else:
 		return tuple()
+
+@typeguard.typechecked
+def str2int_converter(data: str|int|None) -> int|None:
+	if isinstance(data, int):
+		return data
+	if isinstance(data, str):
+		try:
+			return int(data)
+		except:
+			return None
+	return None

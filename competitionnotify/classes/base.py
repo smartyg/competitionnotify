@@ -3,6 +3,7 @@
 import typing
 import collections.abc
 import typeguard
+import logging
 import attrs
 import pickle
 import zlib
@@ -11,6 +12,8 @@ import datetime
 import uuid
 
 import competitionnotify.utils.utils as utils
+
+logger = logging.getLogger(__name__)
 
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=False, str=False, eq=False, order=False)
 class BaseClass:
