@@ -15,20 +15,22 @@ logger = logging.getLogger(__name__)
 vantage_result_cache: cache.Cache = cache.Cache(150, 43200)
 
 @typeguard.typechecked
-def vantageGetLicense(number: int) -> skater.SkaterClass|None:
-	url = 'https://inschrijven.schaatsen.nl/api/licenses/KNSB/SpeedSkating.LongTrack/' + str(number)
-	skater_license = utils_downloader.downloader(url, skater.SkaterClass)
+async def vantageGetLicense(number: str) -> skater.SkaterClass|None:
+	url = 'https://inschrijven.schaatsen.nl/api/licenses/KNSB/SpeedSkating.LongTrack/' + number
+	skater_license = await utils_downloader.downloader(url, skater.SkaterClass)
 	if skater_license is None:
 		return None
 	else:
 		return skater_license
 
 @typeguard.typechecked
-def vantageSearchId(skater_license: skater.SkaterClass, birth_date: datetime.date) -> uuid.UUID|None:
+async def vantageSearchId(skater_license: skater.SkaterClass, birth_date: datetime.date) -> uuid.UUID|None:
   url = 'https://tijden-service.schaatsen.nl/api/SearchSkater?name=' + skater_license.getName()
-  skater_search_results: tuple[vantage_classes.VantageSearchResultClass, ...] = utils_downloader.downloaderTuple(url, vantage_classes.VantageSearchResultClass)
+  skater_search_results: tuple[vantage_classes.VantageSearchResultClass, ...] = await utils_downloader.downloaderTuple(url, vantage_classes.VantageSearchResultClass)
+  logger.info(f'Found {len(skater_search_results)} matches for skater \'{skater_license.getName()}\'')
   for s in skater_search_results:
-	  if s.match(skater.getSurename(), skater.getSurename(), skater.getSurename(), birth_date.year):
+	  logger.debug (f'Test skater \'{s.getName()} ({s.getBirthYear()})\'')
+	  if s.match(skater_license.getFirstName(), skater_license.getSurename(), skater_license.getPrefix(), birth_date.year):
 		  return s.getId()
   return None
 

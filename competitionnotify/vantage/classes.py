@@ -195,18 +195,26 @@ class VantageResultsClass(base.BaseClass):
 @typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False)
 class VantageSearchResultClass(base.BaseClass):
-	_id: uuid.UUID = base.BaseClass.serializable(True,validator=attrs.validators.instance_of(uuid.UUID))
-	_birthDateDisplay: int = base.BaseClass.serializable(True,converter=utils.str2int_converter, validator=attrs.validators.instance_of(int))
-	_firstName: str = base.BaseClass.serializable(True,validator=attrs.validators.instance_of(str))
-	_namePreposition: str|None = base.BaseClass.serializable(True,validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_lastName: str|None = base.BaseClass.serializable(True,validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_fullName: str = base.BaseClass.serializable(True,validator=attrs.validators.instance_of(str))
-	_initials: str|None = base.BaseClass.serializable(True,validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_iocCode: str|None = base.BaseClass.serializable(True,validator=attrs.validators.optional(attrs.validators.instance_of(str)))
-	_gender: str = base.BaseClass.serializable(True,validator=attrs.validators.instance_of(str))
+	_id: uuid.UUID = base.BaseClass.serializable(True, converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID))
+	_birthDateDisplay: int = base.BaseClass.serializable(True, converter=utils.str2int_converter, validator=attrs.validators.instance_of(int))
+	_gender: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
+	_firstName: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
+	_lastName: str = base.BaseClass.serializable(True, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_fullName: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
+	_namePreposition: str|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_initials: str|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
+	_isoCode: str|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
 
 	def match(self, firstName: str, lastName: str, prefix: str|None, birthYear: int) -> bool:
+		if prefix == '':
+			prefix = None
 		return self._firstName == firstName and self._lastName == lastName and self._namePreposition == prefix and self._birthDateDisplay == birthYear
 	
 	def getId(self) -> uuid.UUID:
 		return self._id
+
+	def getName(self) -> str:
+		return self._fullName
+
+	def getBirthYear(self) -> int:
+		return self._birthDateDisplay

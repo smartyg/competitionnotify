@@ -6,9 +6,11 @@ import logging
 import uuid
 import csv
 import aiohttp
+import datetime
 
 import competitionnotify.utils.utils as utils
 import competitionnotify.classes.distance as distance
+import competitionnotify.classes.categories as categories
 import competitionnotify.classes.result as result
 import competitionnotify.vantage.functions as vantage_functions
 
@@ -41,15 +43,21 @@ async def getSkaterRecords(skater_id: uuid.UUID, season: int) -> list[str|int]:
 	return result_list
 
 async def runner() -> None:
-	skaters: list[str] = [
-		uuid.UUID("521a5f8d-1158-4cfa-8b89-9ad196b1a7bf"),
-		uuid.UUID("be52e3db-c49f-456c-aa92-c22dda3e0e98"),
+	skater_numbers: list[tuple[str, str]] = [
 	]
 
 	season = 2025
 
-	result_list: list[list[str|int]] = [await getSkaterRecords(s, season) for s in skaters]
+	print("step 1 ...")
+	skaters: list[tuple[skater.SkaterClass|None, datetime.date]] = [(await vantage_functions.vantageGetLicense(s[0]), datetime.datetime.strptime(s[1], "%d-%m-%Y").date()) for s in skater_numbers]
+	print(skaters)
 
+	print("step 2 ...")
+	skater_ids: list[tuple[uuid.UUID|None, skater.SkaterClass, categories.CategoryClass]] = [(await vantage_functions.vantageSearchId(s[0], s[1]), s[0], categories.CategoryClass.getCategoryByDate(s[0].getCategory().isMale(), s[1], season)) for s in skaters if s[0] is not None]
+	print(skater_ids)
+
+	print("step 3 ...")
+	result_list: list[list[str|int]] = [[s[1].getName(), s[2]] + await getSkaterRecords(s[0], season) if s[0] is not None else [s[1].getName(), s[2]] for s in skater_ids]
 	print(result_list)
 
 	filename = "season_results.csv"

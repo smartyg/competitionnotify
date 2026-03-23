@@ -224,6 +224,9 @@ class CategoryClass(CategoryBase):
 	def getGender(self) -> str:
 		return self._genderTypes[self._gender]
 
+	def isMale(self) -> bool:
+		return True if self._gender == 1 else False
+
 	def match(self, filter: "CategoryFilterClass") -> bool:
 		for entry in filter.getList():
 			if self.equal(entry):

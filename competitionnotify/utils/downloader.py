@@ -37,7 +37,7 @@ async def downloader(url: str, c: type[U]) -> U:
 			return _dataLoader(data, c)
 
 @typeguard.typechecked
-async def downloaderTuple(url: str, c: type[U]) -> tuple[U]:
+async def downloaderTuple(url: str, c: type[U]) -> tuple[U, ...]:
 	async with aiohttp.ClientSession() as session:
 		logger.debug (f'download file: {url} ...')
 		async with session.get(url) as response:
