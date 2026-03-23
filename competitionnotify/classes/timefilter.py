@@ -15,14 +15,14 @@ import competitionnotify.classes.result as result
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class TimeFilterClass(base.BaseClass):
-	_limitTimeDistanceDiscipline: discipline.DisciplineClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(discipline.DisciplineClass)))
-	_limitTimeDistanceValue: distance.DistanceValueClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass)))
-	_limitTime: time.TimeClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass)))
-	_thresholdTimeDistanceDiscipline: discipline.DisciplineClass|None = attrs.field(default=None, validator=attrs.validators.instance_of(discipline.DisciplineClass))
-	_thresholdTimeDistanceValue: distance.DistanceValueClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass)))
-	_thresholdTime: time.TimeClass|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass)))
+	_limitTimeDistanceDiscipline: discipline.DisciplineClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(discipline.DisciplineClass)))
+	_limitTimeDistanceValue: distance.DistanceValueClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass)))
+	_limitTime: time.TimeClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass)))
+	_thresholdTimeDistanceDiscipline: discipline.DisciplineClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.instance_of(discipline.DisciplineClass))
+	_thresholdTimeDistanceValue: distance.DistanceValueClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(distance.DistanceValueClass)))
+	_thresholdTime: time.TimeClass|None = base.BaseClass.serializable(True, default=None, validator=attrs.validators.optional(attrs.validators.instance_of(time.TimeClass)))
 
 	def isValid(self) -> bool:
 		return (
@@ -51,3 +51,8 @@ class TimeFilterClass(base.BaseClass):
 				return False
 
 		return True
+
+	#def equal(self, o: TimeFilterClass) -> bool:
+
+
+

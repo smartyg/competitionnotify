@@ -13,7 +13,7 @@ import competitionnotify.classes.categories as categories
 
 logger = logging.getLogger(__name__)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class PersonNameClass(base.BaseClass):
 	_firstName: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_initials: str|None = attrs.field(default=None, validator=attrs.validators.optional(attrs.validators.instance_of(str)))
@@ -30,6 +30,12 @@ class PersonNameClass(base.BaseClass):
 
 	def getSurename(self) -> str:
 		return self._surname
+
+	def getSurenameWithPrefix(self) -> str:
+		name: str = self._surname
+		if self._surnamePrefix is not None:
+			name = self._surnamePrefix + " " + name
+		return name
 
 	def getFirstName(self) -> str:
 		return self._firstName
@@ -48,7 +54,7 @@ class PersonNameClass(base.BaseClass):
 def PersonNameClass_converter(data: PersonNameClass|dict[str, typing.Any]|None) -> PersonNameClass:
 	return utils.class_converter_except(data, PersonNameClass)
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class MailOptionsClass(base.BaseClass):
 	_emailAddress: str = attrs.field(validator=attrs.validators.instance_of(str))
 	_homeVenue: bool = attrs.field(validator=attrs.validators.instance_of(bool))
@@ -88,7 +94,7 @@ def club_converter(data: int|dict[str, typing.Any]) -> int:
 		else:
 			return -1
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class SkaterClass(base.BaseClass):
 	_category: categories.CategoryClass = attrs.field(converter=categories.CategoryClass_converter, validator=attrs.validators.instance_of(categories.CategoryClass)) # type: ignore [misc]
 	_club: int = attrs.field(converter=club_converter, validator=attrs.validators.instance_of(int)) # type: ignore [misc]

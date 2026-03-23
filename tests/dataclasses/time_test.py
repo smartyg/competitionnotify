@@ -2,6 +2,7 @@ import competitionnotify.classes.time as time
 
 import unittest
 import pytest
+import json
 
 class TestTimeClass(unittest.TestCase):
 	def test_construct1(self):
@@ -94,7 +95,74 @@ class TestTimeClass(unittest.TestCase):
 		self.assertEqual(test.getSeconds(), 12)
 		self.assertEqual(test.getMiliseconds(), 345)
 
-	def test_hash(self):
+	def test_repr(self):
+		test1 = time.TimeClass.from_string("12,345")
+		self.assertIsInstance(test1, time.TimeClass)
+		string = repr(test1)
+		self.assertIsInstance(string, str)
+		test2 = time.TimeClass.from_string(string)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertEqual(test2.getHours(), 0)
+		self.assertEqual(test2.getMinutes(), 0)
+		self.assertEqual(test2.getSeconds(), 12)
+		self.assertEqual(test2.getMiliseconds(), 345)
+
+	def test_hasEqual(self):
+		test1 = time.TimeClass.from_string("12:34:56.789")
+		test2 = time.TimeClass.from_string("12:34:56.789")
+		self.assertIsInstance(test1, time.TimeClass)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 == test2)
+
+	def test_notEqual1(self):
+		test1 = time.TimeClass.from_string("12:34:56.789")
+		test2 = time.TimeClass.from_string("01:23:45.678")
+		self.assertIsInstance(test1, time.TimeClass)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 != test2)
+
+	def test_notEqual2(self):
+		test1 = time.TimeClass.from_string("12:34:56.789")
+		test2 = time.TimeClass()
+		self.assertIsInstance(test1, time.TimeClass)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 != test2)
+
+	def test_lessThen1(self):
+		test1 = time.TimeClass.from_string("01:23:45.678")
+		test2 = time.TimeClass.from_string("12:34:56.789")
+		self.assertIsInstance(test1, time.TimeClass)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 < test2)
+
+	def test_lessThen2(self):
+		test1 = time.TimeClass.from_string("01:23:45.678")
+		test2 = time.TimeClass.from_string("01:23:45.678")
+		self.assertIsInstance(test1, time.TimeClass)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertFalse(test1 < test2)
+
+	def test_hashable(self):
 		test = time.TimeClass.from_string("12:34:56.789")
 		self.assertIsInstance(test, time.TimeClass)
 		self.assertIsInstance(hash(test), int)
+
+	def test_json(self):
+		test1 = time.TimeClass.from_string("12:34:56.789")
+		self.assertIsInstance(test1, time.TimeClass)
+		json_string = test1.json()
+		self.assertIsInstance(json_string, str)
+
+		d = json.loads(json_string)
+		test2 = time.TimeClass(**d)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 == test2)
+
+	def test_serializable(self):
+		test1 = time.TimeClass.from_string("12:34:56.789")
+		self.assertIsInstance(test1, time.TimeClass)
+		s = test1.serialize()
+
+		test2 = time.TimeClass.deserialize(s)
+		self.assertIsInstance(test2, time.TimeClass)
+		self.assertTrue(test1 == test2)

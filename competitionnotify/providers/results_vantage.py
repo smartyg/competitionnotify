@@ -7,18 +7,40 @@ import logging
 import uuid
 
 import websocketframework.websocket as websocket
-import websocketframework.websocketinterface as websocketinterface
-import competitionnotify.providers.base.result_provider_interface as result_provider
+import competitionnotify.classes.searchresults as searchresults
+import competitionnotify.classes.time as time
+import competitionnotify.classes.skater as skater
+import competitionnotify.classes.distance as distance
+import competitionnotify.classes.result as result
+import competitionnotify.providers.results as results
 
 logger = logging.getLogger(__name__)
 
 @typeguard.typechecked
-class ResultsVantage(result_provider.ResultProviderInterface, websocketinterface.WebsocketInterface):
+class ResultsVantage(results.ResultsInterface, websocket.WebsocketInterface):
 	def __init__(self):
 		return None
 
-	def get(self) -> str:
-		return "test"
+	def getNameCode(self) -> str:
+		return "vantage"
+
+	def searchSkater(self, person: skater.PersonNameClass, category: categories.CategoryClass) -> list[searchresults.SearchResultsClass]:
+		raise NotImplementedError
+
+	def convertNumber2SkaterId(self, number: str|int) -> skater.PersonNameClass:
+		raise NotImplementedError
+
+	def getBests(self, skater_id, distance = -1, season: int = -1) -> result.BestTimesClass:
+		raise NotImplementedError
+
+	def getAllResults(self, skater_id, distance: distance.DistanceValueClass, season_start: int, season_end: int) -> list[time.TimeClass]:
+		raise NotImplementedError
+
+	def getCompetitionList(self, skater_id, season: int) -> list[object]:
+		raise NotImplementedError
+
+	def getSkaterIdType(self) -> type:
+		return type(uuid.UUID)
 
 	# Interfaces for WebsocketInterface
 	def getName(self) -> str:

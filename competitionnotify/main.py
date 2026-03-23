@@ -1,5 +1,6 @@
 #!/bin/python
 
+import sys
 import typeguard
 import asyncio
 import logging
@@ -7,13 +8,15 @@ import traceback
 
 import taskmanager.taskmanager as task_manager
 import websocketframework.websocket as websocket
+#import websocketframework.websocketinterface as websocketinterface
+import competitionnotify.providers.emails as emails
+import competitionnotify.providers.processed_competitions as processed_competitions
 import competitionnotify.providers.venues as venues
 import competitionnotify.providers.skaters as skaters
 import competitionnotify.providers.results_vantage as results_vantage
 import competitionnotify.providers.results_ssr as results_ssr
-import competitionnotify.providers.emails as emails
-import competitionnotify.providers.processed_competitions as processed_competitions
 import competitionnotify.providers.schaatsen_nl as schaatsen_nl
+import competitionnotify.providers.participants as participants
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +53,8 @@ async def runner() -> None:
 		#competitions_provider = schaatsen_nl.SchaatsenDotNl(skaters=skaters_provider, venues=venues_provider, results=[results_provider_ssr], processed_competitions=None, emails=None)
 		await utils_processes.createAndStartProcess(competitions_provider.load())
 
+		participants_provider = participants.Participants(competitions=competitions_provider)
+
 		# start websocket
 		ws = websocket.Websocket()
 
@@ -60,6 +65,7 @@ async def runner() -> None:
 		ws.registerModule(processed_competitions_provider)
 		ws.registerModule(email_provider)
 		ws.registerModule(competitions_provider)
+		ws.registerModule(participants_provider)
 
 		# now wait till the util processes are done (all data is loaded)
 		await utils_processes.waitAllProcesses()
@@ -70,7 +76,8 @@ async def runner() -> None:
 		# Always run the main loop, untill an exception happens
 		while True:
 			# get a new list of competition coroutines
-			competition_list: set[task_manager.CoroutineClass] = await competitions_provider.getCompetitions(download=True)
+			#competition_list: set[task_manager.CoroutineClass] = await competitions_provider.getCompetitions(download=True)
+			competition_list: set[task_manager.CoroutineClass] = await competitions_provider.getCompetitions(download=False)
 
 			# Cancel all existing (running) tasks, as now we have a new list of tasks prepared
 			await competition_processes.cancelProcesses()

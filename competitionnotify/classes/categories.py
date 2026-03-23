@@ -9,7 +9,7 @@ import re
 
 import competitionnotify.classes.base as base
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class CategoryBase(base.BaseClass):
 	_genderTypes: typing.ClassVar[tuple] = ("D", "H")
 	_ageTypes: typing.ClassVar[tuple]    = ("P", "C", "B", "A", "N", "3", "4", "5", "6", "7", "8", "9")
@@ -107,11 +107,11 @@ def category_class_age_sub_validator(instance: "CategoryClass", attribute: attrs
 	if value > (len(instance._ageSubTypes[instance._age]) - 1) or value < 0:
 		raise ValueError("No valid value for sub age (" + str(value) + ")")
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class CategoryClass(CategoryBase):
-	_gender:int = attrs.field(validator=[attrs.validators.instance_of(int), category_class_gender_validator])
-	_age:int = attrs.field(validator=[attrs.validators.instance_of(int), category_class_age_validator])
-	_ageSub:int = attrs.field(validator=[attrs.validators.instance_of(int), category_class_age_sub_validator])
+	_gender:int = base.BaseClass.serializable(True, validator=[attrs.validators.instance_of(int), category_class_gender_validator])
+	_age:int = base.BaseClass.serializable(True, validator=[attrs.validators.instance_of(int), category_class_age_validator])
+	_ageSub:int = base.BaseClass.serializable(True, validator=[attrs.validators.instance_of(int), category_class_age_sub_validator])
 
 	@staticmethod
 	def getCategoryByDate(male:bool, date: datetime.date, season:int = 0) -> "CategoryClass|None":
@@ -215,7 +215,7 @@ class CategoryClass(CategoryBase):
 		try:
 			# Silence mypy error on following line (Argument "age" to "CategoryClass" has incompatible type "int | list[int]"; expected "int"), as code above makes sure age is not a list by this time anymore
 			return CategoryClass(gender=gender, age=age, ageSub=ageSub)  # type: ignore[arg-type]
-		except ValueError:
+		except:
 			return None
 
 	def getGender(self) -> str:
@@ -241,22 +241,6 @@ class CategoryClass(CategoryBase):
 
 	def __repr__(self) -> str:
 		return self.asString()
-
-	def __eq__(self, o: object|str) -> bool:
-		if isinstance(o, str):
-			o = CategoryClass.getCategoryByString(o)
-
-		if not isinstance(o, CategoryClass):
-			raise TypeError('Can only use comparison on two CategoryClass objects')
-		return self.equal(o)
-
-	def __ne__(self, o: object|str) -> bool:
-		if isinstance(o, str):
-			o = CategoryClass.getCategoryByString(o)
-
-		if not isinstance(o, CategoryClass):
-			raise TypeError('Can only use comparison on two CategoryClass objects')
-		return not self.equal(o)
 
 	def __le__(self, o: object|str) -> bool:
 		if isinstance(o, str):
@@ -304,9 +288,21 @@ def CategoryClass_converter(data: CategoryClass|str) -> CategoryClass:
 			raise ValueError("String '" + data + "' is not a valid category string.")
 		return ret
 
-@attrs.define(frozen=True, kw_only=True, slots=False)
+@typeguard.typechecked
+def CategoryClass_converter_none(data: CategoryClass|str|None) -> CategoryClass|None:
+	if isinstance(data, CategoryClass):
+		return data
+	elif data is None:
+		return None
+	else:
+		ret = CategoryClass.getCategoryByString(string=data)
+		if ret is None:
+			return None
+		return ret
+
+@attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class CategoryFilterClass(CategoryBase):
-	_list:tuple[CategoryClass, ...] = attrs.field(validator=attrs.validators.deep_iterable(
+	_list:tuple[CategoryClass, ...] = base.BaseClass.serializable(True, validator=attrs.validators.deep_iterable(
             member_validator=attrs.validators.instance_of(CategoryClass),
             iterable_validator=attrs.validators.instance_of(tuple)))
 
@@ -327,6 +323,14 @@ class CategoryFilterClass(CategoryBase):
 
 	def getList(self) -> tuple[CategoryClass, ...]:
 		return self._list
+
+	def equal(self, o: "CategoryFilterClass") -> bool:
+		if len(self._list) == len(o._list):
+			for c in self._list:
+				if c not in o._list:
+					return False
+			return True
+		return False
 
 	@staticmethod
 	def fromString(filter_text: str, old_style: bool|None = None, use_except: bool = True) -> "CategoryFilterClass":
@@ -385,3 +389,13 @@ def CategoryFilterClass_converter(data: CategoryFilterClass|str) -> CategoryFilt
 		return data
 	else:
 		return CategoryFilterClass.fromString(filter_text=data, old_style=None)
+
+@typeguard.typechecked
+def CategoryFilterClass_converter_none(data: CategoryFilterClass|str|None) -> CategoryFilterClass|None:
+	if isinstance(data, CategoryFilterClass):
+		return data
+	else:
+		try:
+			return CategoryFilterClass.fromString(filter_text=data, old_style=None)
+		except:
+			return None

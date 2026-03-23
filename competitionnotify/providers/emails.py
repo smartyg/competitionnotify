@@ -2,11 +2,16 @@
 
 import typing
 import typeguard
+#import attrs
+#import asyncio
 import logging
 import uuid
+#import json
 import sqlite3
 
 import websocketframework.websocket as websocket
+#import websocketframework.websocketinterface as websocketinterface
+#import competitionnotify.utils.utils as utils
 import competitionnotify.classes.skater as skater
 import competitionnotify.classes.competition as competition
 import competitionnotify.classes.distance_combination as distance_combination
@@ -31,6 +36,8 @@ class Emails(websocket.WebsocketInterface):
 
 		logger.info ("Check if database contains a table `skaters`, if not create it.")
 		#self._cursor.execute("CREATE TABLE IF NOT EXISTS skaters (number INTEGER PRIMARY KEY NOT NULL, email TEXT NOT NULL, home_venue INTEGER DEFAULT FALSE, venues TEXT DEFAULT '', disciplines INTEGER DEFAULT 0, team INTEGER DEFAULT 0) STRICT")
+
+		super().__init__()
 
 	def getRecipients(self, id: uuid.UUID) -> list[str]:
 		pass # TODO: write implemention

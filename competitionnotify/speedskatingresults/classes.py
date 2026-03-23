@@ -5,11 +5,11 @@ import typeguard
 import attrs
 import datetime
 
-import competitionnotify.dataclasses.base as base
-import competitionnotify.dataclasses.time as time
-import competitionnotify.dataclasses.distance as distance
-import competitionnotify.dataclasses.categories as categories
-import competitionnotify.dataclasses.classes as classes
+import competitionnotify.classes.base as base
+import competitionnotify.classes.time as time
+import competitionnotify.classes.distance as distance
+import competitionnotify.classes.categories as categories
+import competitionnotify.classes.classes as classes
 import competitionnotify.utils.utils as utils
 
 @attrs.define(frozen=True, kw_only=True, slots=False)
