@@ -180,3 +180,14 @@ def str2int_converter(data: str|int|None) -> int|None:
 		except:
 			return None
 	return None
+
+@typeguard.typechecked
+def human_readable_filesize(num: int, suffix: str ="B"):
+	for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
+		if abs(num) < 1024.0:
+			if unit == "":
+				return f"{num:3.0f} {unit}{suffix}"
+			else:
+				return f"{num:3.1f} {unit}{suffix}"
+		num /= 1024.0
+	return f"{num:.1f} Yi{suffix}"

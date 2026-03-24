@@ -20,7 +20,6 @@ async def getSkaterRecords(skater_id: uuid.UUID, season: int) -> list[str|int]:
 	results = await vantage_functions.vantageGetAllResults(skater_id)
 
 	result_list: list[str|int] = []
-	result_list.append(results.getFullName())
 	result_list.append(results.countRaces(season))
 	result_list.append(results.countDays(season))
 
@@ -53,11 +52,11 @@ async def runner() -> None:
 	print(skaters)
 
 	print("step 2 ...")
-	skater_ids: list[tuple[uuid.UUID|None, skater.SkaterClass, categories.CategoryClass]] = [(await vantage_functions.vantageSearchId(s[0], s[1]), s[0], categories.CategoryClass.getCategoryByDate(s[0].getCategory().isMale(), s[1], season)) for s in skaters if s[0] is not None]
+	skater_ids: list[tuple[vantage_classes.VantageSearchResultClass|None, skater.SkaterClass, categories.CategoryClass]] = [(await vantage_functions.vantageSearchId(s[0], s[1]), s[0], categories.CategoryClass.getCategoryByDate(s[0].getCategory().isMale(), s[1], season)) for s in skaters if s[0] is not None]
 	print(skater_ids)
 
 	print("step 3 ...")
-	result_list: list[list[str|int]] = [[s[1].getName(), s[2]] + await getSkaterRecords(s[0], season) if s[0] is not None else [s[1].getName(), s[2]] for s in skater_ids]
+	result_list: list[list[str|int]] = [[s[1].getName(), s[2]] + await getSkaterRecords(s[0].getId(), season) if s[0] is not None else [s[1].getName(), s[2]] for s in skater_ids]
 	print(result_list)
 
 	filename = "season_results.csv"
