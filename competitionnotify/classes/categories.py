@@ -9,6 +9,7 @@ import dateutil.relativedelta
 import re
 
 import competitionnotify.classes.base as base
+import competitionnotify.classes.season as season
 
 logger = logging.getLogger(__name__)
 
@@ -117,16 +118,12 @@ class CategoryClass(CategoryBase):
 	_ageSub:int = base.BaseClass.serializable(True, validator=[attrs.validators.instance_of(int), category_class_age_sub_validator])
 
 	@staticmethod
-	def getCategoryByDate(male:bool, date: datetime.date, season:int = 0) -> "CategoryClass|None":
+	def getCategoryByDate(male: bool, date: datetime.date, request_season: season.SeasonClass|None = None) -> "CategoryClass|None":
 		# Calculate age at reference date
-		if season == 0:
-			today = date.today()
-			if today.month <= 6:
-				season = today.year - 1
-			else:
-				season = today.year
+		if request_season is None:
+			request_season = season.SeasonClass.getCurrentSeason()
 
-		reference_date = datetime.date(season, 6, 30)
+		reference_date = request_season.getSeasonStart() #datetime.date(season, 6, 30)
 		age_in_years = dateutil.relativedelta.relativedelta(reference_date, date).years
 
 		age:int

@@ -13,6 +13,7 @@ import competitionnotify.classes.categories as categories
 
 logger = logging.getLogger(__name__)
 
+@typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class PersonNameClass(base.BaseClass):
 	_firstName: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
@@ -100,6 +101,7 @@ def club_converter(data: int|dict[str, typing.Any]) -> int:
 		else:
 			return -1
 
+@typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=True, str=False, eq=False, order=False)
 class SkaterClass(base.BaseClass):
 	_category: categories.CategoryClass = base.BaseClass.serializable(True, converter=categories.CategoryClass_converter, validator=attrs.validators.instance_of(categories.CategoryClass)) # type: ignore [misc]

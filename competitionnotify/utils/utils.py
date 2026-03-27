@@ -126,12 +126,35 @@ def datetime_converter_none(data: datetime.datetime|str|None) -> datetime.dateti
 
 @typeguard.typechecked
 def date_converter(data: datetime.date|datetime.datetime|str) -> datetime.date:
+	if isinstance(data, str):
+		try:
+			return datetime.datetime.strptime(data, "%Y-%m-%d").date()
+		except ValueError:
+			data = datetime_converter(data)
+
 	if isinstance(data, datetime.date):
 		return data
 	elif isinstance(data, datetime.datetime):
 		return data.date()
 	else:
-		return datetime.datetime.strptime(data, "%Y-%m-%d").date()
+		raise ValueError(f'Value `{data}` can not be interpreted as a date.')
+
+@typeguard.typechecked
+def date_converter_none(data: datetime.date|datetime.datetime|str|None) -> datetime.date|None:
+	if data is None:
+		return None
+	elif isinstance(data, str):
+		try:
+			return datetime.datetime.strptime(data, "%Y-%m-%d").date()
+		except ValueError:
+			data = datetime_converter(data)
+
+	if isinstance(data, datetime.date):
+		return data
+	elif isinstance(data, datetime.datetime):
+		return data.date()
+	else:
+		raise ValueError(f'Value `{data}` can not be interpreted as a date.')
 
 @typeguard.typechecked
 def string_to_tuple_int_converter(string: collections.abc.Sequence[int]|str|None) -> tuple[int, ...]:

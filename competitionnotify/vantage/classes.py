@@ -8,6 +8,7 @@ import datetime
 import uuid
 
 import competitionnotify.classes.base as base
+import competitionnotify.classes.season as season
 import competitionnotify.classes.distance as distance
 import competitionnotify.classes.time as time
 import competitionnotify.classes.result as result
@@ -51,8 +52,8 @@ def VantageSkaterClassTuple_converter(data: tuple[VantageSkaterClass,...]|list[d
 @typeguard.typechecked
 @attrs.define(frozen=True, kw_only=True, slots=False, hash=False, str=False, eq=False, order=False)
 class VantageDistanceResultClass(base.BaseClass):
-	_season: str = base.BaseClass.serializable(True, validator=attrs.validators.instance_of(str))
-	_raceDate: datetime.datetime = base.BaseClass.serializable(True, converter=utils.datetime_converter, validator=attrs.validators.instance_of(datetime.datetime)) # type: ignore [misc]
+	_season: season.SeasonClass = base.BaseClass.serializable(True, converter=season.SeasonClass_convertor_except, validator=attrs.validators.instance_of(season.SeasonClass))
+	_raceDate: datetime.date = base.BaseClass.serializable(True, converter=utils.date_converter, validator=attrs.validators.instance_of(datetime.date)) # type: ignore [misc]
 	_skaterId: uuid.UUID = base.BaseClass.serializable(True, converter=utils.uuid_converter, validator=attrs.validators.instance_of(uuid.UUID)) # type: ignore [misc]
 	_raceTime: time.TimeClass = base.BaseClass.serializable(True, converter=time.TimeClass_converter, validator=attrs.validators.instance_of(time.TimeClass)) # type: ignore [misc]
 	_distance: distance.DistanceValueClass = base.BaseClass.serializable(True, converter=distance.DistanceValueClass_converter, validator=attrs.validators.instance_of(distance.DistanceValueClass))
@@ -67,6 +68,12 @@ class VantageDistanceResultClass(base.BaseClass):
 
 	def getDistance(self) -> distance.DistanceValueClass:
 		return self._distance
+
+	def getDate(self) -> datetime.date:
+		return self._raceDate
+
+	def getSeason(self) -> season.SeasonClass:
+		return self._season
 
 	def getResultClass(self) -> result.ResultClass:
 		return result.ResultClass(
@@ -106,23 +113,24 @@ class VantageRacesClass(base.BaseClass):
 		member_validator=attrs.validators.instance_of(VantageDistanceResultClass),
 		iterable_validator=attrs.validators.instance_of(tuple)))
 
-	def getSeasonBest(self, season: str) -> result.ResultClass|None:
+	def getSeasonBest(self, request_season: season.SeasonClass) -> result.ResultClass|None:
 		best: result.ResultClass|None = None
 		for race_result in self._races:
-			if race_result._season == season:
+			if race_result.getSeason() == request_season:
 				if best is None:
 					best = race_result.getResultClass()
 				elif race_result.getTime() < best.getTime():
 					best = race_result.getResultClass()
 		return best
 
-	def getPersonalBest(self) -> result.ResultClass|None:
+	def getPersonalBest(self, till_season: season.SeasonClass|None = None) -> result.ResultClass|None:
 		best: result.ResultClass|None = None
 		for race_result in self._races:
-			if best is None:
-				best = race_result.getResultClass()
-			elif race_result.getTime() < best.getTime():
-				best = race_result.getResultClass()
+			if till_season is None or (till_season is not None and race_result.getSeason().getSeason() <= till_season.getSeason()):
+				if best is None:
+					best = race_result.getResultClass()
+				elif race_result.getTime() < best.getTime():
+					best = race_result.getResultClass()
 		return best
 
 @typeguard.typechecked
@@ -153,43 +161,53 @@ class VantageResultsClass(base.BaseClass):
 		member_validator=attrs.validators.instance_of(VantageRacesClass),
 		iterable_validator=attrs.validators.instance_of(tuple)))
 
-	@staticmethod
-	def _getSeasonString(season: int) -> str:
-		return str(season) + "/" + str(season + 1)
-
 	def getFullName(self) -> str:
 		return self._skater._fullName
 
-	def countRaces(self, season: int) -> int:
-		season_str = VantageResultsClass._getSeasonString(season)
+	def countRaces(self, request_season: season.SeasonClass) -> int:
 		number_of_races: int = 0
 
 		for r1 in self._races:
 			for r2 in r1._races:
-				if r2._season == season_str:
+				if r2.getSeason() == request_season:
 					number_of_races += 1
 		return number_of_races
 
-	def countDays(self, season: int) -> int:
-		season_str = VantageResultsClass._getSeasonString(season)
-
+	def countDays(self, request_season: season.SeasonClass) -> int:
 		days: set[datetime.date] = set()
 		for r1 in self._races:
 			for r2 in r1._races:
-				if r2._season == season_str:
+				if r2.getSeason() == request_season:
 					days.add(r2._raceDate.date())
 		return len(days)
 
-	def getSeasonBest(self, distance_value: distance.DistanceValueClass, season: int) -> result.ResultClass|None:
-		season_str = VantageResultsClass._getSeasonString(season)
+	def getSeasonBest(self, distance_value: distance.DistanceValueClass, request_season: season.SeasonClass) -> result.ResultClass|None:
 		for r in self._races:
 			if r._distance.equal(distance_value):
-				return r.getSeasonBest(season_str)
+				return r.getSeasonBest(request_season)
 
-	def getPersonalBest(self, distance_value: distance.DistanceValueClass) -> result.ResultClass|None:
+	def getPersonalBest(self, distance_value: distance.DistanceValueClass, till_season: season.SeasonClass|None = None) -> result.ResultClass|None:
 		for r in self._races:
 			if r._distance.equal(distance_value):
-				return r.getPersonalBest()
+				return r.getPersonalBest(till_season)
+
+	@staticmethod
+	def combine(result_set: tuple["VantageResultsClass", ...]) -> "VantageResultsClass":
+		skater = result_set[0]._skater
+		combined_results: dict[distance.DistanceValueClass, list[VantageDistanceResultClass, ...]] = {}
+		for r1 in result_set:
+			for r2 in r1._races:
+				d = r2._distance
+				if d not in combined_results:
+					combined_results[d] = []
+				for race_result in r2._races:
+					combined_results[d].append(race_result)
+
+		combined_races_results: list[VantageRacesClass] = []
+		for d, races in combined_results.items():
+			combined_races_results.append(VantageRacesClass(distance=d, races=tuple(races)))
+
+		return VantageResultsClass(skater=skater, races=tuple(combined_races_results))
 
 
 @typeguard.typechecked
@@ -208,6 +226,7 @@ class VantageSearchResultClass(base.BaseClass):
 	def match(self, firstName: str, lastName: str, prefix: str|None, birthYear: int) -> bool:
 		if prefix == '':
 			prefix = None
+		#logger.debug (f'firstName: {self._firstName} == {firstName}; lastName: {self._lastName} == {lastName}; prefix: {self._namePreposition} == {prefix}; birthYear: {self._birthDateDisplay} == {birthYear}')
 		return self._firstName == firstName and self._lastName == lastName and self._namePreposition == prefix and self._birthDateDisplay == birthYear
 	
 	def getId(self) -> uuid.UUID:
@@ -218,3 +237,19 @@ class VantageSearchResultClass(base.BaseClass):
 
 	def getBirthYear(self) -> int:
 		return self._birthDateDisplay
+
+@typeguard.typechecked
+@attrs.define(frozen=True, kw_only=True, slots=False)
+class VantageSearchMultipleResultsClass(base.BaseClass):
+	_results: tuple[VantageSearchResultClass, ...] = base.BaseClass.serializable(True, validator=attrs.validators.deep_iterable(
+		member_validator=attrs.validators.instance_of(VantageSearchResultClass),
+		iterable_validator=attrs.validators.instance_of(tuple)))
+
+	def getAllResults(self) -> tuple[VantageSearchResultClass, ...]:
+		return self._results
+
+	def getAllIds(self) -> tuple[uuid.UUID, ...]:
+		ids: list[uuid.UUID] = []
+		for r in self._results:
+			ids.append(r.getId())
+		return tuple(ids)
